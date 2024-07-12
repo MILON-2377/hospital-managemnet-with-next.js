@@ -1,4 +1,26 @@
+"use client";
+
+import { useAuth } from "@/AuthProviderContext/AuthProviderContext";
+import useAxiosPublicApi from "@/models/Hooks/useAxiosPublicApi";
+import { useForm } from "react-hook-form";
+
 const LoginPage = () => {
+
+  const {register, handleSubmit, } = useForm();
+  
+  // secure axios api
+  const axiosSecureApi = useAxiosPublicApi();
+
+  const {name} = useAuth();
+
+  const onSubmit = async(data) => {
+    console.log(data);
+
+    // const res = await axiosSecureApi.post("/users/signup", data);
+    // console.log(res.data);
+
+  }
+
   return (
     <div className="  bg-gradient-to-r from-sky-500 to-indigo-500 w-full h-screen  flex flex-col justify-between items-center lg:flex-row px-12 ">
       <div>
@@ -28,11 +50,12 @@ const LoginPage = () => {
         <div className="divider divider-secondary text-white ">OR</div>
 
         {/* form section */}
-        <form className="w-[400px] flex flex-col gap-6">
+        <form onSubmit={handleSubmit(onSubmit)} className="w-[400px] flex flex-col gap-6">
           <label className="flex flex-col gap-1">
             <span className="text-gray-200 font-sans text-xl  ">Email</span>
             <input
               type="text"
+              {...register("email",{required:true, message:"email is required"})}
               placeholder="Enter your email"
               className="px-4 py-1 palceholder-gray-400 focus:outline-none text-white bg-transparent border border-white rounded-3xl  "
             />
@@ -41,6 +64,7 @@ const LoginPage = () => {
             <span className="text-gray-200 font-sans text-xl  ">Password</span>
             <input
               type="password"
+              {...register("password",{required:true, message:"password is required"})}
               placeholder="Enter your password"
               className="px-4 py-1 focus:outline-none text-white bg-transparent border border-white rounded-3xl  "
             />
