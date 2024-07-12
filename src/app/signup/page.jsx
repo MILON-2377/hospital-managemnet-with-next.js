@@ -24,8 +24,8 @@ export default function LogIn() {
 
   return (
     <div className=" w-full h-full">
-      <div className="flex lg:flex-row my-auto  w-[95%] h-[95vh] ">
-        <div className=" lg:w-[70vw] flex items-center justify-center ">
+      <div className="flex flex-col lg:flex-row my-auto  w-[95%] h-[95vh] ">
+        <div className=" lg:w-[70vw] hidden lg:flex items-center justify-center ">
           <div className=" lg:h-[500px] lg:w-[400px] ">
             <img
               className="w-ful h-full object-cover "
@@ -34,7 +34,7 @@ export default function LogIn() {
             />
           </div>
         </div>
-        <div className=" lg:w-[600px]   my-auto w-full  rounded-xl p-7 bg-base-100 shadow-2xl ">
+        <div className=" lg:w-[600px] w-[95%] mx-auto   my-auto rounded-xl p-7 bg-base-100 shadow-2xl ">
           <form
             onSubmit={handleSubmit(onSubmit)}
             className=" flex flex-col gap-4 w-full h-full  "
