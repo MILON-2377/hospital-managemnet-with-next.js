@@ -179,6 +179,11 @@ export default function LogIn() {
             <button className="px-3 py-1 rounded-3xl w-[80%] hover:bg-opacity-50 transition-all duration-700 bg-black bg-opacity-65 text-white ">
               Sign Up
             </button>
+
+            {/* redirect to the login page */}
+            <label>
+              <span className="text-blue-500">Already have an account? <a className="text-white" href="/login">LogIn</a> </span>
+            </label>
           </form>
         </div>
       </div>
