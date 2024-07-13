@@ -1,3 +1,4 @@
+import verifyToken from "@/authMiddleware/authMiddleware";
 import connect from "@/dbConfig/dbConfig";
 import Users from "@/models/userModels";
 import { NextRequest, NextResponse } from "next/server";
@@ -27,6 +28,8 @@ export async function POST(request=NextRequest){
 // user data get api
 export async function GET(req){
     await connect();
+
+
     try {
         const {searchParams} = new URL(req.url);
         const email = searchParams.get("email");
@@ -40,3 +43,5 @@ export async function GET(req){
         return NextResponse.json({error:"user data does not laodded", error});
     }
 }
+
+

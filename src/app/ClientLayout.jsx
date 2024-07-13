@@ -1,8 +1,10 @@
+"use client";
+
 import React from "react";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/PagesComponents/Navbar/Navbar";
 import AuthProviderContext from "@/AuthProviderContext/AuthProviderContext";
+import Navbar from "@/components/Navbar/Navbar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -12,7 +14,12 @@ export default function ClientLayout({ children }) {
       <body className={inter.className}>
         <AuthProviderContext>
           <div className="h-screen">
-            <Navbar></Navbar>
+            {/* navbar section */}
+            <div className="w-full ">
+              <Navbar></Navbar>
+            </div>
+
+            {/* main section */}
             <main>{children}</main>
           </div>
         </AuthProviderContext>

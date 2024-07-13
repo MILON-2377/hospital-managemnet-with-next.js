@@ -2,7 +2,7 @@
 
 import auth from '@/FirebaseConfig/Firebase.Config';
 import useAxiosPublicApi from '@/models/Hooks/useAxiosPublicApi';
-import useAxiosSecureApi from '@/models/Hooks/useAxiosSecureApi';
+import axiosSecure from '@/models/Hooks/useAxiosSecureApi';
 import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
@@ -12,7 +12,6 @@ export const authContext = createContext(null);
 const AuthProviderContext = ({children}) => {
 
     const [user, setUser] = useState(null);
-    const axiosSecureApi = useAxiosSecureApi();
     const axiosPubblic = useAxiosPublicApi();
     
 
@@ -49,7 +48,7 @@ const AuthProviderContext = ({children}) => {
 
 
                 // users data loading api
-                const userRes = await axiosSecureApi.get(`/users?email=${currentUser.email}`);
+                const userRes = await axiosSecure.get(`/users?email=${currentUser.email}`);
                 console.log(userRes.data);
 
                 try {
@@ -59,6 +58,8 @@ const AuthProviderContext = ({children}) => {
                 }
 
             }else{
+                const jwtRes = await axiosPubblic.post(`/jwt?email=${false}`,{withCredentials:true});
+                console.log(jwtRes.data);
                 setUser(null);
             }
         });
