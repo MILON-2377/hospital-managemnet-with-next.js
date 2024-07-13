@@ -14,6 +14,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         required:[true, "Please provide your profession"],
     },
+    DateOfBirth:{
+        type:String,
+        require: true,
+    },
     isAdmin: {
         type: Boolean,
         default: false,
