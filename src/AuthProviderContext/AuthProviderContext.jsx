@@ -1,6 +1,7 @@
 "use client";
 
 import auth from '@/FirebaseConfig/Firebase.Config';
+import useAxiosPublicApi from '@/models/Hooks/useAxiosPublicApi';
 import useAxiosSecureApi from '@/models/Hooks/useAxiosSecureApi';
 import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import React, { createContext, useContext, useEffect, useState } from 'react';
@@ -12,6 +13,7 @@ const AuthProviderContext = ({children}) => {
 
     const [user, setUser] = useState(null);
     const axiosSecureApi = useAxiosSecureApi();
+    const axiosPubblic = useAxiosPublicApi();
     
 
     // user register handle 
@@ -41,9 +43,14 @@ const AuthProviderContext = ({children}) => {
             if(currentUser){
                 // console.log(currentUser);
 
-                const res = await axiosSecureApi.get(`/users?email=${currentUser.email}`);
+                // jwt token related api
+                const jwtRes = await axiosPubblic.post(`/jwt?email=${currentUser.email}`,{withCredentials:true});
+                console.log(jwtRes.data);
 
-                console.log(res.data);
+
+                // users data loading api
+                const userRes = await axiosSecureApi.get(`/users?email=${currentUser.email}`);
+                console.log(userRes.data);
 
                 try {
                     

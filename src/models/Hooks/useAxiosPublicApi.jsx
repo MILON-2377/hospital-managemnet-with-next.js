@@ -1,7 +1,7 @@
 const { default: axios } = require("axios");
 
 const axiosSecure = axios.create({
-    baseURL:"/api"
+    baseURL:"/api/"
 })
 
 const useAxiosPublicApi = () => {
