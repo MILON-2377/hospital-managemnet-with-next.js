@@ -1,5 +1,6 @@
 "use client";
 import { useAuth } from "@/AuthProviderContext/AuthProviderContext";
+import useAxiosSecureApi from "@/models/Hooks/useAxiosSecureApi";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -13,33 +14,33 @@ export default function LogIn() {
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const axiosSecureApi = useAxiosSecureApi();
 
   const { userRegisterHandle } = useAuth();
   const router = useRouter();
 
   const onSubmit = async (data) => {
-    const { email, password, userName, profession, gender, DateOfBirth } = data;
+    const { email, password, userName, profession } = data;
 
-    // console.log(data);
+    console.log(profession);
 
     // user create throught firebase
     userRegisterHandle(email, password)
       .then(async (res) => {
-        console.log(res);
+        // console.log(res);
 
+        // to store the data in the database
         try {
-          const res = await axiosSecureApi.post("/users/signup", {
+          const res = await axiosSecureApi.post("/users", {
             userName,
             email,
             profession,
-            gender,
-            DateOfBirth,
             isAdmin: false,
           });
           console.log(res.data);
-          router.push("/");
+          // router.push("/");
         } catch (error) {
-          console.log("user does not set to the", error);
+          console.log("user does not set to the database", error);
         }
       })
       .catch((error) => {
@@ -87,14 +88,10 @@ export default function LogIn() {
                   {...register("userName", {
                     required: true,
                     message: "name is required!",
-                    pattern: {
-                      value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                      message: "Enter a valid email address!!",
-                    },
                   })}
                 />
-                {errors.email && (
-                  <p className="text-red-500">{errors.email.message}</p>
+                {errors.userName && (
+                  <p className="text-red-500">{errors.userName.message}</p>
                 )}
               </label>
 
@@ -114,10 +111,10 @@ export default function LogIn() {
                   <option className="  text-white " value="" disabled>
                     Select your profession
                   </option>
-                  <option className=" bg-sky-300 px-3 py-2 " value="male">
+                  <option className=" bg-sky-300 px-3 py-2 " value="Doctor">
                     Doctor
                   </option>
-                  <option className=" bg-sky-300 px-3 py-2 " value="female">
+                  <option className=" bg-sky-300 px-3 py-2 " value="Patient">
                     Patient
                   </option>
                 </select>
@@ -182,87 +179,16 @@ export default function LogIn() {
 
             {/* redirect to the login page */}
             <label>
-              <span className="text-blue-500">Already have an account? <a className="text-white" href="/login">LogIn</a> </span>
+              <span className="text-blue-500">
+                Already have an account?{" "}
+                <a className="text-white" href="/login">
+                  LogIn
+                </a>{" "}
+              </span>
             </label>
           </form>
         </div>
       </div>
     </div>
   );
-}
-
-{
-  /* <div className="hidden">
-              
-              <label className="flex relative flex-col gap-1">
-                <span className="font-sans text-gray-600 ">Password</span>
-                <input
-                  className="p-3 rounded-md text-blue-800 border border-green-400 focus:outline-none "
-                  type={`${showPass ? "text" : "password"}`}
-                  placeholder="Enter a strong password"
-                  {...register("password", {
-                    required: "Password is required",
-                  })}
-                />
-
-                <span
-                  onClick={() => setShowPass(!showPass)}
-                  className="text-2xl cursor-pointer absolute top-11 right-3 "
-                >
-                  {showPass ? (
-                    <>
-                      <IoEye />
-                    </>
-                  ) : (
-                    <>
-                      <IoMdEyeOff />
-                    </>
-                  )}
-                </span>
-                {errors.password && (
-                  <p className="text-red-500">{errors.password.message}</p>
-                )}
-              </label>
-</div> */
-}
-
-{
-  /* <div className="hidden">
-              <label className="flex flex-col gap-1">
-                <span className="font-sans text-gray-600 ">Full Name</span>
-                <input
-                  className="p-3 rounded-md text-blue-800 border border-green-400 focus:outline-none "
-                  type="text"
-                  {...register("userName", {
-                    required: "name filed is requird",
-                  })}
-                />
-              </label>
-
-              <label className="flex flex-col gap-1">
-                <span className="font-sans text-gray-600">Gender</span>
-                <select
-                  {...register("gender", { required: "Gender is required" })}
-                  className="select select-accent focus:outline-none w-full"
-                  defaultValue=""
-                >
-                  <option value="" disabled>
-                    Select your gender
-                  </option>
-                  <option value="male">Male</option>
-                  <option value="female">Female</option>
-                </select>
-              </label>
-
-              <label className="flex flex-col gap-1">
-                <span className="font-sans text-gray-600 ">Date of birth</span>
-                <input
-                  className="p-3 rounded-md text-blue-800 border border-green-400 focus:outline-none "
-                  type="date"
-                  {...register("DateOfBirth", {
-                    required: "date of birth is required",
-                  })}
-                />
-              </label>
-</div> */
 }

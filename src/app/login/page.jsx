@@ -50,7 +50,7 @@ const LoginPage = () => {
         </div>
 
         {/* social login section */}
-        <div className="flex flex-col gap-4 ">
+        <div className="flex px-5 lg:px-0 flex-col gap-4 ">
           <h1 className="text-white text-2xl font-bold text-center  ">
             Social login section
           </h1>

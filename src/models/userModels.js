@@ -10,14 +10,11 @@ const userSchema = new mongoose.Schema({
         required: [true, "Please provide a eamil"],
         unique: true,
     },
-    professiion: { 
+    profession: { 
         type: String,
         required:[true, "Please provide your profession"],
     },
-    DateOfBirth:{
-        type:String,
-        require: true,
-    },
+    
     isAdmin: {
         type: Boolean,
         default: false,
