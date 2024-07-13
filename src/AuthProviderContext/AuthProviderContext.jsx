@@ -2,7 +2,7 @@
 
 import auth from '@/FirebaseConfig/Firebase.Config';
 import useAxiosSecureApi from '@/models/Hooks/useAxiosSecureApi';
-import { createUserWithEmailAndPassword, onAuthStateChanged, signOut } from 'firebase/auth';
+import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
 
@@ -12,6 +12,7 @@ const AuthProviderContext = ({children}) => {
 
     const [user, setUser] = useState(null);
     const axiosSecureApi = useAxiosSecureApi();
+    
 
     // user register handle 
     const userRegisterHandle = (email, password) => {
@@ -19,6 +20,13 @@ const AuthProviderContext = ({children}) => {
     } 
 
 
+    // user log in handle
+    const userLogIn = (email, password) => {
+        return signInWithEmailAndPassword(auth, email, password);
+    }
+
+
+    // Hj@3hkjk -------------------pass
 
     // user logged out handle
     const userLoggedOut = () =>{
@@ -31,7 +39,11 @@ const AuthProviderContext = ({children}) => {
     useEffect(() => {
         const unSubScribe = onAuthStateChanged(auth, async(currentUser) =>{
             if(currentUser){
-                console.log(currentUser);
+                // console.log(currentUser);
+
+                const res = await axiosSecureApi.get(`/users?email=${currentUser.email}`);
+
+                console.log(res.data);
 
                 try {
                     
@@ -50,7 +62,7 @@ const AuthProviderContext = ({children}) => {
 
 
     // user auth info
-    const authInfo = {userRegisterHandle,userLoggedOut}
+    const authInfo = {userRegisterHandle,userLoggedOut,userLogIn}
 
     return (
         <authContext.Provider value={authInfo}>

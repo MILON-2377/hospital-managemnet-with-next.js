@@ -6,17 +6,23 @@ import { useForm } from "react-hook-form";
 
 const LoginPage = () => {
   const { register, handleSubmit } = useForm();
+  const {userLogIn} = useAuth();
 
   // secure axios api
   const axiosSecureApi = useAxiosPublicApi();
 
-  const { name } = useAuth();
+  const onSubmit = async ({email,password}) => {
+    // console.log(data);
 
-  const onSubmit = async (data) => {
-    console.log(data);
+    userLogIn(email, password)
+    .then((res) => {
+      console.log(res);
+    })
+    .catch(error => {
+      console.log(error);
+    })
 
-    // const res = await axiosSecureApi.post("/users/signup", data);
-    // console.log(res.data);
+    // const res = await axiosSecureApi.get()
   };
 
   return (
