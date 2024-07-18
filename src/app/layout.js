@@ -1,3 +1,5 @@
+// src/app/layout.js
+import AuthProviderContext from "@/AuthProviderContext/AuthProviderContext";
 import ClientLayout from "./ClientLayout";
 
 export const metadata = {
@@ -6,5 +8,9 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
-  return <ClientLayout>{children}</ClientLayout>;
+  return (
+    <AuthProviderContext>
+      <ClientLayout>{children}</ClientLayout>
+    </AuthProviderContext>
+  );
 }
