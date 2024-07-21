@@ -24,38 +24,58 @@ export default function MyHome() {
 
   if (loading) return <Loader></Loader>;
   return (
-    <div className="w-full ">
+    <div className="w-full h-full ">
       {/* banner section */}
       <section>
-        <div className="h-[80vh] w-full bg-green-300 ">
-          <img
+        <div
+          style={{ backgroundImage: `url(${Images[currentImage]})` }}
+          className={
+            "h-[80vh] flex flex-col bg-slate-600 gap-4 items-center justify-center w-full bg-cover bg-center bg-no-repeat bg-opacity-85 "
+          }
+        >
+          {/* <img
             src={Images[currentImage]}
             className="w-full h-full object-cover transition-all  "
-          />
+          /> */}
+          <h1 className=" text-5xl font-sans font-bold text-white ">
+            Explore CareLife service
+          </h1>
+          <p className="text-xl font-sans font-semibold text-white ">
+            Discover our range of speacialized services
+          </p>
+          <button className="border px-4 py-2 text-slate-700 font-sans bg-gray-50 text-xl ">
+            Make an appointment
+          </button>
+        </div>
+
+        <div className=" px-10 py-4 mx-auto -mt-[90px] rounded-full w-[60%] bg-base-100 flex items-center justify-between ">
+          <div className=" px-4 py-1 border-r ">
+            <p className="text-xl ">Departments</p>
+            <p className="text-gray-400  ">Find speacialized care</p>
+          </div>
+          <div className=" px-4 py-1 border-r  ">
+            <p className="text-xl ">Patient</p>
+            <p className="text-gray-400 border-r  ">Select</p>
+          </div>
+          <div className=" px-4 py-1 border-r  ">
+            <p className="text-xl ">Discharge data</p>
+            <p className="text-gray-400  ">Select</p>
+          </div>
+          <div className=" px-4 py-1 ">
+            <p className="text-xl ">Patients</p>
+            <p className="text-gray-400  ">Number of</p>
+          </div>
         </div>
       </section>
 
       {/* about section */}
-      <AboutSection></AboutSection>
-
-      {/* services section */}
-      <div className=" flex gap-5 ">
-        <div className="w-[60%] px-5 ">
-          <ServicesSection></ServicesSection>
-        </div>
-
-        <div className="flex-1 mt-24 mr-5 h-[400px] ">
-          <img
-            className="w-full h-full object-cover "
-            src="https://media.istockphoto.com/id/810809002/vector/medical-healthcare-activities-cliparts.jpg?s=612x612&w=0&k=20&c=-9YtvSEoIRWIQqO5IAFejOV4qd3xwjfDbMFExvc8CcM="
-          />
-        </div>
+      <div className=" w-full h-[900px] ">
+        <AboutSection></AboutSection>
       </div>
 
-      {/*  */}
-      {/* <div className=" w-full relative ">
-        <img className="w-full sticky top-5 -z-30 h-[400px] object-cover " src="https://media.istockphoto.com/id/1312765142/photo/businessman-hold-virtual-medical-network-connection-icons-covid-19-pandemic-develop-people.jpg?s=2048x2048&w=is&k=20&c=TYz3Pioyd5CG2GsCwRcDYxYYpalN1yRp6l6eENJXyMk=" />
-      </div> */}
+      {/* services section */}
+      <ServicesSection></ServicesSection>
+
 
       {/* Department section */}
       <DepartmentsSection></DepartmentsSection>
@@ -64,10 +84,10 @@ export default function MyHome() {
       <DoctorsSection></DoctorsSection>
 
       {/* PatientQuotesSection  */}
-      <PatientQuotesSection></PatientQuotesSection>
+      {/* <PatientQuotesSection></PatientQuotesSection> */}
 
       {/* News Section */}
-      <NewsUpdatesSection></NewsUpdatesSection>
+      {/* <NewsUpdatesSection></NewsUpdatesSection> */}
 
       {/* footer section */}
       <footer className="bg-white mt-20 border-t text-slate-700 px-7 py-10">

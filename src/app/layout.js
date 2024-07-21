@@ -1,4 +1,4 @@
-// src/app/layout.js
+
 import AuthProviderContext from "@/AuthProviderContext/AuthProviderContext";
 import ClientLayout from "./ClientLayout";
 

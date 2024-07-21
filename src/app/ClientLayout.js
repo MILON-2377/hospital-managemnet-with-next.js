@@ -9,33 +9,33 @@ import { usePathname } from "next/navigation";
 const inter = Inter({ subsets: ["latin"] });
 
 export default function ClientLayout({ children }) {
-
   const path = usePathname();
-  const [showNavbar, setShowNavbar] = useState(false);
-
+  const [showNavbar, setShowNavbar] = useState(path !== "/");
 
   useEffect(() => {
-    const handleShow = async() => {
-      if(window.scrollY > 2 && path === "/"){
-        await setShowNavbar(true);
-      }else{
-        await setShowNavbar(false);
-      }
+    if (path === "/") {
+      const handleShow = () => {
+        if (window.scrollY > 2) {
+          setShowNavbar(true);
+        } else {
+          setShowNavbar(false);
+        }
+      };
+
+      window.addEventListener("scroll", handleShow);
+      return () => window.removeEventListener("scroll", handleShow);
+    } else {
+      setShowNavbar(true);
     }
-
-    window.addEventListener("scroll", handleShow);
-
-    return () => window.removeEventListener("scroll", handleShow);
-
-  },[])
+  }, [path]);
 
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className="h-screen ">
+        <div className="h-screen">
           {/* navbar section */}
-          <div className={`fixed top-0 w-full bg-gray-50 text-white py-4 px-8 transition-transform transform ${showNavbar ? 'translate-y-0' : '-translate-y-full'}`}>
-            <Navbar></Navbar>
+          <div className={`fixed top-0 w-full bg-gray-50 z-50 py-4 px-8 transition-transform transform ${showNavbar ? 'translate-y-0' : '-translate-y-full'}`}>
+            <Navbar />
           </div>
 
           {/* main section */}

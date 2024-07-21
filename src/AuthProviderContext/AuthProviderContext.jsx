@@ -47,7 +47,7 @@ const AuthProviderContext = ({ children }) => {
           `/jwt?email=${currentUser.email}`,
           { withCredentials: true }
         );
-        console.log(jwtRes.data);
+        // console.log(jwtRes.data);
 
         try {
           // users data loading api
@@ -66,7 +66,7 @@ const AuthProviderContext = ({ children }) => {
         const jwtRes = await axiosPubblic.post(`/jwt?email=${false}`, {
           withCredentials: true,
         });
-        console.log(jwtRes.data);
+        // console.log(jwtRes.data);
         setUser(null);
         setLaoding(false);
       }

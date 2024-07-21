@@ -17,11 +17,11 @@ export async function POST(request=NextRequest){
         const newUser = new Users({userName,email,profession,isAdmin});
         const saveUser = await newUser.save();
 
-        return NextResponse.json({message:"user created successfully",saveUser});
+        return NextResponse.json({message:"appointment created successfully",saveUser});
 
     } catch (error) {
         console.error("Error",error);
-        return NextResponse.json({error:"user does not created", error});
+        return NextResponse.json({error:"appointment does not created", error});
     }
 }
 
