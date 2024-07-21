@@ -2,16 +2,25 @@
 import axios from "axios";
 import React from "react";
 import { useForm } from "react-hook-form";
+import Swal from "sweetalert2";
 
 export default function Appoitment() {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit,reset} = useForm();
 
   // form handle
   const onSubmit = async (data) => {
     // console.log(data);
 
-    const res = await axios.post("/api/appointment", data );
-    console.log(res.data);
+    const res = await axios.post("/api/appointment", data);
+    if (res.data.saveAppointment) {
+      Swal.fire({
+        title: "Appointment",
+        text: "Your appointment was created successfully.",
+        icon: "success",
+      });
+
+      reset();
+    }
   };
 
   return (
@@ -71,7 +80,7 @@ export default function Appoitment() {
             <span className="text-xl font-sans text-gray-500 ">Visit for</span>
             <textarea
               {...register("reason", { required: "email field is required" })}
-              className="textarea textarea-bordered"
+              className="textarea focus:outline-none textarea-bordered"
               placeholder="Visit for"
             ></textarea>
           </label>

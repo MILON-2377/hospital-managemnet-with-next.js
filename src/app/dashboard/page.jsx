@@ -1,9 +1,11 @@
-import React from 'react'
+"use client";
+
+import React from "react";
 
 export default function Dashboard() {
   return (
-    <div>
-      <h1>this is profile page</h1>
+    <div className="flex gap-5 h-full w-full ">
+      {/* dashboard navbar section */}
     </div>
-  )
+  );
 }

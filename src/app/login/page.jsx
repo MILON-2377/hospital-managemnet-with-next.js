@@ -2,11 +2,13 @@
 
 import { useAuth } from "@/AuthProviderContext/AuthProviderContext";
 import useAxiosPublicApi from "@/models/Hooks/useAxiosPublicApi";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 
 const LoginPage = () => {
   const { register, handleSubmit } = useForm();
   const {userLogIn} = useAuth();
+  const router = useRouter();
 
   // secure axios api
   const axiosSecureApi = useAxiosPublicApi();
@@ -16,7 +18,8 @@ const LoginPage = () => {
 
     userLogIn(email, password)
     .then((res) => {
-      console.log(res);
+      // console.log(res);
+      router.push("/");
     })
     .catch(error => {
       console.log(error);
@@ -26,18 +29,9 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="   bg-gradient-to-r from-sky-300 to-emerald-300 w-full h-screen  flex flex-col justify-between items-center lg:flex-row ">
+    <div className=" mt-20  bg-gradient-to-r from-sky-300 to-emerald-300 w-full h-screen  flex flex-col justify-between items-center lg:flex-row ">
       <div className="  w-full h-screen rounded-r-full lg:border-l-0  lg:border-t-0 lg:border-b-0 lg:border-4 ">
-        {/* <h1 className="text-white px-10 font-sans text-xl font-semibold ">
-          Welcome to our hospital management system! Please log in to access
-          your personalized dashboard, where you can manage appointments, view
-          patient records, and streamline your administrative tasks. Enter your
-          credentials below to ensure secure access to your account. If you
-          encounter any issues, our support team is here to help. Your privacy
-          and security are our top priorities, and we are committed to providing
-          a seamless experience. Thank you for being a valued member of our
-          community!
-        </h1> */}
+        
         <img
           className="w-full h-full object-cover rounded-r-full "
           src="https://media.istockphoto.com/id/1683786187/photo/concept-of-cyber-security-information-security-and-encryption-secure-access-to-users-personal.webp?s=2048x2048&w=is&k=20&c=Kt-wtB1CMBgW3Bfv5WZXmh9Gyx3RqruOiPu-xsjiO70="
@@ -46,7 +40,7 @@ const LoginPage = () => {
       </div>
 
       {/* login section */}
-      <div className=" h-[550px] lg:border-2 rounded-t-full lg:border-b-0 lg:border-r-0 lg:border-l-0 border-white bg  px-7 py-5 ">
+      <div className=" h-[550px] mr-5 -mt-5 lg:border-2 rounded-t-full lg:border-b-0 lg:border-r-0 lg:border-l-0 border-white bg  px-7 py-5 ">
         {/* login image */}
         <div className=" w-full">
           <img
