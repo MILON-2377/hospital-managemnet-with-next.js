@@ -10,8 +10,8 @@ export default function DashboardNavbar() {
 
   const navbarTitles = handleNavbars(user);
   return (
-    <div className=" h-full flex flex-col gap-5 bg-yellow-400 bg-opacity-5 p-5 w-full ">
-      <div className=" mt-5 w-16 h-16 rounded-full "> 
+    <div className=" h-screen flex flex-col gap-4 bg-yellow-400 bg-opacity-5 p-5 w-full ">
+      <div className=" mt-5 w-16 h-16 rounded-full ">
         <img
           className="w-full rounded-full h-full object-cover "
           src={user?.image}
@@ -19,11 +19,13 @@ export default function DashboardNavbar() {
         />
       </div>
 
-      <h1 className="text-xl font-sans font-bold ">Name:</h1>
+      <div>
+        <h1 className="text-xl font-sans font-bold ">Name:</h1>
+      </div>
 
       <div className="divider">or</div>
 
-      <div className=" w-full h-full flex flex-col gap-3 ">
+      <div className=" flex flex-col gap-3 ">
         {navbarTitles?.map((item, index) => (
           <Link
             className={
@@ -75,6 +77,10 @@ const doctorNavTitles = [
 
 // doctors titles
 const navTitles = [
+  {
+    title:"Home",
+    path:"/"
+  },
   {
     title: "Personal Information",
     path: "/dashboard/personalinfo",

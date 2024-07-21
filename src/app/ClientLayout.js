@@ -15,47 +15,41 @@ export default function ClientLayout({ children }) {
   const isDashboardPath = /^\/dashboard(\/.*)?$/.test(path);
 
   useEffect(() => {
-    if (path === "/") {
-      const handleShow = () => {
-        if (window.scrollY > 2) {
-          setShowNavbar(true);
-        } else {
-          setShowNavbar(false);
-        }
-      };
+    const handleScroll = () => {
+      if (path === "/") {
+        setShowNavbar(window.scrollY > 2);
+      }
+    };
 
-      window.addEventListener("scroll", handleShow);
-      return () => window.removeEventListener("scroll", handleShow);
+    if (path === "/") {
+      window.addEventListener("scroll", handleScroll);
+      return () => window.removeEventListener("scroll", handleScroll);
     } else {
-      setShowNavbar(true);
+      setShowNavbar(true); // Always show navbar for paths other than "/"
     }
   }, [path]);
 
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className={isDashboardPath ? "flex justify-between gap-5 " : ""}>
-          {/* navbar section */}
-          <div>
-            {isDashboardPath ? (
-              <div className=" lg:w-[400px] w-[350px] h-full ">
-                <DashboardNavbar></DashboardNavbar>
-              </div>
-            ) : (
-              <div
-                className={`fixed top-0 w-full h-[100px] bg-gray-50 z-50 py-4 px-8 transition-transform transform ${
-                  showNavbar ? "translate-y-0" : "-translate-y-full"
-                }`}
-              >
-                <Navbar />
-              </div>
-            )}
-          </div>
+        <div className={isDashboardPath ? "flex justify-between gap-5" : ""}>
+          {/* Navbar section */}
+          {isDashboardPath ? (
+            <div className="lg:w-[400px] w-[350px] h-full">
+              <DashboardNavbar />
+            </div>
+          ) : (
+            <div
+              className={`fixed top-0 left-0 w-full h-[100px] bg-gray-50 z-50 py-4 px-8 transition-transform transform ${
+                showNavbar ? "translate-y-0" : "-translate-y-full"
+              }`}
+            >
+              <Navbar />
+            </div>
+          )}
 
-          {/* main section */}
-          <div
-            className={isDashboardPath ? " flex-1 h-screen" : "mt-24 h-screen"}
-          >
+          {/* Main section */}
+          <div className={isDashboardPath ? "flex-1 h-screen" : "mt-24 h-screen"}>
             {children}
           </div>
         </div>

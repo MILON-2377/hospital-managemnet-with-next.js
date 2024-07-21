@@ -1,17 +1,23 @@
 "use client";
+import { useAuth } from "@/AuthProviderContext/AuthProviderContext";
 import axios from "axios";
 import React from "react";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 
 export default function Appoitment() {
-  const { register, handleSubmit,reset} = useForm();
+  const { user } = useAuth();
+  const { register, handleSubmit, reset } = useForm();
 
   // form handle
   const onSubmit = async (data) => {
-    // console.log(data);
+    const email = user.email;
 
-    const res = await axios.post("/api/appointment", data);
+    const res = await axios.post("/api/appointment", {
+      ...data,
+      email,
+      appointmentDate: new Date,
+    });
     if (res.data.saveAppointment) {
       Swal.fire({
         title: "Appointment",
@@ -40,7 +46,7 @@ export default function Appoitment() {
             />
           </label>
 
-          <label className="flex flex-col gap-1 ">
+          {/* <label className="flex flex-col gap-1 ">
             <span className="text-xl font-sans text-gray-500 ">Email</span>
             <input
               {...register("email", { required: "email field is required" })}
@@ -48,7 +54,7 @@ export default function Appoitment() {
               placeholder="Type your email"
               type="email"
             />
-          </label>
+          </label> */}
 
           <label className="flex flex-col gap-1 ">
             <span className="text-xl font-sans text-gray-500 ">
