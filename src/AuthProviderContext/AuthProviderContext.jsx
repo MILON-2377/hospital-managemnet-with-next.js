@@ -6,8 +6,10 @@ import axiosSecure from "@/models/Hooks/useAxiosSecureApi";
 import axios from "axios";
 import {
   createUserWithEmailAndPassword,
+  GoogleAuthProvider,
   onAuthStateChanged,
   signInWithEmailAndPassword,
+  signInWithPopup,
   signOut,
 } from "firebase/auth";
 import React, { createContext, useContext, useEffect, useState } from "react";
@@ -28,6 +30,13 @@ const AuthProviderContext = ({ children }) => {
   const userLogIn = (email, password) => {
     return signInWithEmailAndPassword(auth, email, password);
   };
+
+
+  // social login 
+  const googleLogIn = () => {
+    const googleProvider = new GoogleAuthProvider();
+    return signInWithPopup(auth,googleProvider);
+  }
 
   // Hj@3hkjk -------------------pass
 
@@ -82,6 +91,7 @@ const AuthProviderContext = ({ children }) => {
     userLogIn,
     user,
     loading,
+    googleLogIn
   };
 
   return (

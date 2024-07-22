@@ -7,23 +7,34 @@ import { useForm } from "react-hook-form";
 
 const LoginPage = () => {
   const { register, handleSubmit } = useForm();
-  const {userLogIn} = useAuth();
+  const { userLogIn, googleLogIn } = useAuth();
   const router = useRouter();
 
   // secure axios api
   const axiosSecureApi = useAxiosPublicApi();
 
-  const onSubmit = async ({email,password}) => {
+  // social login handle
+  const logInWithGoogle = () => {
+    googleLogIn()
+      .then(() => {
+        router.push("/");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const onSubmit = async ({ email, password }) => {
     // console.log(data);
 
     userLogIn(email, password)
-    .then((res) => {
-      // console.log(res);
-      router.push("/");
-    })
-    .catch(error => {
-      console.log(error);
-    })
+      .then((res) => {
+        // console.log(res);
+        router.push("/");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
 
     // const res = await axiosSecureApi.get()
   };
@@ -31,7 +42,6 @@ const LoginPage = () => {
   return (
     <div className=" mt-20  bg-gradient-to-r from-sky-300 to-emerald-300 w-full h-screen  flex flex-col justify-between items-center lg:flex-row ">
       <div className="  w-full h-screen rounded-r-full lg:border-l-0  lg:border-t-0 lg:border-b-0 lg:border-4 ">
-        
         <img
           className="w-full h-full object-cover rounded-r-full "
           src="https://media.istockphoto.com/id/1683786187/photo/concept-of-cyber-security-information-security-and-encryption-secure-access-to-users-personal.webp?s=2048x2048&w=is&k=20&c=Kt-wtB1CMBgW3Bfv5WZXmh9Gyx3RqruOiPu-xsjiO70="
@@ -54,7 +64,10 @@ const LoginPage = () => {
           <h1 className="text-white text-2xl font-bold text-center  ">
             Social login section
           </h1>
-          <button className="px-4 hover:bg-emerald-400 transition-all duration-700 rounded-3xl border border-white text-white font-semibold py-1 ">
+          <button
+            onClick={logInWithGoogle}
+            className="px-4 hover:bg-emerald-400 transition-all duration-700 rounded-3xl border border-white text-white font-semibold py-1 "
+          >
             Google
           </button>
           <button className="px-4 rounded-3xl hover:bg-emerald-400 transition-all duration-700 border border-white text-white font-semibold py-1 ">
@@ -101,8 +114,15 @@ const LoginPage = () => {
 
           {/* forgot password section */}
           <label className="flex gap-5 ">
-            <span className="text-blue-500 underline transition-all duration-700 hover:text-white cursor-pointer ">Forgot password</span>
-            <span className="text-blue-500">Do not have an account? <a className="text-white underline" href="/signup">Signup</a> </span>
+            <span className="text-blue-500 underline transition-all duration-700 hover:text-white cursor-pointer ">
+              Forgot password
+            </span>
+            <span className="text-blue-500">
+              Do not have an account?{" "}
+              <a className="text-white underline" href="/signup">
+                Signup
+              </a>{" "}
+            </span>
           </label>
         </form>
       </div>
