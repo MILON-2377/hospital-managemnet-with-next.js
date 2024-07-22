@@ -375,8 +375,8 @@ const doctorNavLinks = [
     path: "/patients",
   },
   {
-    title: "Medical Records",
-    path: "/medical Records",
+    title: "Appointment List",
+    path: "/appointmentlist",
   },
   {
     title: "Prescriptions",
@@ -410,7 +410,7 @@ const visitorUsersNavLinks = [
 
   {
     title: "News",
-    path: "/new",
+    path: "/news",
   },
 ];
 
@@ -444,7 +444,7 @@ const patientUserNavLinks = [
 
 // nvabar links handle
 function navbarLinksHandle(user) {
-  if (user?.profession === "Doctors") return doctorNavLinks;
+  if (user?.profession === "Doctor") return doctorNavLinks;
   if (user?.profession === "Patient") return patientUserNavLinks;
   return visitorUsersNavLinks;
 }

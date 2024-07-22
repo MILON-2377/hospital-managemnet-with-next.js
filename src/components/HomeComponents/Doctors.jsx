@@ -10,21 +10,21 @@ const doctors = [
     name: "Dr. John Doe",
     specialization: "Cardiologist",
     imageUrl:
-      "https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Njd8fGRvY3RvcnMlMjBwcm9maWxlfGVufDB8fDB8fHww",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9r6TUF1QvUQKk8e4Z9vONVdGpE0-RGSSP4w&s",
     description: "Dr. John Doe is a highly experienced cardiologist...",
   },
   {
     name: "Dr. Jane Smith",
     specialization: "Neurologist",
     imageUrl:
-      "https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Njd8fGRvY3RvcnMlMjBwcm9maWxlfGVufDB8fDB8fHww",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjP8I5Zi3UTy2EfaCjOsLk5CvTubQaxmAJf56rVmdzMIYLJyF6DDK1I99LxK9p0CSL6ZI&usqp=CAU",
     description: "Dr. Jane Smith specializes in neurological disorders...",
   },
   {
     name: "Dr. Michael Brown",
     specialization: "Pediatrician",
     imageUrl:
-      "https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Njd8fGRvY3RvcnMlMjBwcm9maWxlfGVufDB8fDB8fHww",
+      "https://www.dailynews.com/wp-content/uploads/2020/10/LDN-L-HEALTHCARE-DOCTOR-1011-1.jpg?w=640",
     description:
       "Dr. Michael Brown is a trusted pediatrician with over 20 years of experience...",
   },

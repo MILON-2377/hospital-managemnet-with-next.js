@@ -28,7 +28,7 @@ const axiosSecure = axios.create({
   axiosSecure.interceptors.response.use((res) => {
     return res;
   }, (error) => {
-    if(error.res.status === 401){
+    if(error.response && error.response.status === 401){
       window.location.href = "/login";
     }
 

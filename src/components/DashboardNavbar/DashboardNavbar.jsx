@@ -75,7 +75,7 @@ const doctorNavTitles = [
   },
   {
     title: "Appointments list",
-    path: `/dashboard/appointmentinfo`,
+    path: `/dashboard/appointmentlist`,
   },
 ];
 

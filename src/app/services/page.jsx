@@ -121,13 +121,13 @@ export default function Services() {
           <div className="w-full md:w-1/3 mb-6 md:mb-0">
             <h4 className="text-lg font-bold mb-4">Contact Us</h4>
             <p>
-              <strong>Address:</strong> 123 Hospital St, City, Country
+              <strong>Address:</strong> 123 Sichuan, Chonqing, china 
             </p>
             <p>
               <strong>Phone:</strong> (123) 456-7890
             </p>
             <p>
-              <strong>Email:</strong> info@hospital.com
+              <strong>Email:</strong> carelife@hospital.com
             </p>
           </div>
 
@@ -168,16 +168,16 @@ export default function Services() {
             <h4 className="text-lg font-bold mb-4">Follow Us</h4>
             <div className="flex space-x-4">
               <a href="#" className="hover:text-gray-400">
-                <i className="fab fa-facebook-f"></i>
+                <i className="fab fa-facebook-f">Facebook</i>
               </a>
               <a href="#" className="hover:text-gray-400">
-                <i className="fab fa-twitter"></i>
+                <i className="fab fa-twitter">Twitter</i>
               </a>
               <a href="#" className="hover:text-gray-400">
-                <i className="fab fa-instagram"></i>
+                <i className="fab fa-instagram">Instagram</i>
               </a>
               <a href="#" className="hover:text-gray-400">
-                <i className="fab fa-linkedin-in"></i>
+                <i className="fab fa-linkedin-in">Linkdin</i>
               </a>
             </div>
           </div>
@@ -185,8 +185,7 @@ export default function Services() {
 
         <div className="mt-10 border-t border-gray-700 pt-6 text-center">
           <p>
-            &copy; {new Date().getFullYear()} Hospital Name. All Rights
-            Reserved.
+            &copy; {new Date().getFullYear()} CareLife. All Rights Reserved.
           </p>
         </div>
       </footer>

@@ -92,7 +92,7 @@ export default function News() {
           </p>
         </blockquote>
         <img
-          src="https://via.placeholder.com/800x400"
+          src="https://www.summahealth.org/-/media/project/summahealth/website/page-content/cancer/treatments/cancer-patient-1402894530.webp?la=en&h=600&w=800&hash=6F23AE2E83B2A3B141DF872EFE4E9EB9"
           alt="Facility"
           class="w-full h-64 object-cover mb-4"
         />

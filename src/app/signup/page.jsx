@@ -1,6 +1,6 @@
 "use client";
 import { useAuth } from "@/AuthProviderContext/AuthProviderContext";
-import useAxiosSecureApi from "@/models/Hooks/useAxiosSecureApi";
+import axios from "axios";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -13,8 +13,9 @@ export default function LogIn() {
     register,
     handleSubmit,
     formState: { errors },
+    reset
   } = useForm();
-  const axiosSecureApi = useAxiosSecureApi();
+
 
   const { userRegisterHandle } = useAuth();
   const router = useRouter();
@@ -22,7 +23,7 @@ export default function LogIn() {
   const onSubmit = async (data) => {
     const { email, password, userName, profession } = data;
 
-    console.log(profession);
+    // console.log(profession);
 
     // user create throught firebase
     userRegisterHandle(email, password)
@@ -31,14 +32,15 @@ export default function LogIn() {
 
         // to store the data in the database
         try {
-          const res = await axiosSecureApi.post("/users", {
+          const res = await axios.post("/api/users", {
             userName,
             email,
             profession,
             isAdmin: false,
           });
-          console.log(res.data);
-          // router.push("/");
+          // console.log(res.data);
+          router.push("/");
+          reset();
         } catch (error) {
           console.log("user does not set to the database", error);
         }
@@ -46,6 +48,9 @@ export default function LogIn() {
       .catch((error) => {
         console.log(error);
       });
+
+
+
   };
 
   // sign up validation errors handleing

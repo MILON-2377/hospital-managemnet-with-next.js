@@ -2,7 +2,6 @@
 
 import auth from "@/FirebaseConfig/Firebase.Config";
 import useAxiosPublicApi from "@/models/Hooks/useAxiosPublicApi";
-import axiosSecure from "@/models/Hooks/useAxiosSecureApi";
 import axios from "axios";
 import {
   createUserWithEmailAndPassword,

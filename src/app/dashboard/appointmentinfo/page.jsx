@@ -9,6 +9,8 @@ export default function AppointmentInfo() {
   const email = user?.email || null;
   const [appointData, setAppointData] = useState([]);
 
+  console.log(user);
+
   useEffect(() => {
     // Define the async function
     const fetchAppointments = async () => {
