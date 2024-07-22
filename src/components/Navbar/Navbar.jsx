@@ -410,7 +410,7 @@ const visitorUsersNavLinks = [
 
   {
     title: "News",
-    path: "/News",
+    path: "/new",
   },
 ];
 
