@@ -16,7 +16,7 @@ export default function Navbar() {
 
   const doctor = false;
 
-  const profession = "patients";
+  const profession = false;
 
   // user logging out handle
   const loggedOut = () => {
@@ -64,10 +64,12 @@ export default function Navbar() {
             </div>
           </div>
 
-          <h1 className="sm:hidden lg:block text-3xl font-sans font-bold text-blue-600 p-4 ">
-            {" "}
-            CareLife{" "}
-          </h1>
+          <a
+            href="/"
+            className="sm:hidden lg:block text-3xl font-sans font-bold text-blue-600 p-4 "
+          >
+            CareLife
+          </a>
         </div>
 
         {/* navbar titles sections */}
@@ -88,8 +90,13 @@ export default function Navbar() {
         </div>
 
         {/* name */}
-        <div className=" lg:hidden ">
-          <h1 className="text-white text-3xl font-bold ">CareLife</h1>
+        <div className=" sm:hidden ">
+          <a
+            href="/"
+            className="sm:hidden lg:block text-3xl font-sans font-bold text-blue-600 p-4 "
+          >
+            CareLife
+          </a>
         </div>
 
         {/* dashboard section */}
@@ -101,10 +108,7 @@ export default function Navbar() {
               className="btn btn-ghost btn-circle avatar"
             >
               <div className="w-16 rounded-full">
-                <img
-                  alt="Tailwind CSS Navbar component"
-                  src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
-                />
+                <img alt="Tailwind CSS Navbar component" src={user?.image} />
               </div>
             </div>
             <ul
@@ -114,9 +118,7 @@ export default function Navbar() {
               <li>
                 <a className="justify-between">Profile</a>
               </li>
-              <li>
-                <a>Settings</a>
-              </li>
+
               <li onClick={loggedOut}>
                 <a>Logout</a>
               </li>
@@ -164,10 +166,12 @@ export default function Navbar() {
               </ul>
             </div>
           </div>
-          <h1 className="sm:hidden lg:block text-3xl font-sans font-bold text-blue-600 p-4 ">
-            {" "}
-            CareLife{" "}
-          </h1>
+          <a
+            href="/"
+            className="sm:hidden lg:block text-3xl font-sans font-bold text-blue-600 p-4 "
+          >
+            CareLife
+          </a>
         </div>
 
         {/* navbar titles sections */}
@@ -189,9 +193,12 @@ export default function Navbar() {
 
         {/* name */}
         <div className=" sm:hidden ">
-          <h1 className="sm:hidden lg:block text-3xl font-sans font-bold text-blue-600 p-4 ">
+          <a
+            href="/"
+            className="sm:hidden lg:block text-3xl font-sans font-bold text-blue-600 p-4 "
+          >
             CareLife
-          </h1>
+          </a>
         </div>
 
         {/* dashboard section */}
@@ -203,10 +210,7 @@ export default function Navbar() {
               className="btn btn-ghost btn-circle avatar"
             >
               <div className="w-16 rounded-full">
-                <img
-                  alt="Tailwind CSS Navbar component"
-                  src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
-                />
+                <img alt="Tailwind CSS Navbar component" src={user?.image} />
               </div>
             </div>
             <ul
@@ -214,11 +218,11 @@ export default function Navbar() {
               className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
             >
               <li>
-                <a href="/dashboard" className="justify-between">Profile</a>
+                <a href="/dashboard" className="justify-between">
+                  Profile
+                </a>
               </li>
-              <li>
-                <a>Settings</a>
-              </li>
+
               <li onClick={loggedOut}>
                 <a>Logout</a>
               </li>
@@ -229,10 +233,10 @@ export default function Navbar() {
     );
   else
     return (
-      <div className=" flex items-center justify-between h-24 w-full  ">
+      <div className=" flex text-gray-400  items-center justify-between  h-20 w-full  ">
         {/* navbar logo section */}
         <div>
-          <div className="drawer">
+          <div className="drawer lg:hidden ">
             <input id="my-drawer" type="checkbox" className="drawer-toggle" />
             {/* logo section */}
             <div className="drawer-content p-2 ml-4 hover:border rounded-xl transition-all duration-300 ease-in-out hover:border-white ">
@@ -265,16 +269,22 @@ export default function Navbar() {
               </ul>
             </div>
           </div>
+          <a
+            href="/"
+            className="sm:hidden lg:block text-3xl font-sans font-bold text-blue-600 p-4 "
+          >
+            CareLife
+          </a>
         </div>
 
         {/* navbar titles sections */}
-        <div className=" hidden lg:flex gap-4">
+        <div className=" hidden h-full px-4 items-center rounded-full lg:bg-opacity-80 lg:flex gap-4">
           {visitorUsersNavLinks?.map((item, index) => (
             <Link
               className={
                 path === item.path
-                  ? " border px-4 py-1 rounded-3xl text-xl font-sans font-semibold text-white "
-                  : "text-xl font-sans hover:border-white hover:border transition-all duration-300 rounded-3xl font-normal text-white px-3 py-1 "
+                  ? " border border-gray-200 px-4 py-1 rounded-3xl text-xl font-sans font-semibold text-blue-600 "
+                  : "text-xl font-sans hover:border-gray-200 hover:text-blue-400 duration-300 hover:border transition-all  rounded-3xl font-normal text-gray-500 px-3 py-1 "
               }
               href={item.path}
               key={index}
@@ -285,8 +295,13 @@ export default function Navbar() {
         </div>
 
         {/* name */}
-        <div className=" lg:hidden ">
-          <h1 className="text-white text-3xl font-bold ">CareLife</h1>
+        <div className=" sm:hidden ">
+          <a
+            href="/"
+            className="sm:hidden lg:block text-3xl font-sans font-bold text-blue-600 p-4 "
+          >
+            CareLife
+          </a>
         </div>
 
         {/* dashboard section */}
@@ -298,10 +313,7 @@ export default function Navbar() {
               className="btn btn-ghost btn-circle avatar"
             >
               <div className="w-16 rounded-full">
-                <img
-                  alt="Tailwind CSS Navbar component"
-                  src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
-                />
+                <img alt="Tailwind CSS Navbar component" src={user?.image} />
               </div>
             </div>
             <ul
@@ -309,11 +321,11 @@ export default function Navbar() {
               className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
             >
               <li>
-                <a className="justify-between">Profile</a>
+                <a href="/dashboard" className="justify-between">
+                  Profile
+                </a>
               </li>
-              <li>
-                <a>Settings</a>
-              </li>
+
               <li onClick={loggedOut}>
                 <a>Logout</a>
               </li>
@@ -363,14 +375,7 @@ const visitorUsersNavLinks = [
     title: "Services",
     path: "/services",
   },
-  {
-    title: "Doctors",
-    path: "/doctors",
-  },
-  {
-    title: "Appointments",
-    path: "/appointments",
-  },
+
   {
     title: "News",
     path: "/News",

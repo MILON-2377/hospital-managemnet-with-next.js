@@ -53,6 +53,10 @@ export default function DashboardNavbar() {
 // patients titles section
 const doctorNavTitles = [
   {
+    title:"Home",
+    path:"/"
+  },
+  {
     title: "Personal information",
     path: `/dashboard/personalinfo`,
   },
@@ -106,6 +110,10 @@ const navTitles = [
 
 // admin navbar list
 const adminNavTitles = [
+  {
+    title:"Home",
+    path:"/"
+  },
   {
     title: "User Management",
     path: "/dashboard/usermanagement",

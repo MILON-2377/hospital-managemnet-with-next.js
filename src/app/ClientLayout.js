@@ -25,7 +25,7 @@ export default function ClientLayout({ children }) {
       window.addEventListener("scroll", handleScroll);
       return () => window.removeEventListener("scroll", handleScroll);
     } else {
-      setShowNavbar(true); // Always show navbar for paths other than "/"
+      // setShowNavbar(true); // Always show navbar for paths other than "/"
     }
   }, [path]);
 
@@ -40,9 +40,7 @@ export default function ClientLayout({ children }) {
             </div>
           ) : (
             <div
-              className={`fixed top-0 left-0 w-full h-[100px] bg-gray-50 z-50 py-4 px-8 transition-transform transform ${
-                showNavbar ? "translate-y-0" : "-translate-y-full"
-              }`}
+              className={`fixed top-0 left-0 w-full h-[100px] bg-gray-50 z-50 py-4 px-8 `}
             >
               <Navbar />
             </div>
