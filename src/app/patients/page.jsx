@@ -14,7 +14,7 @@ export default function Patients() {
     const res = await axios.get(
       `/api/patients?search=${search}&searchBy=${selectSearch}`
     );
-    console.log(res.data);
+    
     return res.data.patientsData;
   };
 
@@ -23,18 +23,14 @@ export default function Patients() {
     queryFn: () => fetchPatientData(),
   });
 
-  useEffect(() => {
-    // setPatients(patientsD.patientsData)
-  }, [patientsD]);
 
   const onSubmit = (e) => {
     e.preventDefault();
     refetch();
-    // console.log(search);
+    
     console.log(selectSearch);
   };
 
-  //  console.log(patientsD)
 
   return (
     <div>
@@ -93,7 +89,7 @@ export default function Patients() {
             </tr>
           </thead>
           <tbody>
-            {patientsD.map((item, index) => (
+            {patientsD?.map((item, index) => (
               <tr key={index}>
                 <th>
                   <label>
@@ -105,7 +101,7 @@ export default function Patients() {
                     <div className="avatar">
                       <div className="mask mask-squircle h-12 w-12">
                         <img
-                          src="https://img.daisyui.com/images/profile/demo/2@94.webp"
+                          src={item.image}
                           alt="Avatar Tailwind CSS Component"
                         />
                       </div>
