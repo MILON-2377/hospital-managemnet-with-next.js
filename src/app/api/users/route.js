@@ -1,4 +1,4 @@
-import verifyToken from "@/authMiddleware/authMiddleware";
+
 import connect from "@/dbConfig/dbConfig";
 import Users from "@/models/userModels";
 import { NextRequest, NextResponse } from "next/server";

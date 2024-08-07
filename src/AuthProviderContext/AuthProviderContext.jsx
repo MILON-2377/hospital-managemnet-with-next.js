@@ -20,6 +20,8 @@ const AuthProviderContext = ({ children }) => {
   const axiosPubblic = useAxiosPublicApi();
   const [loading, setLaoding] = useState(true);
 
+  // console.log(user);
+
   // user register handle
   const userRegisterHandle = (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password);
