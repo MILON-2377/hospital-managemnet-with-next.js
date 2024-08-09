@@ -44,6 +44,7 @@ export default function Appointment() {
       if (res.data.saveDocument) {
         router.push("/appointment-form-page/appointmentSubmit");
         setIsSubmit(false);
+        reset();
       }
     } catch (error) {
       console.log(error.message);
@@ -161,22 +162,21 @@ export default function Appointment() {
                 />
               </label>
             </div>
-
-            {isSubmit ? (
-              <>
-                <button className="btn flex items-center gap-3 btn-accent text-white w-full mt-10">
-                  <span className="loading loading-spinner text-secondary"></span>
-                  <span className="text-white">Submittin</span>
-                </button>
-              </>
-            ) : (
-              <>
-                <button className="btn btn-accent text-white w-full mt-10">
-                  Submit and continue
-                </button>
-              </>
-            )}
           </div>
+          {isSubmit ? (
+            <>
+              <button className="btn flex items-center gap-3 btn-accent text-white w-full mt-10">
+                <span className="loading loading-spinner text-secondary"></span>
+                <span className="text-white">Submitting</span>
+              </button>
+            </>
+          ) : (
+            <>
+              <button className="btn btn-accent text-white w-full mt-10">
+                Submit and continue
+              </button>
+            </>
+          )}
         </form>
       </div>
 

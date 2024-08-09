@@ -1,5 +1,10 @@
+import connect from "@/dbConfig/dbConfig";
 import Appointments from "@/models/appointmentModels";
 import { NextResponse } from "next/server";
+
+
+// mongodb connection
+connect();
 
 export async function POST(req) {
   try {
