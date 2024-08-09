@@ -1,7 +1,6 @@
 "use client";
 
 import auth from "@/FirebaseConfig/Firebase.Config";
-import useAxiosPublicApi from "@/models/Hooks/useAxiosPublicApi";
 import axios from "axios";
 import {
   createUserWithEmailAndPassword,
@@ -17,7 +16,6 @@ export const authContext = createContext(null);
 
 const AuthProviderContext = ({ children }) => {
   const [user, setUser] = useState(null);
-  const axiosPubblic = useAxiosPublicApi();
   const [loading, setLaoding] = useState(true);
 
   // console.log(user);
@@ -53,10 +51,10 @@ const AuthProviderContext = ({ children }) => {
         // console.log(currentUser);
 
         // jwt token related api
-        const jwtRes = await axiosPubblic.post(
-          `/jwt?email=${currentUser.email}`,
-          { withCredentials: true }
-        );
+        // const jwtRes = await axiosPubblic.post(
+        //   `/jwt?email=${currentUser.email}`,
+        //   { withCredentials: true }
+        // );
         // console.log(jwtRes.data);
 
         try {
@@ -73,9 +71,9 @@ const AuthProviderContext = ({ children }) => {
           console.log(error);
         }
       } else {
-        const jwtRes = await axiosPubblic.post(`/jwt?email=${false}`, {
-          withCredentials: true,
-        });
+        // const jwtRes = await axiosPubblic.post(`/jwt?email=${false}`, {
+        //   withCredentials: true,
+        // });
         // console.log(jwtRes.data);
         setUser(null);
         setLaoding(false);

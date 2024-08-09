@@ -8,16 +8,47 @@ import { IoCloudUploadOutline } from "react-icons/io5";
 import { IoMdArrowDropdown } from "react-icons/io";
 import imga1 from "../../../public/appointment4.jpg";
 import Image from "next/image";
+import { useForm } from "react-hook-form";
+import { useAuth } from "@/AuthProviderContext/AuthProviderContext";
+import axiosSecure from "@/Hooks/userAxiosSecure";
 
 export default function PatientForm() {
+  const { user } = useAuth();
   const [email, setEmail] = useState("");
   const [isPhysiciansSelect, setIsPhysiciansSelect] = useState(physicians[0]);
   const [physicianSelct, setPhysicianSelect] = useState(false);
 
+  // form handle with react hook form
+  const {
+    register,
+    setValue,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
+
   //   handle physicians select
   const handlePhysiciansSelect = (item) => {
     setIsPhysiciansSelect(item);
+    setValue("selectedPhysician", item);
     setPhysicianSelect(true);
+  };
+
+  // handle onSubmit form
+  const onSubmit = async (data) => {
+    document.getElementById("my_modal_3").showModal();
+    const patientId = user?.email;
+
+    console.log(data);
+
+    // try {
+    //   const res = await axiosSecure.post("/patient", { ...data, patientId });
+    //   if (res.data.saveDocument) {
+    //     reset();
+    //   }
+    // } catch (error) {
+    //   console.log(error.message);
+    // }
   };
 
   return (
@@ -32,18 +63,19 @@ export default function PatientForm() {
           </p>
         </div>
         {/* form section */}
-        <form className=" w-full mt-10 ">
+        <form onSubmit={handleSubmit(onSubmit)} className=" w-full mt-10 ">
           {/* personal info */}
           <div className="   w-full flex flex-col gap-5">
-            <h1 className="text-3xl font-bold text-gray-600">
+            <h1 className="text-2xl font-bold text-gray-600">
               Personal information
             </h1>
             <label className="flex flex-col gap-2">
               <span className="text-xl text-gray-500 ">Full name</span>
               <input
-                className="px-4 py-2 text-xl placeholder:text-gray-500 text-gray-500 focus:border-cyan-500 focus:outline-none border border-gray-200 rounded-md bg-transparent "
+                className="px-4 py-2 text-xl placeholder:text-gray-500 text-gray-600 focus:border-cyan-500 focus:outline-none border border-gray-200 rounded-md bg-transparent "
                 placeholder="ex: milon miah"
                 type="text"
+                {...register("fullName", { required: true })}
               />
             </label>
 
@@ -62,9 +94,10 @@ export default function PatientForm() {
                     </span>
                     <input
                       onChange={(e) => setEmail(e.target.value)}
-                      className="py-2 text-xl focus:border-none border-none placeholder:text-gray-500 text-gray-300  focus:outline-none border border-gray-500 rounded-md bg-transparent "
+                      className="py-2 text-xl focus:border-none border-none placeholder:text-gray-500 text-gray-600  focus:outline-none border border-gray-500 rounded-md bg-transparent "
                       placeholder="milon.miah@qq.com"
                       type="email"
+                      {...register("email", { required: true })}
                     />
                   </label>
                 </div>
@@ -80,7 +113,11 @@ export default function PatientForm() {
                     <span>
                       <FaCalendarAlt className=" text-xl text-gray-400 " />
                     </span>
-                    
+                    <input
+                      className="py-2"
+                      type="date"
+                      {...register("date_of_birth", { required: true })}
+                    />
                   </label>
                 </div>
 
@@ -91,6 +128,7 @@ export default function PatientForm() {
                     className="px-4 py-2 text-xl text-gray-600 placeholder:text-gray-500  focus:border-cyan-500 focus:outline-none border border-gray-200 rounded-md bg-transparent "
                     placeholder="Ex: 1302 Kolabagan, Dhaka "
                     type="text"
+                    {...register("address", { required: true })}
                   />
                 </label>
 
@@ -103,20 +141,19 @@ export default function PatientForm() {
                     className="px-4 py-2 text-xl placeholder:text-gray-500 text-gray-600 focus:border-cyan-500 focus:outline-none border border-gray-200 rounded-md bg-transparent "
                     placeholder="Guardian's name "
                     type="text"
+                    {...register("emergency_contact_name", { required: true })}
                   />
                 </label>
               </div>
 
               <div className="flex flex-col gap-5">
-                {/* Insurance policy number */}
+                {/* emergency contact number */}
                 <div className="flex flex-col gap-2">
                   <span className="text-xl text-gray-600 ">
-                    Insurance number
+                    Emergency phone number
                   </span>
                   <label
-                    className={`${
-                      email ? "border-cyan-500" : ""
-                    } px-3 flex items-center gap-4 border border-gray-200 rounded-md `}
+                    className={` px-3 flex items-center gap-4 border border-gray-200 rounded-md `}
                   >
                     <span>
                       <IoCallOutline className=" text-2xl text-gray-400 " />
@@ -125,43 +162,49 @@ export default function PatientForm() {
                       onChange={(e) => setEmail(e.target.value)}
                       className="py-2 focus:border-none text-xl border-none placeholder:text-gray-500 text-gray-600  focus:outline-none border border-gray-200 rounded-md bg-transparent "
                       placeholder="+86 03584562"
-                      type="email"
+                      type="text"
+                      {...register("emergency_contact_phone", {
+                        required: true,
+                      })}
                     />
                   </label>
                 </div>
 
                 {/* gender */}
                 <div className="flex flex-col gap-2">
-                  <span className="text-xl text-gray-600  ">Gender</span>
-                  <div className="flex items-center justify-between sm:gap-2 lg:gap-5 ">
-                    <label className="label flex items-center sm:gap-2  px-2  cursor-pointer border border-gray-200 border-dashed rounded-md ">
-                      <span className="text-xl text-gray-500 ">Male</span>
+                  <span className="text-xl text-gray-600">Gender</span>
+                  <div className="flex items-center justify-between sm:gap-2 lg:gap-5">
+                    <label className="label flex items-center sm:gap-2 px-2 cursor-pointer border border-gray-200 border-dashed rounded-md">
+                      <span className="text-xl text-gray-500">Male</span>
                       <input
                         type="radio"
-                        name="radio-10"
+                        value="male"
+                        {...register("gender", { required: true })}
                         className="radio border border-gray-500 checked:bg-accent"
-                        defaultChecked
                       />
                     </label>
-                    <label className="label flex items-center sm:gap-2  px-2  cursor-pointer border border-gray-200 border-dashed rounded-md ">
+                    <label className="label flex items-center sm:gap-2 px-2 cursor-pointer border border-gray-200 border-dashed rounded-md">
                       <input
                         type="radio"
-                        name="radio-10"
+                        value="female"
+                        {...register("gender", { required: true })}
                         className="radio border border-gray-500 checked:bg-accent"
-                        defaultChecked
                       />
-                      <span className="text-xl text-gray-500 ">Female</span>
+                      <span className="text-xl text-gray-500">Female</span>
                     </label>
-                    <label className="label flex items-center sm:gap-2  px-2  cursor-pointer border border-gray-200 border-dashed rounded-md ">
+                    <label className="label flex items-center sm:gap-2 px-2 cursor-pointer border border-gray-200 border-dashed rounded-md">
                       <input
                         type="radio"
-                        name="radio-10"
+                        value="other"
+                        {...register("gender", { required: true })}
                         className="radio border border-gray-500 checked:bg-accent"
-                        defaultChecked
                       />
-                      <span className="text-xl text-gray-500 ">other</span>
+                      <span className="text-xl text-gray-500">Other</span>
                     </label>
                   </div>
+                  {errors.gender && (
+                    <p className="text-red-500">This field is required.</p>
+                  )}
                 </div>
 
                 {/* occupation */}
@@ -171,6 +214,7 @@ export default function PatientForm() {
                     className="px-4 py-2 text-xl text-gray-600 placeholder:text-gray-500  focus:border-cyan-500 focus:outline-none border border-gray-200 rounded-md bg-transparent "
                     placeholder="Software Engineer"
                     type="text"
+                    {...register("occupation", { required: true })}
                   />
                 </label>
 
@@ -189,7 +233,8 @@ export default function PatientForm() {
                       onChange={(e) => setEmail(e.target.value)}
                       className="py-2 focus:border-none text-xl border-none placeholder:text-gray-500 text-gray-600  focus:outline-none border border-gray-200 rounded-md bg-transparent "
                       placeholder="+86 13185084668"
-                      type="email"
+                      type="text"
+                      {...register("phoneNumber", { required: true })}
                     />
                   </label>
                 </div>
@@ -202,7 +247,7 @@ export default function PatientForm() {
           {/* medical info */}
           <div className="mt-10  w-full">
             <div>
-              <h1 className="text-3xl font-bold text-gray-600">
+              <h1 className="text-2xl font-bold text-gray-600">
                 Medical Information
               </h1>
             </div>
@@ -258,6 +303,12 @@ export default function PatientForm() {
                     </div>
                   ))}
                 </div>
+
+                {/* input for physician */}
+                <input
+                  type="hidden"
+                  {...register("selectedPhysician", { required: true })}
+                />
               </div>
             </div>
 
@@ -271,6 +322,7 @@ export default function PatientForm() {
                     className="px-4 py-2 text-xl placeholder:text-gray-500 text-gray-600 focus:border-cyan-500 focus:outline-none border border-gray-200 rounded-md bg-transparent "
                     placeholder="ex: CareLife Insurance"
                     type="text"
+                    {...register("insuranceProvider", { required: true })}
                   />
                 </label>
 
@@ -280,6 +332,7 @@ export default function PatientForm() {
                   <textarea
                     className="textarea text-xl border focus:border text-gray-600 focus:border-cyan-500 border-gray-200 focus:outline-none bg-transparent "
                     placeholder="ex: Peanuts, Penicillin, Pollen"
+                    {...register("allergies", { required: true })}
                   ></textarea>
                 </label>
 
@@ -291,6 +344,7 @@ export default function PatientForm() {
                   <textarea
                     className="textarea text-xl border focus:border text-gray-600 focus:border-cyan-500 border-gray-200 focus:outline-none bg-transparent "
                     placeholder="ex: Mother had breast cancer"
+                    {...register("family_medical_history", { required: true })}
                   ></textarea>
                 </label>
               </div>
@@ -304,6 +358,7 @@ export default function PatientForm() {
                     className="px-4 py-2 text-xl placeholder:text-gray-500 text-gray-600 focus:border-cyan-500 focus:outline-none border border-gray-200 rounded-md bg-transparent "
                     placeholder="ex: CareLife Insurance"
                     type="text"
+                    {...register("insurance_policy_number", { required: true })}
                   />
                 </label>
 
@@ -314,6 +369,7 @@ export default function PatientForm() {
                   <textarea
                     className="textarea text-xl border focus:border text-gray-600 focus:border-cyan-500 border-gray-200 focus:outline-none bg-transparent "
                     placeholder="ex: Ibuprofen 200mg, Levothyroxine 50mcg"
+                    {...register("current_medications", { required: true })}
                   ></textarea>
                 </label>
 
@@ -324,6 +380,7 @@ export default function PatientForm() {
                   <textarea
                     className="textarea text-xl border focus:border text-gray-600 focus:border-cyan-500 border-gray-200 focus:outline-none bg-transparent "
                     placeholder="ex: Asthma diagnosis in childhood"
+                    {...register("past_medical_history", { required: true })}
                   ></textarea>
                 </label>
               </div>
@@ -335,7 +392,7 @@ export default function PatientForm() {
           {/* Identification and Verfication */}
           <div className=" w-full mt-10">
             <div>
-              <h1 className="text-3xl font-bold text-gray-600">
+              <h1 className="text-2xl font-bold text-gray-600">
                 Identification and Verification
               </h1>
             </div>
@@ -345,7 +402,10 @@ export default function PatientForm() {
                 <span className="text-xl text-gray-600 ">
                   Identification type
                 </span>
-                <select className="select border text-gray-600 text-xl border-gray-200 bg-transparent text-gray-300 focus:outline-none w-full ">
+                <select
+                  {...register("identification_type", { required: true })}
+                  className="select border text-gray-600 text-xl border-gray-200 bg-transparent  focus:outline-none w-full "
+                >
                   <option>Birth Certification</option>
                   <option>Password</option>
                   <option>National Id Card</option>
@@ -358,8 +418,9 @@ export default function PatientForm() {
                 </span>
                 <input
                   className="px-4 py-2 text-xl placeholder:text-gray-500 text-gray-600 focus:border-cyan-500 focus:outline-none border border-gray-200 rounded-md bg-transparent "
-                  placeholder="Enter your name"
+                  placeholder="ex: 202564-2545023578"
                   type="text"
+                  {...register("identification_number", { required: true })}
                 />
               </label>
 
@@ -381,44 +442,58 @@ export default function PatientForm() {
           {/* consent and privacy section */}
           <div className="mt-10  w-full">
             <div>
-              <h1 className="text-3xl font-bold text-gray-600">
+              <h1 className="text-2xl font-bold text-gray-600">
                 consent and Privacy
               </h1>
             </div>
 
-            <div className="form-control mt-7 flex flex-col gap-3 ">
-              <label className="cursor-pointer flex items-center gap-3 ">
+            <div className="form-control mt-7 flex flex-col gap-3">
+              <label className="cursor-pointer flex items-center gap-3">
                 <input
                   type="checkbox"
-                  defaultChecked
+                  {...register("consent_treatment", { required: true })}
                   className="checkbox checkbox-accent"
+                  defaultChecked
                 />
-                <span className="label-text text-xl text-gray-400 ">
+                <span className="label-text text-xl text-gray-400">
                   I consent to receive treatment for my health condition.
                 </span>
               </label>
-              <label className="cursor-pointer flex items-center gap-3 ">
+              {errors.consent_treatment && (
+                <p className="text-red-500">This field is required.</p>
+              )}
+
+              <label className="cursor-pointer flex items-center gap-3">
                 <input
                   type="checkbox"
-                  defaultChecked
+                  {...register("consent_disclosure", { required: true })}
                   className="checkbox checkbox-accent"
+                  defaultChecked
                 />
-                <span className="label-text text-xl text-gray-400 ">
+                <span className="label-text text-xl text-gray-400">
                   I consent to the use and disclosure of my health information
                   for treatment purposes.
                 </span>
               </label>
-              <label className="cursor-pointer flex items-center gap-3 ">
+              {errors.consent_disclosure && (
+                <p className="text-red-500">This field is required.</p>
+              )}
+
+              <label className="cursor-pointer flex items-center gap-3">
                 <input
                   type="checkbox"
-                  defaultChecked
+                  {...register("consent_privacy", { required: true })}
                   className="checkbox checkbox-accent"
+                  defaultChecked
                 />
-                <span className="label-text text-xl text-gray-400 ">
+                <span className="label-text text-xl text-gray-400">
                   I acknowledge that I have reviewed and agree to the privacy
-                  policy
+                  policy.
                 </span>
               </label>
+              {errors.consent_privacy && (
+                <p className="text-red-500">This field is required.</p>
+              )}
             </div>
           </div>
 
@@ -431,6 +506,13 @@ export default function PatientForm() {
       {/* image section */}
       <div className="w-full hidden lg:block h-full border-l border-l-gray-200 ">
         <Image src={imga1} alt="img" />
+      </div>
+
+      {/* loading modal section */}
+      <div>
+        <dialog id="my_modal_3" className="modal">
+          <span className="loading loading-spinner text-secondary loading-lg "></span>
+        </dialog>
       </div>
     </div>
   );

@@ -10,20 +10,24 @@ import { useAuth } from "@/AuthProviderContext/AuthProviderContext";
 import { useEffect, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import axiosSecure from "@/Hooks/userAxiosSecure";
+import { useRouter } from "next/navigation";
 
 export default function SignUp() {
   const { userRegisterHandle } = useAuth();
-  const [fullName, setFullName] = useState("");
+  const [userName, setuserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
+  const [isSigning, setIsSigning] = useState(false);
+  const router = useRouter();
 
   // form handle
   const onSubmit = (e) => {
     e.preventDefault();
 
-    if (fullName.length === 0) {
-      return setErrors({ field: "name", message: "full name is required!" });
+    if (userName.length === 0) {
+      return setErrors({ field: "name", message: "user name is required!" });
     }
 
     if (email.length === 0)
@@ -32,12 +36,20 @@ export default function SignUp() {
     if (password.length === 0)
       return setErrors({ field: "password", message: "password is required!" });
 
+    setIsSigning(true);
+
     userRegisterHandle(email, password)
-      .then((res) => {
-        console.log(res.user);
+      .then(async () => {
+        const res = await axiosSecure.post("/users", { userName, email });
+
+        if (res.data.saveUser) {
+          e.target.reset();
+          setIsSigning(false);
+          router.push("/patient-form-page")
+        }
       })
       .catch((error) => {
-        setErrors({field:"signup", message:error.message});
+        setErrors({ field: "signup", message: error.message });
         console.log(error.message);
       });
   };
@@ -51,9 +63,9 @@ export default function SignUp() {
   }, [errors]);
 
   useEffect(() => {
-    if (fullName.length > 0 || email.length > 0 || password.length > 0)
+    if (userName.length > 0 || email.length > 0 || password.length > 0)
       setErrors({});
-  }, [fullName, email, password]);
+  }, [userName, email, password]);
 
   return (
     <div className=" w-full h-screen bg-white flex justify-between ">
@@ -76,21 +88,22 @@ export default function SignUp() {
           {/* divider */}
           <div className="divider mt-10">or</div>
 
-          <form onSubmit={onSubmit} className=" mt-5 w-full flex flex-col gap-5  ">
+          <form
+            onSubmit={onSubmit}
+            className=" mt-5 w-full flex flex-col gap-5  "
+          >
             <div className=" flex flex-col gap-1 w-full ">
-              <span className="text-gray-600 font-semibold">Full Name</span>
+              <span className="text-gray-600 font-semibold">Name</span>
               <label className=" flex items-center ">
                 <p
                   className={` ${
-                    errors?.field === "name"
-                      ? "border-red-500"
-                      : ""
+                    errors?.field === "name" ? "border-red-500" : ""
                   }   px-3 py-2   border border-gray-200 rounded-md border-r-0 rounded-r-none `}
                 >
                   <LuUser className="text-gray-300 text-2xl" />
                 </p>
                 <input
-                  onChange={(e) => setFullName(e.target.value)}
+                  onChange={(e) => setuserName(e.target.value)}
                   className={` ${
                     errors?.field === "name" ? "border-red-500" : ""
                   }  w-full  py-2 text-gray-600  focus:bg-transparent border border-l-0 rounded-l-none  border-gray-200 rounded-md focus:outline-none bg-transparent `}
@@ -101,19 +114,17 @@ export default function SignUp() {
             <div className=" w-full flex flex-col gap-1">
               <span className="text-gray-600 font-semibold">Email address</span>
               <label className=" flex items-center ">
-                <p className={` ${
-                    errors?.field === "email"
-                      ? "border-red-500"
-                      : ""
-                  } px-3 py-2  border text-gray-600 border-gray-200 rounded-md border-r-0 rounded-r-none `}>
+                <p
+                  className={` ${
+                    errors?.field === "email" ? "border-red-500" : ""
+                  } px-3 py-2  border text-gray-600 border-gray-200 rounded-md border-r-0 rounded-r-none `}
+                >
                   <MdOutlineMailOutline className="text-gray-300 text-2xl" />
                 </p>
                 <input
                   onChange={(e) => setEmail(e.target.value)}
                   className={` ${
-                    errors?.field === "email"
-                      ? "border-red-500"
-                      : ""
+                    errors?.field === "email" ? "border-red-500" : ""
                   } w-full focus:bg-transparent py-2 border border-l-0 rounded-l-none text-gray-600 border-gray-200 rounded-md focus:outline-none bg-transparent `}
                   type="email"
                 />
@@ -122,26 +133,37 @@ export default function SignUp() {
             <div className=" w-full flex flex-col gap-1">
               <span className="text-gray-600 font-semibold">Password</span>
               <label className=" flex items-center ">
-                <p className={` ${
-                    errors?.field === "password"
-                      ? "border-red-500"
-                      : ""
-                  } px-3 py-2  border border-gray-200 rounded-md border-r-0 rounded-r-none `}>
+                <p
+                  className={` ${
+                    errors?.field === "password" ? "border-red-500" : ""
+                  } px-3 py-2  border border-gray-200 rounded-md border-r-0 rounded-r-none `}
+                >
                   <MdOutlineWifiPassword className="text-gray-300 text-2xl" />
                 </p>
                 <input
                   onChange={(e) => setPassword(e.target.value)}
                   className={` ${
-                    errors?.field === "password"
-                      ? "border-red-500"
-                      : ""
+                    errors?.field === "password" ? "border-red-500" : ""
                   } w-full text-gray-600 focus:bg-transparent py-2 border border-l-0 rounded-l-none border-gray-200 rounded-md focus:outline-none bg-transparent `}
                   type="password"
                 />
               </label>
             </div>
 
-            <button className="btn btn-accent text-white ">Sign Up</button>
+            {isSigning ? (
+              <>
+                {" "}
+                <button className="btn flex items-center justify-center gap-3 btn-accent text-white ">
+                  <span>Signing</span>
+                  <span className="loading loading-spinner text-secondary"></span>
+                </button>
+              </>
+            ) : (
+              <>
+                {" "}
+                <button className="btn btn-accent text-white ">Sign Up</button>
+              </>
+            )}
           </form>
 
           {/* redirect to login page */}
