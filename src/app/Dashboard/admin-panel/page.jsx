@@ -8,6 +8,8 @@ import { FaLongArrowAltRight } from "react-icons/fa";
 import { FaLongArrowAltLeft } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 import useAppointmentsDataLoading from "@/DataFetch/useAppointmentsDataLoading";
+import axiosSecure from "@/Hooks/userAxiosSecure";
+import Swal from "sweetalert2";
 
 export default function AdminPanel() {
   const { user } = useAuth();
@@ -45,9 +47,39 @@ export default function AdminPanel() {
     setCurrentPage(newPage);
   };
 
+  // handle pagination
   useEffect(() => {
     refetch();
   }, [currentPage]);
+
+  // appointments cancel handle
+  const handleAppointmentsCancel = async (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          const res = await axiosSecure.delete(`/appointment/${id}`);
+          if (res.data.deleteDocument.deletedCount > 0) {
+            refetch();
+            Swal.fire({
+              title: "Deleted!",
+              text: "Your file has been deleted.",
+              icon: "success",
+            });
+          }
+        } catch (error) {
+          console.log(error.message);
+        }
+      }
+    });
+  };
 
   return (
     <div className="w-full">
@@ -107,7 +139,7 @@ export default function AdminPanel() {
         </div>
 
         {/* data displaying section */}
-        <div className="overflow-x-auto mt-10">
+        <div className="overflow-x-auto mt-20">
           <table className="table">
             {/* head */}
             <thead>
@@ -155,7 +187,10 @@ export default function AdminPanel() {
                     </button>
                   </th>
                   <th>
-                    <button className="btn btn-ghost btn-xs text-red-500 ">
+                    <button
+                      onClick={() => handleAppointmentsCancel(item._id)}
+                      className="btn btn-ghost btn-xs text-red-500 "
+                    >
                       Cancel
                     </button>
                   </th>
