@@ -28,7 +28,7 @@ export default function SignUp() {
   };
 
   return (
-    <div className=" w-full h-screen bg-[#131619] flex justify-between ">
+    <div className=" w-full h-screen bg-white flex justify-between ">
       <div className=" lg:w-[40%] sm:w-[90%] w-full h-full ">
         <div>
           <h1 className="text-3xl font-bold ml-9 mt-5 text-cyan-500 ">CareLife</h1>
@@ -36,16 +36,16 @@ export default function SignUp() {
 
         {/* form section */}
         <div className=" w-full flex flex-col gap-22 p-10 mt-16 ">
-          <h1 className=" text-2xl text-gray-200 ">Welcom to CareLife</h1>
+          <h1 className=" text-2xl text-gray-600 ">Welcom to CareLife</h1>
 
           {/* social login section */}
           <div className="mt-10">
-            <p className=" text-xl font-semibold text-gray-300 mt-2 ">
+            <p className=" text-xl font-semibold text-gray-600 mt-2 ">
               Sign Up with social
             </p>
             <button className=" flex items-center justify-center hover:bg-cyan-500 hover:border-none transition-all duration-200 active:bg-cyan-400 active:scale-95 gap-5 mt-3 px-4 py-3 font-semibold border border-gray-200 text-gray-200 rounded-md w-full ">
-              <FaGoogle className=" text-xl " />
-              <span className=" text-xl ">Google</span>
+              <FaGoogle className=" text-xl text-green-500 " />
+              <span className=" text-xl text-gray-600 hover:text-white ">Google</span>
             </button>
           </div>
 
@@ -61,42 +61,42 @@ export default function SignUp() {
             className=" w-full flex flex-col gap-5 mt-5  "
           >
             <div className=" flex flex-col gap-1 w-full ">
-              <span className="text-gray-400">Full Name</span>
+              <span className="text-gray-600">Full Name</span>
               <label className=" flex items-center ">
                 <p className=" px-3 py-2   border border-gray-200 rounded-md border-r-0 rounded-r-none ">
                   <LuUser className="text-gray-300 text-2xl" />
                 </p>
                 <input
                   onChange={(e) => setInputName(e.target.value)}
-                  className=" w-full  py-2 focus:bg-transparent border border-l-0 rounded-l-none text-gray-300 border-gray-200 rounded-md focus:outline-none bg-transparent "
+                  className=" w-full  py-2 text-gray-600 focus:bg-transparent border border-l-0 rounded-l-none text-gray-300 border-gray-200 rounded-md focus:outline-none bg-transparent "
                   type="text"
                   {...register("fullName", { required: true })}
                 />
               </label>
             </div>
             <div className=" w-full flex flex-col gap-1">
-              <span className="text-gray-400">Email address</span>
+              <span className="text-gray-600">Email address</span>
               <label className=" flex items-center ">
-                <p className=" px-3 py-2  border border-gray-200 rounded-md border-r-0 rounded-r-none ">
+                <p className=" px-3 py-2  border text-gray-600 border-gray-200 rounded-md border-r-0 rounded-r-none ">
                   <MdOutlineMailOutline className="text-gray-300 text-2xl" />
                 </p>
                 <input
                   onChange={(e) => setInputName(e.target.value)}
-                  className=" w-full focus:bg-transparent py-2 border border-l-0 rounded-l-none text-gray-300 border-gray-200 rounded-md focus:outline-none bg-transparent "
+                  className=" w-full focus:bg-transparent py-2 border border-l-0 rounded-l-none text-gray-600 border-gray-200 rounded-md focus:outline-none bg-transparent "
                   type="email"
                   {...register("email", { required: true })}
                 />
               </label>
             </div>
             <div className=" w-full flex flex-col gap-1">
-              <span className="text-gray-400">Password</span>
+              <span className="text-gray-600">Password</span>
               <label className=" flex items-center ">
                 <p className=" px-3 py-2  border border-gray-200 rounded-md border-r-0 rounded-r-none ">
                   <MdOutlineWifiPassword className="text-gray-300 text-2xl" />
                 </p>
                 <input
                   onChange={(e) => setInputName(e.target.value)}
-                  className=" w-full focus:bg-transparent py-2 border border-l-0 rounded-l-none text-gray-300 border-gray-200 rounded-md focus:outline-none bg-transparent "
+                  className=" w-full text-gray-600 focus:bg-transparent py-2 border border-l-0 rounded-l-none border-gray-200 rounded-md focus:outline-none bg-transparent "
                   type="password"
                   {...register("password", { required: true })}
                 />
