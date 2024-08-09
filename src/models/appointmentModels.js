@@ -1,31 +1,29 @@
 import mongoose from "mongoose";
 
 const appointmentSchema = new mongoose.Schema({
-  fullName: {
+  patientId: {
     type: String,
     required: [true, "this is field is required"],
   },
-  dateOfBirth: {
-    type: String,
-    required: [true, "date of birth is required"],
-  },
-  reason: {
+  appointment_reason: {
     type: String,
     required: [true, "reason is required"],
   },
-  appointmentMethod: {
+  comments: {
     type: String,
     required: [true, "appointment method is required"],
   },
-  Doctors: {
-    type: String,
-    required: [true, "doctors filed is required"],
+  doctor: {
+    image:{
+      type: String,
+      required: true,
+    },
+    name: {
+      type:String,
+      required: true,
+    }
   },
-  email: {
-    type: String,
-    required: [true, "emial is required"],
-  },
-  appointmentDate: {
+  expected_date: {
     type: Date,
     required: [true, "this is required"],
   },
@@ -33,6 +31,10 @@ const appointmentSchema = new mongoose.Schema({
     type: Boolean,
     default: false
   },
+  appointment_date:{
+    type: Date,
+    default: new Date().toLocaleString(),
+  }
 });
 
 const Appointments =

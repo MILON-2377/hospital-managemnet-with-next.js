@@ -4,17 +4,52 @@ import Image from "next/image";
 import { useState } from "react";
 import { IoMdArrowDropdown } from "react-icons/io";
 import image1 from "../../../public/appoit5.jpg";
-import { FaCalendar, FaCalendarAlt } from "react-icons/fa";
+import { FaCalendarAlt } from "react-icons/fa";
+import { useForm } from "react-hook-form";
+import axiosSecure from "@/Hooks/userAxiosSecure";
+import { useAuth } from "@/AuthProviderContext/AuthProviderContext";
+import { useRouter } from "next/navigation";
 
 export default function Appointment() {
+  const { user } = useAuth();
   const [isPhysiciansSelect, setIsPhysiciansSelect] = useState(physicians[0]);
   const [physicianSelct, setPhysicianSelect] = useState(false);
+  const [isSubmit, setIsSubmit] = useState(false);
+  const router = useRouter();
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    reset,
+    formState: { errors },
+  } = useForm();
 
   //   handle physicians select
   const handlePhysiciansSelect = (item) => {
     setIsPhysiciansSelect(item);
+    setValue("doctor", item);
     setPhysicianSelect(true);
   };
+
+  // form handle
+  const onSubmit = async (data) => {
+    setIsSubmit(true);
+    const patientId = user?.email;
+    try {
+      const res = await axiosSecure.post("/create-appointment", {
+        patientId,
+        ...data,
+      });
+
+      if (res.data.saveDocument) {
+        router.push("/appointment-form-page/appointmentSubmit");
+        setIsSubmit(false);
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   return (
     <div className="bg-white w-full h-screen grid lg:grid-cols-2 gap-36 ">
       <div className="columns-1 p-10 ">
@@ -25,7 +60,7 @@ export default function Appointment() {
           </p>
         </div>
 
-        <form className="flex flex-col gap-5">
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
           <div className="flex flex-col mt-10 gap-2">
             <span className="text-xl text-gray-400 ">
               Primary care physician
@@ -78,6 +113,9 @@ export default function Appointment() {
                 ))}
               </div>
             </div>
+
+            {/* input field for doctor */}
+            <input type="hidden" {...register("doctor", { required: true })} />
           </div>
 
           <div className="gird grid-cols-2 gap-5">
@@ -88,6 +126,7 @@ export default function Appointment() {
               <textarea
                 className="textarea border placeholder:text-xl text-xl border-gray-200 bg-transparent text-gray-700 focus:border-gray-300 focus:outline-none"
                 placeholder="ex: Annual montly check-up"
+                {...register("appointment_reason", { required: true })}
               ></textarea>
             </label>
             <label className="flex flex-col mt-5 gap-2">
@@ -97,6 +136,7 @@ export default function Appointment() {
               <textarea
                 className="textarea border placeholder:text-xl border-gray-200 bg-transparent text-gray-700 text-xl focus:border-gray-300 focus:outline-none"
                 placeholder="ex: Prefer afternoon appointments, if possible"
+                {...register("comments", { required: true })}
               ></textarea>
             </label>
           </div>
@@ -104,7 +144,9 @@ export default function Appointment() {
           <div>
             {/* email address */}
             <div className="flex flex-col gap-2">
-              <span className="text-xl text-gray-400 ">Expected appointment date</span>
+              <span className="text-xl text-gray-400 ">
+                Expected appointment date
+              </span>
               <label
                 className={`px-3 flex items-center gap-4 border border-gray-200 rounded-md `}
               >
@@ -114,14 +156,26 @@ export default function Appointment() {
                 <input
                   className="py-2 focus:border-none text-xl border-none placeholder:text-gray-300 text-gray-700  focus:outline-none border border-gray-200 rounded-md bg-transparent "
                   placeholder="milon.miah@qq.com"
-                  type="email"
+                  type="date"
+                  {...register("expected_date", { required: true })}
                 />
               </label>
             </div>
 
-            <button className="btn btn-accent text-white w-full mt-10">
-              Submit and continue
-            </button>
+            {isSubmit ? (
+              <>
+                <button className="btn flex items-center gap-3 btn-accent text-white w-full mt-10">
+                  <span className="loading loading-spinner text-secondary"></span>
+                  <span className="text-white">Submittin</span>
+                </button>
+              </>
+            ) : (
+              <>
+                <button className="btn btn-accent text-white w-full mt-10">
+                  Submit and continue
+                </button>
+              </>
+            )}
           </div>
         </form>
       </div>
