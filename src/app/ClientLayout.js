@@ -5,6 +5,8 @@ import AuthProviderContext from "@/AuthProviderContext/AuthProviderContext";
 import Navbar from "@/components/shared/Navbar";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { Provider } from "react-redux";
+import store from "@/redux/store/store";
 
 export default function ClientLayout({ children }) {
   const queryClient = new QueryClient();
@@ -12,21 +14,29 @@ export default function ClientLayout({ children }) {
   const [isPath, setIsPath] = useState(false);
 
   useEffect(() => {
-    if (path === "/signup" || path === "/login") {
+    if (
+      path === "/signup" ||
+      path === "/login" ||
+      path === "/patient-form-page"
+    ) {
       setIsPath(true);
+    } else {
+      setIsPath(false);
     }
   }, [path]);
 
   return (
-    <AuthProviderContext>
-      <QueryClientProvider client={queryClient}>
-        <div>
-          <div className={isPath ? "hidden" : "block"}>
-            <Navbar />
+    <Provider store={store}>
+      <AuthProviderContext>
+        <QueryClientProvider client={queryClient}>
+          <div>
+            <div className={isPath ? "hidden" : "block"}>
+              <Navbar />
+            </div>
+            <main>{children}</main>
           </div>
-          <main>{children}</main>
-        </div>
-      </QueryClientProvider>
-    </AuthProviderContext>
+        </QueryClientProvider>
+      </AuthProviderContext>
+    </Provider>
   );
 }

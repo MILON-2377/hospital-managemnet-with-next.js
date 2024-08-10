@@ -17,7 +17,7 @@ const patientInfoSchema = new mongoose.Schema({
         required: true,
         validate: {
           validator: function(value) {
-            return value <= new Date(); // Ensure date of birth is not in the future
+            return value <= new Date(); 
           },
           message: 'Date of birth cannot be in the future',
         },

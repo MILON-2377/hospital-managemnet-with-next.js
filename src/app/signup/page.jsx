@@ -4,48 +4,64 @@ import { LuUser } from "react-icons/lu";
 import { MdOutlineMailOutline } from "react-icons/md";
 import { FaGoogle } from "react-icons/fa";
 import { MdOutlineWifiPassword } from "react-icons/md";
-import doctor from "../../../public/doctor2.jpg";
+import doctor from "../../../public/login.jpg";
 import Image from "next/image";
 import { useForm } from "react-hook-form";
 import { useAuth } from "@/AuthProviderContext/AuthProviderContext";
+import axiosPublic from "@/Hooks/useAxiosPublic";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function SignUp() {
   const { userRegisterHandle } = useAuth();
-  const { register, handleSubmit, reset } = useForm();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
+  const [isSigning, setIsSigning] = useState(false);
+  const router = useRouter();
+  const passwordPattern =
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
   // form handle
-  const onSubmit = (data) => {
-    const { email, password } = data;
-    userRegisterHandle(email, password)
-      .then((res) => {
-        console.log(res.user);
-      })
-      .catch((error) => {
-        console.log(error.message);
-      });
-
-    reset();
+  const onSubmit = async (data) => {
+    const { email, password, userName } = data;
+    setIsSigning(true);
+    try {
+      const userRegisterRes = await userRegisterHandle(email, password);
+      if (userRegisterRes.user.email) {
+        const res = await axiosPublic.post("/users", { userName, email });
+        if (res.data.saveUser) {
+          router.push("/patient-form-page");
+          setIsSigning(false);
+          reset();
+        }
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
   return (
     <div className=" w-full h-screen bg-white flex justify-between ">
-      <div className=" lg:w-[40%] sm:w-[90%] w-full h-full ">
+      <div className=" lg:w-[50%] sm:w-[90%] w-full h-full p-10 mb-10 ">
         <div>
-          <h1 className="text-3xl font-bold ml-9 mt-5 text-cyan-500 ">CareLife</h1>
+          <h1 className="text-4xl font-bold text-cyan-500"> CareLife</h1>
         </div>
 
         {/* form section */}
-        <div className=" w-full flex flex-col gap-22 p-10 mt-16 ">
-          <h1 className=" text-2xl text-gray-600 ">Welcom to CareLife</h1>
-
+        <div className=" w-full flex flex-col gap-22 mt-16 ">
+         
           {/* social login section */}
-          <div className="mt-10">
-            <p className=" text-xl font-semibold text-gray-600 mt-2 ">
+          <div >
+            <p className=" text-xl font-semibold text-black mt-2 ">
               Sign Up with social
             </p>
-            <button className=" flex items-center justify-center hover:bg-cyan-500 hover:border-none transition-all duration-200 active:bg-cyan-400 active:scale-95 gap-5 mt-3 px-4 py-3 font-semibold border border-gray-200 text-gray-200 rounded-md w-full ">
-              <FaGoogle className=" text-xl text-green-500 " />
-              <span className=" text-xl text-gray-600 hover:text-white ">Google</span>
+            <button className=" flex items-center text-xl text-gray-600 justify-center hover:text-white hover:bg-cyan-500 hover:border-none transition-all duration-200 active:bg-cyan-400 active:scale-95 gap-5 mt-3 px-4 py-[10px] font-semibold border border-gray-200 rounded-md w-full ">
+              <FaGoogle className=" text-xl " />
+              Google
             </button>
           </div>
 
@@ -68,11 +84,17 @@ export default function SignUp() {
                 </p>
                 <input
                   onChange={(e) => setInputName(e.target.value)}
-                  className=" w-full  py-2 text-gray-600 focus:bg-transparent border border-l-0 rounded-l-none text-gray-300 border-gray-200 rounded-md focus:outline-none bg-transparent "
+                  className=" w-full  py-2 text-gray-600 focus:bg-transparent border border-l-0 rounded-l-none  border-gray-200 rounded-md focus:outline-none bg-transparent "
                   type="text"
-                  {...register("fullName", { required: true })}
+                  {...register("userName", {
+                    required: true,
+                    message: "user name is required!",
+                  })}
                 />
               </label>
+              {errors.userName && (
+                <p className="text-red-500">{errors.userName.message}</p>
+              )}
             </div>
             <div className=" w-full flex flex-col gap-1">
               <span className="text-gray-600">Email address</span>
@@ -84,9 +106,15 @@ export default function SignUp() {
                   onChange={(e) => setInputName(e.target.value)}
                   className=" w-full focus:bg-transparent py-2 border border-l-0 rounded-l-none text-gray-600 border-gray-200 rounded-md focus:outline-none bg-transparent "
                   type="email"
-                  {...register("email", { required: true })}
+                  {...register("email", {
+                    required: true,
+                    message: "email is required!",
+                  })}
                 />
               </label>
+              {errors.email && (
+                <p className="text-red-500">{errors.email.message}</p>
+              )}
             </div>
             <div className=" w-full flex flex-col gap-1">
               <span className="text-gray-600">Password</span>
@@ -98,13 +126,42 @@ export default function SignUp() {
                   onChange={(e) => setInputName(e.target.value)}
                   className=" w-full text-gray-600 focus:bg-transparent py-2 border border-l-0 rounded-l-none border-gray-200 rounded-md focus:outline-none bg-transparent "
                   type="password"
-                  {...register("password", { required: true })}
+                  {...register("password", {
+                    required: "Password is required",
+                    pattern: {
+                      message:
+                        "Password must be at least 8 characters long, include one uppercase letter, one lowercase letter, one number, and one special character",
+                    },
+                  })}
                 />
               </label>
+              {errors.password && (
+                <p className="text-red-500">{errors.password.message}</p>
+              )}
             </div>
 
-            <button className="btn btn-accent text-white ">Sign Up</button>
+            {isSigning ? (
+              <>
+                <button className="btn flex items-center gap-2 btn-accent text-white ">
+                  <span className="loading loading-spinner text-secondary"></span>
+                </button>
+              </>
+            ) : (
+              <>
+                <button className="btn btn-accent text-white ">Sign Up</button>
+              </>
+            )}
           </form>
+        </div>
+        
+        {/* redirect section */}
+        <div className="flex items-center gap-2 mt-5">
+          <p>Already have an account.</p>
+          <a 
+          className="text-blue-500 hover:underline"
+          href="/login">
+          LogIn
+          </a>
         </div>
       </div>
 

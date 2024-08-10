@@ -6,15 +6,13 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 export default function Navbar() {
-  const { user } = useAuth();
+  const { user, userLoggedOut } = useAuth();
   const router = useRouter();
   return (
     <div className="navbar bg-white border-b border-b-gray-200 ">
       <div className="navbar-start">
-        <div>
-          <Image src={logo} width={100} height={80} alt="logo" />
-        </div>
-        {/* <a className=" lg:ml-8 font-bold text-cyan-500 text-3xl">CareLife</a> */}
+        
+        <a className=" lg:ml-8 font-bold text-cyan-500 text-3xl">CareLife</a>
       </div>
 
       <div>
@@ -50,7 +48,9 @@ export default function Navbar() {
                 <li>
                   <a>Settings</a>
                 </li>
-                <li>
+                <li
+                onClick={userLoggedOut}
+                >
                   <a>Logout</a>
                 </li>
               </ul>

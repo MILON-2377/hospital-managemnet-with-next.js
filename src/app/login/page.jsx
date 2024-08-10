@@ -5,9 +5,26 @@ import { MdOutlineWifiPassword } from "react-icons/md";
 import img from "../../../public/bearded-doctor-listening-patient.jpg";
 import Image from "next/image";
 import { useState } from "react";
+import { useAuth } from "@/AuthProviderContext/AuthProviderContext";
+import { useForm } from "react-hook-form";
 
 export default function LogIn() {
+  const { userLogIn } = useAuth();
   const [showPass, setShowPass] = useState(false);
+  const { register, handleSubmit, reset } = useForm();
+
+  // user login handle
+
+  const onSubmit = async (data) => {
+    const { email, password } = data;
+    try {
+      const res = await userLogIn(email, password);
+      console.log(res.user);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   return (
     <div className=" flex justify-between gap-6 ">
       <div className="p-10 w-full lg:w-[40%] sm:w-[70%] mx-auto ">
@@ -21,7 +38,7 @@ export default function LogIn() {
             LogIn with email and password
           </h1>
         </div>
-        <form className=" w-full ">
+        <form onSubmit={handleSubmit(onSubmit)} className=" w-full ">
           <div className="mt-6 w-full flex flex-col ">
             <span className="text-xl text-gray-600">Email</span>
             <label className="flex w-full items-center mt-2 ">
@@ -32,6 +49,7 @@ export default function LogIn() {
                 className=" w-full py-3 px-2 focus:outline-none border-l-0 rounded-l-none border border-gray-200 rounded-md"
                 type="email"
                 placeholder="ex: milon.miah@qq.com"
+                {...register("email", { required: true })}
               />
             </label>
           </div>
@@ -43,8 +61,9 @@ export default function LogIn() {
               </p>
               <input
                 className=" w-full py-3 px-2 focus:outline-none border-l-0 rounded-l-none border border-gray-200 rounded-md"
-                type= {showPass ? "text" : "password"}
+                type={showPass ? "text" : "password"}
                 placeholder="password: xxxxxx"
+                {...register("password", { required: true })}
               />
               <span
                 onClick={() => setShowPass(!showPass)}
