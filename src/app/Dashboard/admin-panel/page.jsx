@@ -10,6 +10,10 @@ import { useRouter } from "next/navigation";
 import useAppointmentsDataLoading from "@/DataFetch/useAppointmentsDataLoading";
 import axiosSecure from "@/Hooks/userAxiosSecure";
 import Swal from "sweetalert2";
+import { Controller, useForm } from "react-hook-form";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css"
+import "../../../style/datepicker.css";
 
 export default function AdminPanel() {
   const { user } = useAuth();
@@ -19,6 +23,7 @@ export default function AdminPanel() {
   const [pendingAppointments, setPendingAppointments] = useState(0);
   const [approvedAppointments, setApprovedAppointments] = useState(0);
   const [cancelAppointments, setCancelAppointments] = useState(0);
+  const [id, setId] = useState("");
   const router = useRouter();
 
   // data loading handle
@@ -79,6 +84,14 @@ export default function AdminPanel() {
         }
       }
     });
+  };
+
+  // handle appointment schedule
+  const { register, control, handleSubmit, reset } = useForm();
+  const [selectDate, setSelectDate] = useState(new Date());
+  const onSubmit = (data) => {
+    const appointment_date = selectDate.toLocaleDateString();
+    console.log(appointment_date);
   };
 
   return (
@@ -173,8 +186,12 @@ export default function AdminPanel() {
                   <td>{item.approved ? "Approved" : "Pending"}</td>
                   <th>
                     <div className="flex items-center gap-3">
-                      <div className="mask mask-squircle h-12 w-12">
-                        <img src={item.doctor.image} alt={item.doctor.name} />
+                      <div className="rounded-full h-12 w-12">
+                        <img
+                          className="w-full h-full object-cover rounded-full "
+                          src={item.doctor.image}
+                          alt={item.doctor.name}
+                        />
                       </div>
                       <div>
                         <div className="font-bold">{item?.doctor?.name}</div>
@@ -182,7 +199,13 @@ export default function AdminPanel() {
                     </div>
                   </th>
                   <th>
-                    <button className="btn btn-ghost btn-xs text-green-500 ">
+                    <button
+                      onClick={() => {
+                        setId(item._id);
+                        document.getElementById("my_modal_3").showModal();
+                      }}
+                      className="btn btn-ghost btn-xs text-green-500 "
+                    >
                       Schedule
                     </button>
                   </th>
@@ -215,6 +238,56 @@ export default function AdminPanel() {
         >
           <FaLongArrowAltRight className="text-3xl text-green-500 " />
         </button>
+      </div>
+
+      {/* schedule modal */}
+      <div>
+        <dialog id="my_modal_3" className="modal">
+          <div className="modal-box">
+            <form method="dialog">
+              <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+                ✕
+              </button>
+            </form>
+            <h3 className="font-bold text-2xl">Schedule Appointment</h3>
+            <p className="py-2 text-xl">
+              Please fill in the following details to schedule
+            </p>
+
+            <div>
+              <form
+                onSubmit={handleSubmit(onSubmit)}
+                className="flex flex-col gap-5 mt-10"
+              >
+                <label className="flex flex-col gap-2">
+                  <span className="text-xl text-gray-500 ">
+                    Appointment Date
+                  </span>
+                  <DatePicker
+                  showIcon
+                  toggleCalendarOnIconClick
+                  selected={selectDate}
+                  onChange={(date) => setSelectDate(date)}
+                 className=" px-4 py-3 w-full rounded-md border focus:outline-none border-gray-200 "
+                 popperClassName="custom-datepicker-popper"
+                  />
+                </label>
+                <label className="flex flex-col gap-2">
+                  <span className="text-xl text-gray-500 ">Comments/Note</span>
+                  <textarea
+                    className="textarea border border-gray-200 focus:outline-none placeholder:text-xl text-xl "
+                    placeholder="ex: comments"
+                    {...register("doctorComments", { required: true })}
+                  ></textarea>
+                </label>
+
+                <button className="btn btn-accent text-xl w-full mt-5 text-white ">
+                  Approved
+                </button>
+              </form>
+            </div>
+          </div>
+        </dialog>
       </div>
     </div>
   );

@@ -18,3 +18,14 @@ export async function DELETE(req) {
     return NextResponse.json({ message: error.message });
   }
 }
+
+
+// update appointment data
+export async function PUT(req) {
+  try {
+    
+  } catch (error) {
+    console.log(error.message);
+    return NextResponse.json({message:error.message});
+  }
+}

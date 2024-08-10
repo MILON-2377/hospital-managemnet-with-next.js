@@ -3,9 +3,11 @@
 import { useAuth } from "@/AuthProviderContext/AuthProviderContext";
 import logo from "../../../public/logo1.png";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 export default function Navbar() {
   const { user } = useAuth();
+  const router = useRouter();
   return (
     <div className="navbar bg-white border-b border-b-gray-200 ">
       <div className="navbar-start">
@@ -13,6 +15,10 @@ export default function Navbar() {
           <Image src={logo} width={100} height={80} alt="logo" />
         </div>
         {/* <a className=" lg:ml-8 font-bold text-cyan-500 text-3xl">CareLife</a> */}
+      </div>
+
+      <div>
+        <a href="/appointment-form-page">appointment</a>
       </div>
 
       <div className="navbar-end">
@@ -52,7 +58,9 @@ export default function Navbar() {
           </>
         ) : (
           <>
-            <button className="btn btn-accent">LogIn</button>
+            <button
+            onClick={() => router.push("/login") }
+            className="btn btn-accent">LogIn</button>
           </>
         )}
       </div>

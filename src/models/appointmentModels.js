@@ -1,6 +1,10 @@
 import mongoose from "mongoose";
 
 const appointmentSchema = new mongoose.Schema({
+  patient: {
+    type: String,
+    required: true,
+  },
   patientId: {
     type: String,
     required: [true, "this is field is required"],
@@ -14,14 +18,14 @@ const appointmentSchema = new mongoose.Schema({
     required: [true, "appointment method is required"],
   },
   doctor: {
-    image:{
+    image: {
       type: String,
       required: true,
     },
     name: {
-      type:String,
+      type: String,
       required: true,
-    }
+    },
   },
   expected_date: {
     type: Date,
@@ -29,12 +33,12 @@ const appointmentSchema = new mongoose.Schema({
   },
   approved: {
     type: Boolean,
-    default: false
+    default: false,
   },
-  appointment_date:{
+  appointment_date: {
     type: Date,
-    default: new Date().toLocaleString(),
-  }
+    default: new Date().toLocaleDateString(),
+  },
 });
 
 const Appointments =

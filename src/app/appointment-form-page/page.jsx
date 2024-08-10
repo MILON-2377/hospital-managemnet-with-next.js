@@ -33,22 +33,25 @@ export default function Appointment() {
 
   // form handle
   const onSubmit = async (data) => {
-    setIsSubmit(true);
+    // setIsSubmit(true);
+    const patient = user?.userName;
     const patientId = user?.email;
-    try {
-      const res = await axiosSecure.post("/create-appointment", {
-        patientId,
-        ...data,
-      });
+    console.log(patient);
+    // try {
+    //   const res = await axiosSecure.post("/create-appointment", {
+    //     patient,
+    //     patientId,
+    //     ...data,
+    //   });
 
-      if (res.data.saveDocument) {
-        router.push("/appointment-form-page/appointmentSubmit");
-        setIsSubmit(false);
-        reset();
-      }
-    } catch (error) {
-      console.log(error.message);
-    }
+    //   if (res.data.saveDocument) {
+    //     router.push("/appointment-form-page/appointmentSubmit");
+    //     setIsSubmit(false);
+    //     reset();
+    //   }
+    // } catch (error) {
+    //   console.log(error.message);
+    // }
   };
 
   return (
