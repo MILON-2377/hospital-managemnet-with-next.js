@@ -1,7 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    patientIfo:{},
+    patientIfo:{
+        personalInfo : {},
+        medicalInfo: {},
+        identificationInfo: {},
+    },
 };
 
 export const patientInfoSlice = createSlice({
@@ -10,12 +14,11 @@ export const patientInfoSlice = createSlice({
     reducers: {
 
         // patient info add state
-        patientInfoAdd: (state, action) => {
-            state.patientIfo = {...state.patientIfo, ...action.payload};
-            console.log(state.patientIfo);
+        patientPersonInfoAdd: (state, action) => {
+            state.patientIfo.personalInfo = {...state.patientIfo.personalInfo, ...action.payload};
         },
     }
 });
 
-export const {patientInfoAdd} = patientInfoSlice.actions;
+export const {patientPersonInfoAdd} = patientInfoSlice.actions;
 export default patientInfoSlice.reducer;

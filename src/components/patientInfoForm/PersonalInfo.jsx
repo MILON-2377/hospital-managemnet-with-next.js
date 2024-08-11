@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaCalendarAlt } from "react-icons/fa";
 import { IoCallOutline } from "react-icons/io5";
@@ -9,7 +9,9 @@ import "react-datepicker/dist/react-datepicker.css";
 import DatePicker from "react-datepicker";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { useDispatch } from "react-redux";
-import { patientInfoAdd } from "@/redux/reducers/AddPatientInfo/AddPatientInfo";
+import { patientPersonInfoAdd } from "@/redux/reducers/AddPatientInfo/AddPatientInfo";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function PersonalInfo() {
   const {
@@ -21,10 +23,27 @@ export default function PersonalInfo() {
   const [email, setEmail] = useState("");
   const [selectDate, setSelectDate] = useState(new Date());
   const dispatch = useDispatch();
+  const [errorMessage, setErrorMessage] = useState("");
 
+  //   handle form
   const onSubmit = (data) => {
-    dispatch(patientInfoAdd(data));
+    console.log(data);
+    // dispatch(patientPersonInfoAdd(data));
   };
+
+  //   handle form errors
+  useEffect(() => {
+    if (Object.keys(errors).length > 0) {
+      Object.values(errors).forEach((error) => {
+        if (error?.message) {
+            console.log(error.message);
+          toast.warn(error.message, {
+            autoClose: 5000,
+          });
+        }
+      });
+    }
+  }, [errors]);
 
   return (
     <div className=" w-full lg:h-screen p-10 ">
@@ -38,7 +57,9 @@ export default function PersonalInfo() {
             className="px-4 w-full py-2 text-xl placeholder:text-gray-500 text-gray-600 focus:border-cyan-500 focus:outline-none border border-gray-200 rounded-md bg-transparent "
             placeholder="ex: milon miah"
             type="text"
-            {...register("fullName", { required: true })}
+            {...register("fullName", {
+              required: "full name is required!",
+            })}
           />
         </label>
 
@@ -48,9 +69,7 @@ export default function PersonalInfo() {
             <div className="flex flex-col gap-2">
               <span className="text-xl text-gray-600 ">Email address</span>
               <label
-                className={`${
-                  email ? "border-cyan-500" : ""
-                } px-3 flex items-center text-xl gap-4 border border-gray-200 rounded-md `}
+                className={` px-3 flex items-center text-xl gap-4 border border-gray-200 rounded-md `}
               >
                 <span>
                   <MdOutlineMailOutline className=" text-2xl text-gray-400 " />
@@ -60,7 +79,9 @@ export default function PersonalInfo() {
                   className="py-2 text-xl focus:border-none border-none placeholder:text-gray-500 text-gray-600  focus:outline-none border border-gray-500 rounded-md bg-transparent "
                   placeholder="milon.miah@qq.com"
                   type="email"
-                  {...register("email", { required: true })}
+                  {...register("email", {
+                    required: "email is required!",
+                  })}
                 />
               </label>
             </div>
@@ -69,9 +90,7 @@ export default function PersonalInfo() {
             <div className="flex flex-col gap-2">
               <span className="text-xl text-gray-600 ">Date of birth</span>
               <label
-                className={`${
-                  email ? "border-cyan-500" : ""
-                } px-3 flex items-center gap-4 border border-gray-200 rounded-md `}
+                className={`px-3 flex items-center gap-4 border border-gray-200 rounded-md `}
               >
                 <span>
                   <FaCalendarAlt className=" text-xl text-gray-400 " />
@@ -92,7 +111,9 @@ export default function PersonalInfo() {
                 className="px-4 py-2 text-xl text-gray-600 placeholder:text-gray-500  focus:border-cyan-500 focus:outline-none border border-gray-200 rounded-md bg-transparent "
                 placeholder="Ex: 1302 Kolabagan, Dhaka "
                 type="text"
-                {...register("address", { required: true })}
+                {...register("address", {
+                  required: "address is required",
+                })}
               />
             </label>
 
@@ -105,7 +126,9 @@ export default function PersonalInfo() {
                 className="px-4 py-2 text-xl placeholder:text-gray-500 text-gray-600 focus:border-cyan-500 focus:outline-none border border-gray-200 rounded-md bg-transparent "
                 placeholder="Guardian's name "
                 type="text"
-                {...register("emergency_contact_name", { required: true })}
+                {...register("emergency_contact_name", {
+                  required: "emergency contact name is required",
+                })}
               />
             </label>
           </div>
@@ -128,7 +151,7 @@ export default function PersonalInfo() {
                   placeholder="+86 131850-84669"
                   type="text"
                   {...register("emergency_contact_phone", {
-                    required: true,
+                    required: "Emergency phone number is required",
                   })}
                 />
               </label>
@@ -143,7 +166,9 @@ export default function PersonalInfo() {
                   <input
                     type="radio"
                     value="male"
-                    {...register("gender", { required: true })}
+                    {...register("gender", {
+                      required: "Gender is required",
+                    })}
                     className="radio border border-gray-500 checked:bg-accent"
                   />
                 </label>
@@ -151,7 +176,9 @@ export default function PersonalInfo() {
                   <input
                     type="radio"
                     value="female"
-                    {...register("gender", { required: true })}
+                    {...register("gender", {
+                      required: "Gender is required",
+                    })}
                     className="radio border border-gray-500 checked:bg-accent"
                   />
                   <span className="text-xl text-gray-500">Female</span>
@@ -160,15 +187,14 @@ export default function PersonalInfo() {
                   <input
                     type="radio"
                     value="other"
-                    {...register("gender", { required: true })}
+                    {...register("gender", {
+                      required: "Gender is required",
+                    })}
                     className="radio border border-gray-500 checked:bg-accent"
                   />
                   <span className="text-xl text-gray-500">Other</span>
                 </label>
               </div>
-              {errors.gender && (
-                <p className="text-red-500">This field is required.</p>
-              )}
             </div>
 
             {/* occupation */}
@@ -178,7 +204,9 @@ export default function PersonalInfo() {
                 className="px-4 py-2 text-xl text-gray-600 placeholder:text-gray-500  focus:border-cyan-500 focus:outline-none border border-gray-200 rounded-md bg-transparent "
                 placeholder="Software Engineer"
                 type="text"
-                {...register("occupation", { required: true })}
+                {...register("occupation", {
+                  required: "occupation is required",
+                })}
               />
             </label>
 
@@ -186,9 +214,7 @@ export default function PersonalInfo() {
             <div className="flex flex-col gap-2">
               <span className="text-xl text-gray-600 ">Phone number</span>
               <label
-                className={`${
-                  email ? "border-cyan-500" : ""
-                } px-3 flex items-center gap-4 border border-gray-200 rounded-md `}
+                className={` px-3 flex items-center gap-4 border border-gray-200 rounded-md `}
               >
                 <span>
                   <IoCallOutline className=" text-2xl text-gray-400 " />
@@ -198,7 +224,9 @@ export default function PersonalInfo() {
                   className="py-2 focus:border-none text-xl border-none placeholder:text-gray-500 text-gray-600  focus:outline-none border border-gray-200 rounded-md bg-transparent "
                   placeholder="+86 131850-84887"
                   type="text"
-                  {...register("phoneNumber", { required: true })}
+                  {...register("phoneNumber", {
+                    required: "phone number is required",
+                  })}
                 />
               </label>
             </div>
@@ -213,6 +241,9 @@ export default function PersonalInfo() {
           </button>
         </div>
       </form>
+
+      {/* toastify container section */}
+      <ToastContainer />
     </div>
   );
 }
