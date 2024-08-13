@@ -15,7 +15,7 @@ export default function Banner() {
     <motion.div
       initial={{ opacity: 0, y: 100 }}
       whileInView={{ y: 0, opacity: 10 }}
-      transition={{ y: { duration: 2 } }}
+      transition={{ y: { duration: 1 } }}
       className={` lg:h-[650px]  w-full flex justify-between  `}
     >
       <div className="flex-1 ml-24 h-full mt-32 ">

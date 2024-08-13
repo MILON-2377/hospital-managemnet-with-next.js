@@ -14,11 +14,7 @@ export default function ClientLayout({ children }) {
   const [isPath, setIsPath] = useState(false);
 
   useEffect(() => {
-    if (
-      path === "/signup" ||
-      path === "/login" ||
-      path === "/patient-form-page"
-    ) {
+    if (path === "/signup" || path === "/login" || path === "/") {
       setIsPath(true);
     } else {
       setIsPath(false);
@@ -30,7 +26,7 @@ export default function ClientLayout({ children }) {
       <AuthProviderContext>
         <QueryClientProvider client={queryClient}>
           <div>
-            <div className={isPath ? "hidden" : "block"}>
+            <div className={isPath ? " hidden " : " block "}>
               <Navbar />
             </div>
             <main>{children}</main>
