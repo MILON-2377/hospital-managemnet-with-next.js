@@ -18,6 +18,7 @@ import { FaEye } from "react-icons/fa6";
 import { FaMessage } from "react-icons/fa6";
 import { MdDelete } from "react-icons/md";
 import useAppointmentsData from "@/DataFetch/useAppointsData";
+import { IoVideocam } from "react-icons/io5";
 
 export default function DoctorAppointments() {
   const [filterDate, setFilterDate] = useState(new Date().toLocaleDateString());
@@ -29,7 +30,7 @@ export default function DoctorAppointments() {
   const [appointments, setAppointmnets] = useState([]);
 
   // handle data loading
-  const { data = [], refetch } = useAppointmentsData(currentPage);
+  const { data = [], refetch, isLoading } = useAppointmentsData(currentPage);
 
   useEffect(() => {
     const page = data?.total ? Math.ceil(data.total / 10) : 1;
@@ -57,6 +58,8 @@ export default function DoctorAppointments() {
   }, [currentPage]);
 
   console.log(appointments);
+
+  if (isLoading) return <p>Loading</p>;
 
   return (
     <div className="w-[95%] mx-auto">
@@ -146,7 +149,7 @@ export default function DoctorAppointments() {
           </div>
 
           {/* filter section */}
-          <div className="dropdown relative top-1">
+          <div className="dropdown relative ">
             <div
               tabIndex={0}
               role="button"
@@ -270,7 +273,7 @@ export default function DoctorAppointments() {
       {/* appointments data displaying */}
       <div className="mt-10">
         <div className={viewBy === 1 ? ` flex flex-col gap-4` : "hidden"}>
-          {appointments?.map((item,idx) => (
+          {appointments?.map((item, idx) => (
             <div
               key={item._id}
               className={
@@ -281,8 +284,12 @@ export default function DoctorAppointments() {
               <div className="flex items-center gap-2 ">
                 <div className=" w-14 h-14 rounded-xl bg-blue-200 "></div>
                 <div className="flex flex-col gap-1">
-                  <p className="text[18px] text-sky-500 font-[550] ">#d00{idx + 1}</p>
-                  <p className="card-title">{item.name ? item.name : item.doctor.name}</p>
+                  <p className="text[18px] text-sky-500 font-[550] ">
+                    #d00{idx + 1}
+                  </p>
+                  <p className="card-title">
+                    {item.name ? item.name : item.doctor.name}
+                  </p>
                 </div>
               </div>
 
@@ -310,9 +317,9 @@ export default function DoctorAppointments() {
 
               {/* action btns section */}
               <div className=" flex items-center gap-2 ">
-                <p className=" flex items-center justify-center hover:cursor-pointer transition-all duration-200 w-10 h-10 rounded-full bg-gray-100 hover:bg-blue-500 hover:text-white ">
+                <a href="/appointments/doctor/view-appointment" className=" flex items-center justify-center hover:cursor-pointer transition-all duration-200 w-10 h-10 rounded-full bg-gray-100 hover:bg-blue-500 hover:text-white ">
                   <FaEye className="text-xl" />
-                </p>
+                </a>
                 <p className=" flex items-center justify-center hover:cursor-pointer transition-all duration-200 w-10 h-10 rounded-full bg-gray-100 hover:bg-blue-500 hover:text-white ">
                   <FaMessage className="text-xl" />
                 </p>
@@ -333,42 +340,60 @@ export default function DoctorAppointments() {
         <div
           className={viewBy === 2 ? " grid lg:grid-cols-3 gap-5 " : "hidden"}
         >
-          <div className=" w-full rounded-md bg-white shadow-lg p-5 flex flex-col gap-5 ">
-            <div className="flex items-center gap-2 ">
-              <div className=" w-14 h-14 rounded-xl bg-blue-200 "></div>
-              <div className="flex flex-col gap-1">
-                <p className="text[18px] font-normal ">id</p>
-                <div className=" flex items-center justify-between gap-1 ">
-                  <p className="card-title">name</p>
-                  <p className=" w-14 h-7 flex items-center justify-center rounded-xl bg-green-400 text-white ">
-                    New
-                  </p>
+          {appointments?.map((item, idx) => (
+            <div
+              key={item._id}
+              className=" w-full rounded-md bg-white shadow-lg p-5 flex flex-col gap-5 "
+            >
+              <div className="flex items-center gap-2 ">
+                <div className=" w-14 h-14 rounded-xl bg-blue-200 "></div>
+                <div className="flex flex-col gap-1">
+                  <div className=" flex gap-10 justify-between">
+                    <div className=" flex flex-col">
+                      <p className="text[18px] font-[550] text-cyan-500 ">
+                        #d00{idx + 1}
+                      </p>
+                      <div className=" flex items-center justify-between gap-1 ">
+                        <p className="card-title">{item.doctor.name}</p>
+                        <p className=" w-14 h-7 flex items-center justify-center rounded-xl bg-green-400 text-white ">
+                          New
+                        </p>
+                      </div>
+                    </div>
+                    <p className=" w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center ">
+                    <IoVideocam className="text-xl text-blue-500" />
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            {/* date and time */}
-            <div className="p-4 rounded-md bg-gray-100">
-              <p className="text-[18px] font-[550] ">date and time</p>
-              <p className="text-[18px] font-[550] ">General Visit</p>
-            </div>
+              {/* date and time */}
+              <div className="p-4 rounded-md bg-gray-100">
+                <p className="text-[18px] font-[550] ">
+                  {item.appointment_date}
+                </p>
+                <p className="text-[18px] font-[550] ">General Visit</p>
+              </div>
 
-            {/* action btns */}
-            <div className=" flex items-center justify-between gap-1 ">
-              <div className=" flex items-center gap-2 ">
-                <p className=" flex items-center justify-center hover:cursor-pointer transition-all duration-200 w-10 h-10 rounded-full bg-gray-100 hover:bg-blue-500 hover:text-white ">
-                  <FaEye className="text-xl" />
-                </p>
-                <p className=" flex items-center justify-center hover:cursor-pointer transition-all duration-200 w-10 h-10 rounded-full bg-gray-100 hover:bg-blue-500 hover:text-white ">
-                  <FaMessage className="text-xl" />
-                </p>
-                <p className=" flex items-center justify-center hover:cursor-pointer transition-all duration-200 w-10 h-10 rounded-full bg-gray-100 hover:bg-blue-500 hover:text-white ">
-                  <MdDelete className="text-xl" />
+              {/* action btns */}
+              <div className=" flex items-center justify-between gap-1 ">
+                <div className=" flex items-center gap-2 ">
+                  <a href="/appointment/doctor/view-appointment" className=" flex items-center justify-center hover:cursor-pointer transition-all duration-200 w-10 h-10 rounded-full bg-gray-100 hover:bg-blue-500 hover:text-white ">
+                    <FaEye className="text-xl" />
+                  </a>
+                  <p className=" flex items-center justify-center hover:cursor-pointer transition-all duration-200 w-10 h-10 rounded-full bg-gray-100 hover:bg-blue-500 hover:text-white ">
+                    <FaMessage className="text-xl" />
+                  </p>
+                  <p className=" flex items-center justify-center hover:cursor-pointer transition-all duration-200 w-10 h-10 rounded-full bg-gray-100 hover:bg-blue-500 hover:text-white ">
+                    <MdDelete className="text-xl" />
+                  </p>
+                </div>
+                <p className=" text-[18px] font-semibold underline ">
+                  Start Now
                 </p>
               </div>
-              <p className=" text-[18px] font-semibold underline ">Start Now</p>
             </div>
-          </div>
+          ))}
         </div>
       </div>
 

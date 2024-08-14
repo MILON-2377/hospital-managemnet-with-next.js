@@ -100,7 +100,7 @@ export default function Navbar() {
 const navbarLinks = [
   {
     title: "Dashboard",
-    path: "/dashboard",
+    path: "/Dashboard",
     icon: <MdOutlineDashboardCustomize className="text-xl font-bold " />,
   },
   {
@@ -115,7 +115,7 @@ const navbarLinks = [
   },
   {
     title: "Available Timings",
-    path: "/available-timings",
+    path: "/Available-timings",
     icon: <FaCalendarDay />,
   },
   {
