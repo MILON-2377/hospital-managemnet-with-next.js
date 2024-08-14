@@ -1,9 +1,5 @@
-import connect from "@/dbConfig/dbConfig";
 import Appointments from "@/models/appointmentModels";
 import { NextResponse } from "next/server";
-
-// mongodb connnection
-connect();
 
 export async function GET(req) {
   try {
@@ -12,23 +8,15 @@ export async function GET(req) {
 
     const skip = (page - 1) * 10;
     const filter = {
-      approved: false,
-      rejected: false,
+      approved: true,
     };
 
     const total = await Appointments.countDocuments(filter);
     const appointments = await Appointments.find(filter).skip(skip).limit(10);
 
-    // handle total pending appointments
-    const data = await Appointments.find();
-    const totalPendingAppointments = data.filter((item) => item.approved);
-    const approvedAppointment = total - totalPendingAppointments.length;
-
     return NextResponse.json({
       total,
       appointments,
-      totalPendingAppointments: totalPendingAppointments.length,
-      approvedAppointment,
     });
   } catch (error) {
     console.log(error.message);

@@ -25,11 +25,11 @@ export default function ClientLayout({ children }) {
     <Provider store={store}>
       <AuthProviderContext>
         <QueryClientProvider client={queryClient}>
-          <div>
-            <div className={isPath ? " hidden " : " block "}>
+          <div className=" flex justify-between ">
+            <div className={isPath || path === "/" ? " hidden " : " block bg-white "}>
               <Navbar />
             </div>
-            <main>{children}</main>
+            <main className=" w-full h-full ">{children}</main>
           </div>
         </QueryClientProvider>
       </AuthProviderContext>

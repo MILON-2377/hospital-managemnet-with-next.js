@@ -2,7 +2,12 @@
 
 import { useAuth } from "@/AuthProviderContext/AuthProviderContext";
 import { useEffect, useState } from "react";
-import { FaBeer, FaCalendarAlt } from "react-icons/fa";
+import {
+  FaBeer,
+  FaCalendarAlt,
+  FaCheckCircle,
+  FaRegCalendarAlt,
+} from "react-icons/fa";
 import { IoIosWarning } from "react-icons/io";
 import { FaLongArrowAltRight } from "react-icons/fa";
 import { FaLongArrowAltLeft } from "react-icons/fa";
@@ -10,12 +15,12 @@ import { useRouter } from "next/navigation";
 import useAppointmentsDataLoading from "@/DataFetch/useAppointmentsDataLoading";
 import axiosSecure from "@/Hooks/userAxiosSecure";
 import Swal from "sweetalert2";
-import { Controller, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css"
-import "../../../style/datepicker.css";
+import "react-datepicker/dist/react-datepicker.css";
+import { MdCancel } from "react-icons/md";
 
-export default function AdminPanel() {
+export default function Requests() {
   const { user } = useAuth();
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPage, setTotalPage] = useState(0);
@@ -57,45 +62,43 @@ export default function AdminPanel() {
     refetch();
   }, [currentPage]);
 
-  // appointments cancel handle
-  const handleAppointmentsCancel = async (id) => {
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        try {
-          const res = await axiosSecure.delete(`/appointment/${id}`);
-          if (res.data.deleteDocument.deletedCount > 0) {
-            refetch();
-            Swal.fire({
-              title: "Deleted!",
-              text: "Your file has been deleted.",
-              icon: "success",
-            });
-          }
-        } catch (error) {
-          console.log(error.message);
-        }
-      }
-    });
-  };
-
   // handle appointment schedule
   const { register, control, handleSubmit, reset } = useForm();
-  const [selectDate, setSelectDate] = useState(new Date());
-  const onSubmit = (data) => {
+  const [selectDate, setSelectDate] = useState(null);
+  const onSubmit = async(data) => {
     const appointment_date = selectDate.toLocaleDateString();
-    console.log(appointment_date);
+    try {
+        const res = await axiosSecure.put(`/appointment/${id}`, {appointment_date, ...data, approved:true});
+        if(res.data){
+            refetch();
+            document.getElementById('my_modal_3').close()
+        }
+    } catch (error) {
+        console.log(error.message);
+    }
+  };
+
+  //   handle appointment reject procceessing
+  const [rejectedId, setRejectedId] = useState("");
+  const [rejectReson, setRejectReason] = useState("");
+  const rejectHandle = async(e) => {
+    e.preventDefault();
+    if (rejectReson.length === 0) return;
+
+    try {
+        const res = await axiosSecure.put(`/appointment/${rejectedId}`, {rejectReson, rejected:true});
+        if(res.data){
+            e.target.reset();
+            refetch();
+            document.getElementById('my_modal_1').close();
+        }
+    } catch (error) {
+        console.log(error.message);
+    }
   };
 
   return (
-    <div className="w-full">
+    <div className="w-full flex flex-col relative ">
       <div className="p-10 w-full">
         {/* admin panel header */}
         <div>
@@ -120,7 +123,7 @@ export default function AdminPanel() {
                   {approvedAppointments}
                 </h2>
               </div>
-              <p className="mt-5 ">Total number of scheduled appointments</p>
+              <p className="mt-5 ">Total number of requests appointments</p>
             </div>
           </div>
           <div className="card bg-base-100 w-full shadow-xl">
@@ -130,7 +133,7 @@ export default function AdminPanel() {
                   <FaBeer className="text-gray-300 text-4xl " />
                 </span>
                 <h2 className="text-amber-500 text-4xl font-bold ">
-                  {pendingAppointments}
+                  5
                 </h2>
               </div>
               <p className="mt-5 ">Total number of pending appointments</p>
@@ -198,23 +201,31 @@ export default function AdminPanel() {
                       </div>
                     </div>
                   </th>
-                  <th>
+                  <th className=" flex items-center gap-2 ">
                     <button
                       onClick={() => {
                         setId(item._id);
                         document.getElementById("my_modal_3").showModal();
                       }}
-                      className="btn btn-ghost btn-xs text-green-500 "
+                      className=" duration-200 transition-all   flex items-center gap-2 p-3 rounded-md hover:bg-gray-100 text-[18px] text-green-500 "
                     >
-                      Schedule
+                      <span>
+                        <FaCheckCircle />
+                      </span>
+                      <span>Accept</span>
                     </button>
-                  </th>
-                  <th>
+                    <span>||</span>
                     <button
-                      onClick={() => handleAppointmentsCancel(item._id)}
-                      className="btn btn-ghost btn-xs text-red-500 "
+                      onClick={() => {
+                        setRejectedId(item._id);
+                        document.getElementById("my_modal_1").showModal();
+                      }}
+                      className=" duration-200 transition-all  p-3 rounded-md hover:bg-gray-100 flex items-center gap-2 text-[18px]  text-red-500 "
                     >
-                      Cancel
+                      <span>
+                        <MdCancel />
+                      </span>
+                      <span>Reject</span>
                     </button>
                   </th>
                 </tr>
@@ -225,7 +236,7 @@ export default function AdminPanel() {
       </div>
 
       {/* pagination section */}
-      <div className=" px-16 py-5 flex items-center justify-between bg-gray-50 w-full ">
+      <div className=" w-[1114px] fixed bottom-0 right-0 px-16 py-5 flex items-center justify-between bg-gray-50  ">
         <button
           onClick={previousPage}
           className=" px-4 py-3 transition-all duration-200 hover:bg-green-100 active:bg-green-200 active:scale-95 rounded-md bg-gray-100 "
@@ -234,18 +245,18 @@ export default function AdminPanel() {
         </button>
         <button
           onClick={handleNextPage}
-          className=" px-4 py-3 transition-all duration-200 hover:bg-green-100 active:bg-green-200 active:scale-95 rounded-md bg-gray-100 "
+          className=" px-4 py-3 felx transition-all duration-200 hover:bg-green-100 active:bg-green-200 active:scale-95 rounded-md bg-gray-100 "
         >
           <FaLongArrowAltRight className="text-3xl text-green-500 " />
         </button>
       </div>
 
-      {/* schedule modal */}
+      {/* accept appointment modal */}
       <div>
         <dialog id="my_modal_3" className="modal">
           <div className="modal-box">
             <form method="dialog">
-              <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+              <button className="btn text-xl text-red-500 btn-circle btn-ghost absolute right-2 top-2">
                 ✕
               </button>
             </form>
@@ -259,19 +270,23 @@ export default function AdminPanel() {
                 onSubmit={handleSubmit(onSubmit)}
                 className="flex flex-col gap-5 mt-10"
               >
-                <label className="flex flex-col gap-2">
+                <div className="flex flex-col gap-2">
                   <span className="text-xl text-gray-500 ">
                     Appointment Date
                   </span>
-                  <DatePicker
-                  showIcon
-                  toggleCalendarOnIconClick
-                  selected={selectDate}
-                  onChange={(date) => setSelectDate(date)}
-                 className=" px-4 py-3 w-full rounded-md border focus:outline-none border-gray-200 "
-                 popperClassName="custom-datepicker-popper"
-                  />
-                </label>
+                  <label className="px-4 py-3 flex gap-3 items-center w-full rounded-md border">
+                    <span>
+                      <FaRegCalendarAlt className="text-xl" />
+                    </span>
+                    <DatePicker
+                      toggleCalendarOnIconClick
+                      selected={selectDate}
+                      onChange={(date) => setSelectDate(date)}
+                      className=" w-full rounded-md border-none focus:border-none focus:outline-none  "
+                      placeholderText="Select the expected date"
+                    />
+                  </label>
+                </div>
                 <label className="flex flex-col gap-2">
                   <span className="text-xl text-gray-500 ">Comments/Note</span>
                   <textarea
@@ -286,6 +301,44 @@ export default function AdminPanel() {
                 </button>
               </form>
             </div>
+          </div>
+        </dialog>
+      </div>
+
+      {/* appointment reject */}
+      <div>
+        <dialog id="my_modal_1" className="modal">
+          <div className="modal-box">
+            <form method="dialog">
+              <button className="btn text-xl text-red-500 btn-circle btn-ghost absolute right-2 top-2">
+                ✕
+              </button>
+            </form>
+            <div className="flex flex-col gap-1 items-center justify-center ">
+              <p className=" text-[50px] text-yellow-400 ">
+                <IoIosWarning />
+              </p>
+              <p className=" text-xl ">Are you sure</p>
+              <p className="text-xl">Do you want to rejcet appointment</p>
+            </div>
+            <form onSubmit={rejectHandle} className=" mt-5 ">
+              <label>
+                <p>
+                  <span className=" text-[18px] text-gray-600 ">
+                    Reject reason
+                  </span>
+                  <span className=" text-red-500 -mt-1 ml-1 ">*</span>
+                </p>
+              </label>
+              <textarea
+                onChange={(e) => setRejectReason(e.target.value)}
+                placeholder="Reject reason"
+                className={` ${rejectReson.length === 0 ? "border-gray-200" : "focus:border-cyan-500"} mt-2 border px-4 py-3 focus:outline-none  w-full rounded-md h-[100px] `}
+              />
+              <button className=" active:bg-opacity-80 transition-all duration-200 scale-95 texl-[18px] px-4 py-3 rounded-md bg-accent text-white -ml-1 mt-5  ">
+                Reject procceessing
+              </button>
+            </form>
           </div>
         </dialog>
       </div>
