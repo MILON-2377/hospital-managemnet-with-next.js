@@ -1,84 +1,68 @@
 "use client";
+
 import { motion } from "framer-motion";
-import { useState, useRef } from "react";
-import { MdOutlineAdd } from "react-icons/md";
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
+import { useRef, useState, useEffect } from "react";
 
 export default function Specialities() {
-  const [show, setShow] = useState(0);
-  const itemsPerPage = 5;
   const containerRef = useRef(null);
+  const [isScrolling, setIsScrolling] = useState(false);
 
-  // Pagination next handle
+  // Smooth scroll to the next set of items
   const handleNext = () => {
-    if (containerRef.current) {
-      const container = containerRef.current;
-      const itemWidth = container.querySelector(".card")?.offsetWidth || 0;
-      const containerWidth = container.clientWidth;
-      const maxScrollLeft = container.scrollWidth - containerWidth;
-      const newScrollLeft = container.scrollLeft + itemWidth;
+    const container = containerRef.current;
+    const scrollAmount = container.offsetWidth / 2; // Scroll by one viewport width
+    const totalWidth = container.scrollWidth;
+    const currentScroll = container.scrollLeft;
 
-      if (newScrollLeft <= maxScrollLeft) {
-        container.scrollTo({
-          left: newScrollLeft,
-          behavior: "smooth",
-        });
-      } else {
-        container.scrollTo({
-          left: maxScrollLeft,
-          behavior: "smooth",
-        });
-      }
+    if (currentScroll + scrollAmount >= totalWidth) {
+      setIsScrolling(true);
+      container.scrollLeft = 0;
+    } else {
+      setIsScrolling(true);
+      container.scrollLeft += scrollAmount;
     }
   };
 
-  // Handle previous pagination
+  // Smooth scroll to the previous set of items
   const handlePrevious = () => {
-    if (containerRef.current) {
-      const container = containerRef.current;
-      const itemWidth = container.querySelector(".card")?.offsetWidth || 0;
-      const newScrollLeft = container.scrollLeft - itemWidth;
+    const container = containerRef.current;
+    const scrollAmount = container.offsetWidth / 2;
+    const currentScroll = container.scrollLeft;
 
-      if (newScrollLeft >= 0) {
-        container.scrollTo({
-          left: newScrollLeft,
-          behavior: "smooth",
-        });
-      } else {
-        container.scrollTo({
-          left: 0,
-          behavior: "smooth",
-        });
-      }
+    if (currentScroll <= 0) {
+      setIsScrolling(true);
+      container.scrollLeft = container.scrollWidth;
+    } else {
+      setIsScrolling(true);
+      container.scrollLeft -= scrollAmount;
     }
   };
+
+  useEffect(() => {
+    if (isScrolling) {
+      setTimeout(() => {
+        setIsScrolling(false);
+      }, 500); // Adjust timing for smooth scroll effect
+    }
+  }, [isScrolling]);
 
   return (
     <motion.div
       initial={{ opacity: 0, y: 100 }}
       whileInView={{ y: 0, opacity: 1 }}
       transition={{ duration: 2 }}
-      className="w-full p-10"
+      className=" w-[95%] mx-auto mt-20 lg:w-full lg:p-10"
     >
       {/* header */}
       <div className="flex items-center justify-between">
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ y: 0, opacity: 1 }}
-          transition={{ duration: 2 }}
-          viewport={{ once: true }}
-          className="w-full flex items-center"
-        >
-          <h1 className=" text-5xl font-bold ">Specialities</h1>
-          <span className="text-5xl -mt-12 -ml-2 text-sky-500 font-bold ">
-            +
-          </span>
-          <span className="text-4xl -mt-12 -ml-2 opacity-25 text-sky-500 font-bold ">
-            +
-          </span>
-        </motion.div>
+        <div className="w-full flex items-center">
+          <h1 className="text-4xl font-bold">Specialities</h1>
+          <span className="text-5xl -mt-12 -ml-2 text-sky-500 font-bold">+</span>
+          <span className="text-4xl -mt-12 -ml-2 opacity-25 text-sky-500 font-bold">+</span>
+        </div>
 
-        {/* paginations button */}
+        {/* pagination buttons */}
         <div className="flex items-center gap-5">
           <button
             onClick={handlePrevious}
@@ -96,173 +80,152 @@ export default function Specialities() {
       </div>
 
       {/* data displaying */}
-      <div className="relative mt-16 w-full overflow-hidden">
-        <motion.div
-          initial={{ opacity: 0, x: 100 }}
-          animate={{ x: 0, opacity: 1 }}
-          exit={{ opacity: 0, x: -100 }}
-          transition={{ duration: 2 }}
-          className="flex gap-5"
-          ref={containerRef}
-        >
-          {specialitiesData
-            .slice(show, show + itemsPerPage)
-            .map((item, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, x: 100 }}
-                animate={{ x: 0, opacity: 1 }}
-                exit={{ opacity: 0, x: -100 }}
-                transition={{ duration: 1 }}
-                className="card card-compact bg-base-100 w-96 shadow-xl"
-              >
-                <figure>
-                  <img src={item.image} alt={item.name} />
-                </figure>
-                <div className="card-body">
-                  <h2 className="card-title">{item.name}</h2>
-                  <p>{item.description}</p>
-                  <div className="card-actions justify-end">
-                    <button className="btn btn-primary">Buy Now</button>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-        </motion.div>
+      <div
+        className="flex flex-row gap-5 mt-10 w-full overflow-hidden scroll-smooth lg:p-5 "
+        ref={containerRef}
+        style={{ scrollbarWidth: "none" }} // Hide scrollbar in Firefox
+      >
+        {specialitiesData.map((item, index) => (
+          <motion.div
+            key={index}
+            className="card card-compact border rounded-md lg:shadow-md bg-base-100 lg:w-[350px] flex-shrink-0"
+            whileTap={{ scale: 0.95 }}
+            animate={{
+              x: isScrolling ? 0 : undefined,
+              transition: { duration: 2 },
+            }}
+          >
+            <figure>
+              <img src={item.image} alt={item.name} className=" h-[200px] w-full object-cover " />
+            </figure>
+            <div className="card-body">
+              <h2 className="card-title">{item.name}</h2>
+              <p>{item.description}</p>
+              <div className="card-actions justify-end">
+                <button className="btn btn-accent">See Details</button>
+              </div>
+            </div>
+          </motion.div>
+        ))}
       </div>
     </motion.div>
   );
 }
 
+
+
 // Specialities list
 const specialitiesData = [
   {
     name: "Cardiology",
-    image: "https://example.com/images/cardiology.jpg",
+    image: "https://currexhospital.com/wp-content/uploads/2023/09/cardiology.jpg",
     description:
       "Cardiology focuses on diagnosing and treating heart diseases and conditions.",
   },
   {
     name: "Neurology",
-    image: "https://example.com/images/neurology.jpg",
+    image: "https://medschool.cuanschutz.edu/images/librariesprovider61/default-album/n_fellowship.jpg?sfvrsn=be7c74b9_4",
     description:
       "Neurology deals with disorders of the nervous system, including the brain and spinal cord.",
   },
   {
     name: "Pediatrics",
-    image: "https://example.com/images/pediatrics.jpg",
+    image: "https://blog.boardvitals.com/wp-content/uploads/2022/09/pediatrician-vs-pdp.png",
     description:
       "Pediatrics specializes in the medical care of infants, children, and adolescents.",
   },
   {
     name: "Orthopedics",
-    image: "https://example.com/images/orthopedics.jpg",
+    image: "https://wp02-media.cdn.ihealthspot.com/wp-content/uploads/sites/202/2022/10/istockphoto-1370095638-612x612-1.jpg",
     description:
       "Orthopedics is concerned with conditions involving the musculoskeletal system, including bones and joints.",
   },
   {
     name: "Oncology",
-    image: "https://example.com/images/oncology.jpg",
+    image: "https://content.yourcareer.gov.au/sites/default/files/2022-12/253314-medicaloncologist.jpg",
     description: "Oncology focuses on diagnosing and treating cancer.",
   },
   {
     name: "Dermatology",
-    image: "https://example.com/images/dermatology.jpg",
+    image: "https://aptinjectiontraining.com/wp-content/uploads/2022/06/Featured.jpg",
     description:
       "Dermatology deals with conditions related to the skin, hair, and nails.",
   },
   {
     name: "Gynecology",
-    image: "https://example.com/images/gynecology.jpg",
+    image: "https://miraclehealthsystems.com/article/images/gynecologistsinglepage.webp",
     description:
       "Gynecology specializes in the health of the female reproductive system.",
   },
   {
     name: "Ophthalmology",
-    image: "https://example.com/images/ophthalmology.jpg",
+    image: "https://www.pennmedicine.org/global-medicine/-/media/images/medical%20and%20research%20images/surgery/ophthalmology_doctors_performing_surgery.ashx",
     description:
       "Ophthalmology focuses on the diagnosis and treatment of eye conditions and diseases.",
   },
   {
     name: "Radiology",
-    image: "https://example.com/images/radiology.jpg",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYI8z81ul1DnWJ2l5M4o9WJU7z8SW4yGP_8g&s",
     description:
       "Radiology uses medical imaging to diagnose and treat diseases within the body.",
   },
   {
     name: "General Surgery",
-    image: "https://example.com/images/general_surgery.jpg",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgYtV_JJvqjXO2lZz6zxShg5JbaCnBS5cinw&s",
     description:
       "General Surgery involves performing surgical procedures on various parts of the body.",
   },
   {
     name: "Endocrinology",
-    image: "https://example.com/images/endocrinology.jpg",
+    image: "https://cdn.prod.website-files.com/5e0143c66e14efc18c6f469d/5e0a8787a0b208a9e42144ef_Endocrinology.jpeg.png",
     description:
       "Endocrinology deals with disorders of the endocrine system, including hormone-related issues.",
   },
   {
     name: "Gastroenterology",
-    image: "https://example.com/images/gastroenterology.jpg",
+    image: "https://www.rhazesglobal.com/Frontend/Uploads/procedures/6c5c4397-0ac8-4969-b9c7-9ad41cba7860.jpg",
     description:
       "Gastroenterology focuses on the digestive system and its disorders.",
   },
   {
     name: "Hematology",
-    image: "https://example.com/images/hematology.jpg",
+    image: "https://d2csxpduxe849s.cloudfront.net/media/E32629C6-9347-4F84-81FEAEF7BFA342B3/8FD56903-689D-45EF-BE649E55BD8A39DB/EB9D8DAB-2481-4C87-951C5A3D60CCAC7F/WebsiteJpg_XL-FRHEM_Main%20Visual_Red_Website.jpg",
     description: "Hematology is concerned with blood disorders and diseases.",
   },
   {
     name: "Infectious Disease",
-    image: "https://example.com/images/infectious_disease.jpg",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSk3KRLI3IfqUsTytLL9Y0RzW5OZ34M-O7AXQ&s",
     description:
       "Infectious Disease specialists treat and manage infections caused by bacteria, viruses, and other pathogens.",
   },
   {
     name: "Nephrology",
-    image: "https://example.com/images/nephrology.jpg",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPOofGKTHOsENo8_hWvvUWE4ilYMFs9MhnPA&s",
     description: "Nephrology focuses on kidney health and diseases.",
   },
   {
     name: "Pulmonology",
-    image: "https://example.com/images/pulmonology.jpg",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWwns--fzuGR2ThRw5yAU8xSJrZ2qLjcBleA&s",
     description:
       "Pulmonology deals with respiratory system diseases, including lungs and airways.",
   },
   {
     name: "Rheumatology",
-    image: "https://example.com/images/rheumatology.jpg",
+    image: "https://wp.globaluniversitysystems.com/mua/wp-content/uploads/sites/10/2023/02/what-is-a-rheumatologist.webp?w=1024",
     description:
       "Rheumatology focuses on autoimmune and inflammatory conditions affecting the joints and connective tissues.",
   },
   {
     name: "Urology",
-    image: "https://example.com/images/urology.jpg",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwHYxSvrpyt8uN1FCJxYK6cM-FnIvadsJ98w&s",
     description:
       "Urology deals with disorders of the urinary tract and male reproductive system.",
   },
   {
     name: "Anesthesiology",
-    image: "https://example.com/images/anesthesiology.jpg",
+    image: "https://www.aucmed.edu/sites/g/files/krcnkv361/files/styles/atge_default_md/public/2022-03/Anesthesiology.jpg?itok=aWsjdeCg",
     description:
       "Anesthesiology involves administering anesthesia and managing pain during and after surgery.",
   },
-  {
-    name: "Emergency Medicine",
-    image: "https://example.com/images/emergency_medicine.jpg",
-    description:
-      "Emergency Medicine provides urgent care for acute illnesses and injuries.",
-  },
-  {
-    name: "Plastic Surgery",
-    image: "https://example.com/images/plastic_surgery.jpg",
-    description:
-      "Plastic Surgery involves reconstructive and cosmetic procedures to repair or enhance physical appearance.",
-  },
-  {
-    name: "Vascular Surgery",
-    image: "https://example.com/images/vascular_surgery.jpg",
-    description:
-      "Vascular Surgery focuses on diseases and conditions of the blood vessels.",
-  },
+ 
 ];

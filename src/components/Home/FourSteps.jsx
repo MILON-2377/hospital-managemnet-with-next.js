@@ -9,34 +9,33 @@ import { AiOutlineSolution } from "react-icons/ai";
 
 export default function FourSteps() {
   return (
-    <motion.div 
-    initial={{y:70, opacity:0}}
-    whileInView={{y:0, opacity:1}}
-    transition={{duration:1.5}}
-    viewport={{once:true}}
-    className=" flex justify-between  mt-16 ">
+    <motion.div
+      initial={{ y: 70, opacity: 0 }}
+      whileInView={{ y: 0, opacity: 1 }}
+      transition={{ duration: 1.5 }}
+      viewport={{ once: true }}
+      className=" flex justify-between  mt-16 "
+    >
       {/* details section */}
       <div className="p-10 w-[95%] mx-auto lg:w-[60%] sm:w-[90%] h-full ">
-        <motion.div
-        initial={{opacity:0, scale:0.5}}
-        whileInView={{opacity:[0.5,0.8,1],scale:1}}
-        transition={{duration:1.5}}
-        viewport={{once:true}}
-        >
+        <div>
           <p className=" text-xl text-blue-400 ">How it's work</p>
-          <p className=" text-3xl mt-2 font-bold ">
+          <p className=" text-4xl mt-2 font-bold ">
             4 easy steps to get your solution
           </p>
-        </motion.div>
+        </div>
 
         <div className=" grid grid-cols-1 mt-10 lg:grid-cols-2 gap-10 ">
           {fourSteps.map((item, index) => (
-            <motion.div key={index} 
-            initial={{opacity:0, x:-70}}
-            whileInView={{x:0, opacity:1}}
-            transition={{duration:1}}
-            viewport={{once:true}}
-            className="flex items-center gap-5">
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, x: -70 }}
+              whileInView={{ x: 0, opacity: 1 }}
+              whileHover={{scale:1.1, opacity:1}}
+              transition={{ duration: 1 }}
+              viewport={{ once: true }}
+              className="flex items-center gap-5"
+            >
               <div className=" w-20 h-20 p-2 rounded-md flex items-center justify-center bg-sky-100 ">
                 {item.icon}
               </div>
@@ -52,18 +51,13 @@ export default function FourSteps() {
       </div>
 
       {/* image section */}
-      <motion.div 
-      initial={{opacity:0, scale:0.5}}
-      whileInView={{opacity:[0.5,0.8,1], scale:1}}
-      transition={{duration:1.5}}
-      viewport={{once:true}}
-      className=" ml-5 sm:hidden lg:block w-[720px] h-[500px] relative ">
+      <div className=" ml-5 sm:hidden lg:block w-[720px] h-[500px] relative ">
         <Image
           className=" w-full h-full object-cover absolute right-16 "
           src={img}
           alt="4 steps indicate image"
         />
-      </motion.div>
+      </div>
     </motion.div>
   );
 }

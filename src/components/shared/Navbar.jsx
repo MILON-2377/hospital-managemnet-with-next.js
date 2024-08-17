@@ -83,12 +83,28 @@ export default function Navbar() {
             href={item.path}
             className={
               path === item.path
-                ? "p-3 rounded-md flex items-center gap-2 bg-blue-500 text-white text-[18px] font-semibold "
-                : ` p-3 rounded-md flex items-center gap-2 hover:bg-gray-100 text-[18px] font-semibold `
+                ? "p-3 rounded-md flex items-center gap-2 bg-blue-500 text-white text-[16px] font-[500] "
+                : ` p-3 rounded-md flex items-center gap-2 hover:bg-gray-100 text-[16px] font-[500] `
             }
           >
-            <span>{item?.icon}</span>
-            <span className=" "> {item.title}</span>
+            <>
+              <span>{item?.icon}</span>
+              <span className=" "> {item.title}</span>
+            </>
+            {item.title === "Requests" && (
+              <>
+                <p className="text-[16px] w-5 ml-40 h-5 flex items-center justify-center rounded-full  bg-yellow-400 text-white ">
+                  3
+                </p>
+              </>
+            )}
+            {item.title === "Message" && (
+              <>
+                <p className="text-[16px] w-5 ml-40 h-5 flex items-center justify-center rounded-full  bg-yellow-400 text-white ">
+                  9
+                </p>
+              </>
+            )}
           </a>
         ))}
       </div>

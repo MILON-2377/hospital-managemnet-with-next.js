@@ -14,7 +14,7 @@ export default function BestDoctors() {
         viewport={{ once: true }}
         className="w-full flex items-center justify-center"
       >
-        <h1 className=" text-5xl font-bold ">Best Doctors</h1>
+        <h1 className=" text-4xl font-bold ">Best Doctors</h1>
         <span className="text-5xl -mt-12 -ml-2 text-sky-500 font-bold ">+</span>
         <span className="text-4xl -mt-12 -ml-2 opacity-25 text-sky-500 font-bold ">
           +
@@ -27,7 +27,7 @@ export default function BestDoctors() {
         whileInView={{ y: 0, opacity: 1 }}
         transition={{ duration: 2 }}
         viewport={{ once: true }}
-        className=" grid grid-cols-4 gap-5 mt-10 "
+        className=" grid grid-cols-2 lg:grid-cols-4 gap-5 mt-10 "
       >
         {doctors.slice(0, 4).map((item, index) => (
           <motion.div

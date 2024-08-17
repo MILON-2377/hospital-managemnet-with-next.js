@@ -9,9 +9,9 @@ import { IoCall } from "react-icons/io5";
 
 export default function Features() {
   return (
-    <motion.div className="mt-16 grid grid-cols-6 gap-6 p-10 ">
+    <motion.div className="mt-16 w-[95%] lg:w-full mx-auto grid grid-cols-3 lg:grid-cols-6 gap-5 lg:gap-6 lg:p-10 ">
       <motion.div
-      className="p-4 h-[200px hover:bg-blue-300 duration-200 hover:cursor-pointer w-[170px] flex items-center justify-center flex-col gap-8 border border-gray-200 rounded-md  ">
+      className="p-4 h-[200px hover:bg-blue-300 duration-200 hover:cursor-pointer w-full lg:w-[170px] flex items-center justify-center flex-col gap-8 border border-gray-200 rounded-md  ">
         <motion.div
         whileHover={{rotate:360}}
         transition={{duration:0.3}}
@@ -21,7 +21,7 @@ export default function Features() {
         <p className="text-xl font-semibold text-center text-slate-700 ">Book Appointment</p>
       </motion.div>
       <motion.div
-      className="p-4 h-[200px hover:bg-orange-100 duration-200 hover:cursor-pointer w-[170px] flex items-center justify-center flex-col gap-8 border border-gray-200 rounded-md  ">
+      className="p-4 h-[200px hover:bg-orange-100 duration-200 hover:cursor-pointer w-full lg:w-[170px] flex items-center justify-center flex-col gap-8 border border-gray-200 rounded-md  ">
         <motion.div
         whileHover={{rotate:360}}
         transition={{duration:0.3}}
@@ -33,7 +33,7 @@ export default function Features() {
 
 
       <motion.div
-      className="p-4 h-[200px hover:bg-sky-300 duration-200 hover:cursor-pointer w-[170px] flex items-center justify-center flex-col gap-8 border border-gray-200 rounded-md  ">
+      className="p-4 h-[200px hover:bg-sky-300 duration-200 hover:cursor-pointer w-full lg:w-[170px] flex items-center justify-center flex-col gap-8 border border-gray-200 rounded-md  ">
         <motion.div
         whileHover={{rotate:360}}
         transition={{duration:0.3}}
@@ -45,7 +45,7 @@ export default function Features() {
 
 
       <motion.div
-      className="p-4 h-[200px hover:bg-green-200 duration-200 hover:cursor-pointer w-[170px] flex items-center justify-center flex-col gap-8 border border-gray-200 rounded-md  ">
+      className="p-4 h-[200px hover:bg-green-200 duration-200 hover:cursor-pointer w-full lg:w-[170px] flex items-center justify-center flex-col gap-8 border border-gray-200 rounded-md  ">
         <motion.div
         whileHover={{rotate:360}}
         transition={{duration:0.3}}
@@ -57,7 +57,7 @@ export default function Features() {
 
 
       <motion.div
-      className="p-4 h-[200px hover:bg-cyan-200 duration-200 hover:cursor-pointer w-[170px] flex items-center justify-center flex-col gap-8 border border-gray-200 rounded-md  ">
+      className="p-4 h-[200px hover:bg-cyan-200 duration-200 hover:cursor-pointer w-full lg:w-[170px] flex items-center justify-center flex-col gap-8 border border-gray-200 rounded-md  ">
         <motion.div
         whileHover={{rotate:360}}
         transition={{duration:0.3}}
@@ -69,7 +69,7 @@ export default function Features() {
 
 
       <motion.div
-      className="p-4 h-[200px hover:bg-lime-200 duration-200 hover:cursor-pointer w-[170px] flex items-center justify-center flex-col gap-8 border border-gray-200 rounded-md  ">
+      className="p-4 h-[200px hover:bg-lime-200 duration-200 hover:cursor-pointer w-full lg:w-[170px] flex items-center justify-center flex-col gap-8 border border-gray-200 rounded-md  ">
         <motion.div
         whileHover={{rotate:360}}
         transition={{duration:0.3}}

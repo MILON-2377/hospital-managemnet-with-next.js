@@ -1,94 +1,108 @@
 "use client";
-import { motion, MotionConfig } from "framer-motion";
+
 import { useState } from "react";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+import { patientSaysData } from "@/componentsData/patientSaysData";
+import { AnimatePresence, wrap, motion } from "framer-motion";
+
+const variants = {
+  enter: (direction) => ({
+    x: direction > 0 ? "100%" : "-100%",
+    opacity: 0,
+  }),
+  center: {
+    zIndex: 1,
+    x: "0%",
+    opacity: 1,
+    transition: {
+      x: { type: "spring", stiffness: 300, damping: 100, duration: 2 },
+      opacity: { duration: 0.5 }, // Controls fade-in speed
+    },
+  },
+  exit: (direction) => ({
+    zIndex: 0,
+    x: direction < 0 ? "100%" : "-100%",
+    opacity: 0,
+    transition: {
+      x: { type: "spring", stiffness: 300, damping: 100, duration:2 },
+      opacity: { duration: 0.5 }, // Controls fade-out speed
+    },
+  }),
+};
+
+const swipeConfidenceThreshold = 10000;
+const swipePower = (offset, velocity) => {
+  return Math.abs(offset) * velocity;
+};
 
 export default function WhatOurPatientSays() {
-  const [current, setCurrent] = useState(0);
+  const [[page, direction], setPage] = useState([0, 0]);
 
-  const onPrevHandle = () => {
-    if (current > 0) {
-      setCurrent(current - 1);
-    }
+  const commentsIndex = wrap(0, patientSaysData.length, page);
+
+  const paginate = (newDirection) => {
+    setPage([page + newDirection, newDirection]);
   };
 
-  const onNextHandle = () => {
-    if (data.length - 1 > current) {
-      setCurrent(current + 1);
-    }
-  };
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen ">
-      <div className="mt-16 relative flex flex-col items-center ">
-        <div className=" absolute left-3 right-3 flex z-20 mx-auto w-[95%] sm:w-[90%] items-center justify-between ">
-          <button
-            onClick={onPrevHandle}
-            className="w-12 h-12 flex items-center justify-center hover:text-white transition-all duration-200 rounded-full border border-gray-200 hover:bg-teal-500"
-          >
-            <IoIosArrowBack className="text-5xl hover:text-white text-sky-500" />
-          </button>
-          <button
-            onClick={onNextHandle}
-            className="w-12 h-12 flex items-center justify-center hover:text-white transition-all duration-200 rounded-full border border-gray-200 hover:bg-teal-500"
-          >
-            <IoIosArrowForward className="text-5xl hover:text-white text-sky-500" />
-          </button>
-        </div>
+    <div className=" bg-gray-50 mt-16 w-full p-5 lg:p-10 h-[520px] lg:h-[450px] ">
+      <div className="relative w-full ">
+        <AnimatePresence initial={false} custom={direction}>
+          <motion.div
+            key={page}
+            custom={direction}
+            variants={variants}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            drag="x"
+            dragConstraints={{ left: 0, right: 0 }}
+            dragElastic={1}
+            onDragEnd={(e, { offset, velocity }) => {
+              const swipe = swipePower(offset.x, velocity.x);
 
-        <motion.div className="flex flex-nowrap gap-5 ">
-          {[...data].map((item, idx) => (
-            <motion.div
-              key={idx}
-              className="w-[700px] flex items-center gap-10 "
-            >
-              <div className=" w-40 h-40 rounded-full bg-green-200 "></div>
-              <div className=" flex flex-col gap-2 ">
-                <div>
-                  <p className=" text-4xl font-bold ">What our patients says</p>
-                  <p className=" text-[18px] text-gray-500 ">{item.comments}</p>
-                </div>
+              if (swipe < -swipeConfidenceThreshold) {
+                paginate(1);
+              } else if (swipe > swipeConfidenceThreshold) {
+                paginate(-1);
+              }
+            }}
+            className=" w-full absolute lg:top-8 lg:left-10 flex flex-col lg:flex-row lg:p-10 gap-6"
+          >
+            <div className=" mx-auto w-[100px] h-[100px] sm:w-[220px]  sm:h-[220px] rounded-full">
+              <img
+                src={patientSaysData[commentsIndex].img}
+                alt={patientSaysData[commentsIndex].name}
+                className="w-full h-full rounded-full object-cover"
+              />
+            </div>
+            <div className=" ml-10 ">
+              <p className=" text-[18px]  lg:block lg:-mt-8 mb-5 text-blue-500 ">Testimonials</p>
+              <h1 className=" text-2xl lg:text-3xl font-bold">What our client says</h1>
+              <p className="w-[90%] mt-5 lg:mt-10 text-[16px] lg:text-[18px] font-[450] text-gray-600">
+                {patientSaysData[commentsIndex].comments}
+              </p>
+              <p className="mt-5  lg:block  card-title">
+                {patientSaysData[commentsIndex].name}
+              </p>
+              <p className=" lg:block  ">{patientSaysData[commentsIndex].location}</p>
+            </div>
+          </motion.div>
+        </AnimatePresence>
 
-                <div>
-                  <p className="card-title">{item.name}</p>
-                  <p className=" text-[18px] text-gray-500 ">{item.location}</p>
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
+        <button
+          onClick={() => paginate(1)}
+          className="absolute top-32 lg:top-40 right-0 z-50 lg:right-4 w-12 h-12 flex items-center justify-center hover:text-white transition-all duration-200 rounded-full border border-gray-200 hover:bg-teal-500"
+        >
+          <IoIosArrowForward className="text-5xl hover:text-white text-sky-500" />
+        </button>
+        <button
+          onClick={() => paginate(-1)}
+          className="w-12 z-50 h-12 top-32 left-0 lg:top-40 absolute lg:left-4 flex items-center justify-center hover:text-white transition-all duration-200 rounded-full border border-gray-200 hover:bg-teal-500"
+        >
+          <IoIosArrowBack className="text-5xl hover:text-white text-sky-500" />
+        </button>
       </div>
     </div>
   );
 }
-
-// comments
-const data = [
-  {
-    name: "John Doe",
-    img: "john-doe.jpg",
-    location: "New York, NY",
-    comments:
-      "The service was excellent! The doctor was very attentive and provided a great solution to my health issue. Highly recommend!",
-  },
-  {
-    name: "Jane Smith",
-    img: "jane-smith.jpg",
-    location: "Los Angeles, CA",
-    comments:
-      "Booking an appointment was so easy, and the doctor was amazing. I felt really cared for and would definitely use this service again.",
-  },
-  {
-    name: "Michael Johnson",
-    img: "michael-johnson.jpg",
-    location: "Chicago, IL",
-    comments:
-      "I appreciated the detailed profiles of the doctors which helped me choose the right one. The consultation was thorough and informative.",
-  },
-  {
-    name: "Emily Davis",
-    img: "emily-davis.jpg",
-    location: "Houston, TX",
-    comments:
-      "Great experience overall! The platform is user-friendly, and the doctor I saw was very professional and compassionate.",
-  },
-];

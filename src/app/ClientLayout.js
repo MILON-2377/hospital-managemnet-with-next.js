@@ -14,7 +14,7 @@ export default function ClientLayout({ children }) {
   const [isPath, setIsPath] = useState(false);
 
   useEffect(() => {
-    if (path === "/signup" || path === "/login" || path === "/") {
+    if (path === "/signup" || path === "/login" || path === "/" || path === "/patient-form-page") {
       setIsPath(true);
     } else {
       setIsPath(false);

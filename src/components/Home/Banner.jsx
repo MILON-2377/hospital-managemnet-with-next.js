@@ -16,9 +16,9 @@ export default function Banner() {
       initial={{ opacity: 0, y: 100 }}
       whileInView={{ y: 0, opacity: 10 }}
       transition={{ y: { duration: 1 } }}
-      className={` lg:h-[650px]  w-full flex justify-between  `}
+      className={` lg:h-[650px] w-[95%] mx-auto lg:w-full flex justify-between  `}
     >
-      <div className="flex-1 ml-24 h-full mt-32 ">
+      <div className=" w-full lg:flex-1 lg:ml-10 h-full mt-32 ">
         <p className="text-5xl leading-[60px] font-bold">
           Begin <span className="text-blue-500"> your journey to </span> better
           health with <span className="text-cyan-500">CareLife</span>
@@ -31,13 +31,13 @@ export default function Banner() {
         </button>
 
         {/* search section */}
-        <div className="p-5 border z-10 h-[100px] flex items-center mt-20 border-gray-100 rounded-md">
+        <div className=" p-5 border z-10 h-[100px] flex items-center mt-20 border-gray-200 rounded-md">
           <label className=" flex items-center  ">
-            <span>
+            <p className=" h-full  ">
               <CiSearch className="text-2xl text-gray-400" />
-            </span>
+            </p>
             <input
-              className=" p-3 focus:outline-none focus:border-none "
+              className=" p-3 placeholder:text-[16px] focus:outline-none focus:border-none "
               type="search"
               placeholder="Search doctors "
             />
@@ -47,7 +47,7 @@ export default function Banner() {
             <span>
               <CiLocationArrow1 className="text-[24px] text-gray-400" />
             </span>
-            <span className="text-xl text-gray-400 ">Location</span>
+            <span className=" lg:text-xl text-[16px] text-gray-400 ">Location</span>
           </label>
           <div className="divider divider-horizontal h-[80%] my-auto "></div>
           <label className=" flex items-center gap-3">
@@ -60,15 +60,17 @@ export default function Banner() {
                 setSelectedDate(newDate.toLocaleString());
               }}
               placeholderText="Select expectd schedule date"
-              className="focus:outline-none focus:border-none "
+              className="focus:outline-none text-[16px] focus:border-none "
             />
           </label>
           {/* <button className="p-3 rounded-md bg-cyan-300">Search</button> */}
         </div>
       </div>
+
+
       <div
         style={{ backgroundImage: `url(${img.src})` }}
-        className="w-[50%] h-[650px] relative bg-cover bg-center "
+        className="w-[50%] hidden lg:block h-[650px] relative bg-cover bg-center "
       >
         {/* check up section */}
         <motion.div

@@ -1,8 +1,13 @@
 "use cleint";
 
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { IoMdArrowDropdown } from "react-icons/io";
+
 export default function MedicalInfo() {
   const [isPhysiciansSelect, setIsPhysiciansSelect] = useState(physicians[0]);
   const [physicianSelct, setPhysicianSelect] = useState(false);
+  const {register, handleSubmit, reset, formState:{errors}} = useForm();
 
   //   handle physicians select
   const handlePhysiciansSelect = (item) => {

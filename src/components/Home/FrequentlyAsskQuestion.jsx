@@ -10,9 +10,9 @@ export default function FrequentlyAsskQuestion() {
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 2 }}
       viewport={{once:true}}
-      className="mt-16 p-10 "
+      className="mt-16 p-5 lg:p-10 w-full "
     >
-      <div>
+      <div className=" ml-5 lg:ml-0 ">
         <p className="text-[18px] text-green-500 ">Get your answer</p>
         <motion.div
           initial={{ opacity: 0, y: 50 }}
@@ -21,7 +21,7 @@ export default function FrequentlyAsskQuestion() {
           viewport={{ once: true }}
           className="w-full flex mt-3 items-center "
         >
-          <h1 className=" text-5xl font-bold ">Frequently Ask Question</h1>
+          <h1 className=" text-4xl font-bold ">Frequently Ask Question</h1>
           <span className="text-5xl -mt-12 -ml-2 text-sky-500 font-bold ">
             +
           </span>
@@ -33,7 +33,7 @@ export default function FrequentlyAsskQuestion() {
 
       <div className=" flex items-center justify-between gap-5 ">
         {/* image */}
-        <div className=" flex-1 h-full mt-10 relative ">
+        <div className=" hidden lg:block flex-1 h-full mt-10 relative ">
           <Image
             src={img}
             alt="ask question image"
@@ -59,7 +59,7 @@ export default function FrequentlyAsskQuestion() {
         </div>
 
         {/* question answer section */}
-        <div className=" lg:w-[50%] sm:w-[90%] w-[95%] -mt-10 mx-auto h-full ">
+        <div className=" lg:w-[50%] mt-10  w-[95%] lg:-mt-10 mx-auto h-full ">
           <motion.div className=" flex flex-col gap-5 ">
             {questionsAnsData.map((item, index) => (
               <motion.div

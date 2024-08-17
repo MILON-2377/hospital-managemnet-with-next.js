@@ -27,8 +27,7 @@ export default function PersonalInfo() {
 
   //   handle form
   const onSubmit = (data) => {
-    console.log(data);
-    // dispatch(patientPersonInfoAdd(data));
+    dispatch(patientPersonInfoAdd(data));
   };
 
   //   handle form errors
@@ -46,15 +45,13 @@ export default function PersonalInfo() {
   }, [errors]);
 
   return (
-    <div className=" w-full lg:h-screen p-10 ">
-      <h1 className="text-2xl font-bold text-black mt-5 ">
-        Personal information
-      </h1>
-      <form onSubmit={handleSubmit(onSubmit)} className="w-full mt-10 ">
+    <div className=" w-full p-10 border rounded-md lg:mt-10 border-gray-200 ">
+      
+      <form onSubmit={handleSubmit(onSubmit)} className="w-full">
         <label className=" w-full flex flex-col gap-2">
-          <span className="text-xl text-gray-500 ">Full name</span>
+          <span className="text-[16px] text-gray-500 ">Full name</span>
           <input
-            className="px-4 w-full py-2 text-xl placeholder:text-gray-500 text-gray-600 focus:border-cyan-500 focus:outline-none border border-gray-200 rounded-md bg-transparent "
+            className="px-4 w-full py-2 text-[16px] placeholder:text-gray-500 text-gray-600 focus:border-cyan-500 focus:outline-none border border-gray-200 rounded-md bg-transparent "
             placeholder="ex: milon miah"
             type="text"
             {...register("fullName", {
@@ -67,16 +64,16 @@ export default function PersonalInfo() {
           <div className=" w-full flex flex-col gap-5 ">
             {/* email address */}
             <div className="flex flex-col gap-2">
-              <span className="text-xl text-gray-600 ">Email address</span>
+              <span className="text-[16px] text-gray-600 ">Email address</span>
               <label
-                className={` px-3 flex items-center text-xl gap-4 border border-gray-200 rounded-md `}
+                className={` px-3 flex items-center text-[16px] gap-4 border border-gray-200 rounded-md `}
               >
                 <span>
                   <MdOutlineMailOutline className=" text-2xl text-gray-400 " />
                 </span>
                 <input
                   onChange={(e) => setEmail(e.target.value)}
-                  className="py-2 text-xl focus:border-none border-none placeholder:text-gray-500 text-gray-600  focus:outline-none border border-gray-500 rounded-md bg-transparent "
+                  className="py-2 text-[16px] focus:border-none border-none placeholder:text-gray-500 text-gray-600  focus:outline-none border border-gray-500 rounded-md bg-transparent "
                   placeholder="milon.miah@qq.com"
                   type="email"
                   {...register("email", {
@@ -88,17 +85,17 @@ export default function PersonalInfo() {
 
             {/* date of birth */}
             <div className="flex flex-col gap-2">
-              <span className="text-xl text-gray-600 ">Date of birth</span>
+              <span className="text-[16px] text-gray-600 ">Date of birth</span>
               <label
-                className={`px-3 flex items-center gap-4 border border-gray-200 rounded-md `}
+                className={`px-3 py-2 flex items-center gap-4 border border-gray-200 rounded-md `}
               >
                 <span>
-                  <FaCalendarAlt className=" text-xl text-gray-400 " />
+                  <FaCalendarAlt className=" text-[16px] text-gray-400 " />
                 </span>
                 <DatePicker
                   selected={selectDate}
                   onChange={(date) => setSelectDate(date)}
-                  className="px-2 py-3 focus:outline-none border-none "
+                  className="px-2 focus:outline-none border-none "
                   placeholderText="Select you date of birth"
                 />
               </label>
@@ -106,9 +103,9 @@ export default function PersonalInfo() {
 
             {/* address */}
             <label className="flex flex-col gap-2">
-              <span className="text-xl text-gray-600 ">Address</span>
+              <span className="text-[16px] text-gray-600 ">Address</span>
               <input
-                className="px-4 py-2 text-xl text-gray-600 placeholder:text-gray-500  focus:border-cyan-500 focus:outline-none border border-gray-200 rounded-md bg-transparent "
+                className="px-4 py-2 text-[16px] text-gray-600 placeholder:text-gray-500  focus:border-cyan-500 focus:outline-none border border-gray-200 rounded-md bg-transparent "
                 placeholder="Ex: 1302 Kolabagan, Dhaka "
                 type="text"
                 {...register("address", {
@@ -119,11 +116,11 @@ export default function PersonalInfo() {
 
             {/* emergency contract */}
             <label className="flex flex-col gap-2">
-              <span className="text-xl text-gray-600 ">
+              <span className="text-[16px] text-gray-600 ">
                 Emergency contact name
               </span>
               <input
-                className="px-4 py-2 text-xl placeholder:text-gray-500 text-gray-600 focus:border-cyan-500 focus:outline-none border border-gray-200 rounded-md bg-transparent "
+                className="px-4 py-2 text-[16px] placeholder:text-gray-500 text-gray-600 focus:border-cyan-500 focus:outline-none border border-gray-200 rounded-md bg-transparent "
                 placeholder="Guardian's name "
                 type="text"
                 {...register("emergency_contact_name", {
@@ -136,7 +133,7 @@ export default function PersonalInfo() {
           <div className=" w-full flex flex-col gap-5">
             {/* emergency contact number */}
             <div className="flex flex-col gap-2">
-              <span className="text-xl text-gray-600 ">
+              <span className="text-[16px] text-gray-600 ">
                 Emergency phone number
               </span>
               <label
@@ -147,7 +144,7 @@ export default function PersonalInfo() {
                 </span>
                 <input
                   onChange={(e) => setEmail(e.target.value)}
-                  className="py-2 focus:border-none text-xl border-none placeholder:text-gray-500 text-gray-600  focus:outline-none border border-gray-200 rounded-md bg-transparent "
+                  className="py-2 focus:border-none text-[16px] border-none placeholder:text-gray-500 text-gray-600  focus:outline-none border border-gray-200 rounded-md bg-transparent "
                   placeholder="+86 131850-84669"
                   type="text"
                   {...register("emergency_contact_phone", {
@@ -159,10 +156,10 @@ export default function PersonalInfo() {
 
             {/* gender */}
             <div className="flex flex-col gap-2">
-              <span className="text-xl text-gray-600">Gender</span>
+              <span className="text-[16px] text-gray-600">Gender</span>
               <div className="flex items-center justify-between sm:gap-2 lg:gap-5">
                 <label className="label flex items-center sm:gap-2 px-2 cursor-pointer border border-gray-200 border-dashed rounded-md">
-                  <span className="text-xl text-gray-500">Male</span>
+                  <span className="text-[16px] text-gray-500">Male</span>
                   <input
                     type="radio"
                     value="male"
@@ -181,7 +178,7 @@ export default function PersonalInfo() {
                     })}
                     className="radio border border-gray-500 checked:bg-accent"
                   />
-                  <span className="text-xl text-gray-500">Female</span>
+                  <span className="text-[16px] text-gray-500">Female</span>
                 </label>
                 <label className="label flex items-center sm:gap-2 px-2 cursor-pointer border border-gray-200 border-dashed rounded-md">
                   <input
@@ -192,16 +189,16 @@ export default function PersonalInfo() {
                     })}
                     className="radio border border-gray-500 checked:bg-accent"
                   />
-                  <span className="text-xl text-gray-500">Other</span>
+                  <span className="text-[16px] text-gray-500">Other</span>
                 </label>
               </div>
             </div>
 
             {/* occupation */}
             <label className="flex flex-col gap-2">
-              <span className="text-xl text-gray-600 ">Occupation</span>
+              <span className="text-[16px] text-gray-600 ">Occupation</span>
               <input
-                className="px-4 py-2 text-xl text-gray-600 placeholder:text-gray-500  focus:border-cyan-500 focus:outline-none border border-gray-200 rounded-md bg-transparent "
+                className="px-4 py-2 text-[16px] text-gray-600 placeholder:text-gray-500  focus:border-cyan-500 focus:outline-none border border-gray-200 rounded-md bg-transparent "
                 placeholder="Software Engineer"
                 type="text"
                 {...register("occupation", {
@@ -212,7 +209,7 @@ export default function PersonalInfo() {
 
             {/* phone number */}
             <div className="flex flex-col gap-2">
-              <span className="text-xl text-gray-600 ">Phone number</span>
+              <span className="text-[16px] text-gray-600 ">Phone number</span>
               <label
                 className={` px-3 flex items-center gap-4 border border-gray-200 rounded-md `}
               >
@@ -221,7 +218,7 @@ export default function PersonalInfo() {
                 </span>
                 <input
                   onChange={(e) => setEmail(e.target.value)}
-                  className="py-2 focus:border-none text-xl border-none placeholder:text-gray-500 text-gray-600  focus:outline-none border border-gray-200 rounded-md bg-transparent "
+                  className="py-2 focus:border-none text-[16px] border-none placeholder:text-gray-500 text-gray-600  focus:outline-none border border-gray-200 rounded-md bg-transparent "
                   placeholder="+86 131850-84887"
                   type="text"
                   {...register("phoneNumber", {
@@ -234,10 +231,10 @@ export default function PersonalInfo() {
         </div>
 
         {/* button section */}
-        <div className="mb-5">
-          <button className=" w-[200px] float-right  mt-10 btn btn-accent text-white ">
-            <span className="text-xl">Next</span>
-            <FaArrowRightLong className="text-xl ml-3" />
+        <div className="mb-5 flex justify-end">
+          <button className=" w-[200px]  mt-10 btn btn-accent text-white ">
+            <span className="text-[16px]">Next</span>
+            <FaArrowRightLong className="text-[16px] ml-3" />
           </button>
         </div>
       </form>

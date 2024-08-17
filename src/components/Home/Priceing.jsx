@@ -10,7 +10,7 @@ export default function Priceing() {
   const [isBasicPlaneHover, setBasicPlaneHover] = useState(false);
   const [isEnterPriseHover, setIsEnterPriseHover] = useState(false);
   return (
-    <div className=" w-full mt-16  px-10 py-14 ">
+    <div className=" w-full mt-16  lg:px-10 py-14 ">
       {/* header */}
       <motion.div
         initial={{ opacity: 0, y: 50 }}
@@ -19,7 +19,7 @@ export default function Priceing() {
         viewport={{ once: true }}
         className="w-full flex items-center justify-center"
       >
-        <h1 className=" text-5xl font-bold ">Pricing Plan</h1>
+        <h1 className=" text-4xl font-bold ">Pricing Plan</h1>
         <span className="text-5xl -mt-12 -ml-2 text-sky-500 font-bold ">+</span>
         <span className="text-4xl -mt-12 -ml-2 opacity-25 text-sky-500 font-bold ">
           +
@@ -218,7 +218,7 @@ export default function Priceing() {
             </p>
           </div>
           <button
-            className={` bg-blue-400 mt-5 px-4 py-3 rounded-md  text-xl font-semibold text-white w-full `}
+            className={` bg-blue-400 transition-all duration-200 active:scale-95 active:bg-opacity-70 mt-5 px-4 py-3 rounded-md  text-xl font-semibold text-white w-full `}
           >
             Choose Plan
           </button>
@@ -317,7 +317,7 @@ export default function Priceing() {
           <button
             className={` ${
               isEnterPriseHover ? " bg-blue-400 " : "bg-blue-500"
-            } mt-5 px-4 py-3 rounded-md  text-xl font-semibold text-white w-full `}
+            } mt-5 px-4 py-3 rounded-md transition-all duration-200 active:scale-95 active:bg-opacity-70  text-xl font-semibold text-white w-full `}
           >
             Choose Plan
           </button>
