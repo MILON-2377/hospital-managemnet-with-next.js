@@ -2,9 +2,8 @@
 
 import { useAuth } from "@/AuthProviderContext/AuthProviderContext";
 import { usePathname, useRouter } from "next/navigation";
-import img from "../../../public/assets/dashboard.jpg";
+import img from "../../../public/assets/medical.jpg";
 import Image from "next/image";
-import { a } from "@react-spring/web";
 import {
   MdOutlineDashboardCustomize,
   MdRequestPage,
@@ -28,8 +27,15 @@ export default function Navbar() {
   const { user, userLoggedOut } = useAuth();
   const router = useRouter();
   const path = usePathname();
+
+  // handle onclick
+  const handleOnClick = (name) => {
+    if (name === "Logout") {
+      userLoggedOut();
+    }
+  };
   return (
-    <div className=" w-[400px] bg-gray-50 shadow-lg  ">
+    <div className=" w-[400px] shadow-lg  ">
       {/* profile section */}
       <div>
         <div className="relative  ">
@@ -42,14 +48,17 @@ export default function Navbar() {
           </div>
           {/* profile image */}
 
-          <div className=" absolute top-32 left-36 w-28 h-28 rounded-full bg-green-200 border border-white "></div>
+          <div className=" absolute top-[150px] left-[140px] w-32 h-32 rounded-full bg-green-200 border border-white "></div>
         </div>
-        <div className="p-5 bg-white mt-10 ">
-          <p className="text-2xl font-bold text-center ">name</p>
-          <p className="text-xl text-gray-800 text-center ">speciality</p>
-          <p className="p-2 rounded-md bg-gray-50 w-24 text-center mx-auto  ">
-            dentist
+        <div className="p-5 bg-white mt-16 gap-3 flex items-center justify-center flex-col ">
+          <p className="text-2xl font-bold text-center ">{user?.userName}</p>
+          <p className="text-[16px] text-gray-800 text-center ">
+            BDS, MDS - Oral & Maxillofacial Surgery
           </p>
+          <div className="p-2 border flex items-center gap-1 rounded-md bg-gray-50 w-24 text-center mx-auto  ">
+            <p className=" w-2 h-2 rounded-full bg-green-400 "></p>
+            dentist
+          </div>
         </div>
       </div>
 
@@ -64,7 +73,7 @@ export default function Navbar() {
           <summary className=" p-4 border text-center hover:cursor-pointer border-gray-200 rounded-md ">
             I am available now
           </summary>
-          <ul className="menu  bg-base-100 border border-t-0  z-[1] w-full p-2 shadow">
+          <ul className="menu  bg-base-100 border border-t-0  z-[1] w-full p-2">
             <li>
               <a>I am available now</a>
             </li>
@@ -79,10 +88,11 @@ export default function Navbar() {
       <div className=" w-full p-10 bg-white  mb-5 flex flex-col gap-2 ">
         {[...navbarLinks].map((item, index) => (
           <a
+            onClick={() => handleOnClick(item.title)}
             key={index}
-            href={item.path}
+            href={item?.path}
             className={
-              path === item.path
+              path === item?.path
                 ? "p-3 rounded-md flex items-center gap-2 bg-blue-500 text-white text-[16px] font-[500] "
                 : ` p-3 rounded-md flex items-center gap-2 hover:bg-gray-100 text-[16px] font-[500] `
             }
@@ -177,7 +187,6 @@ const navbarLinks = [
   },
   {
     title: "Logout",
-    path: "/logout",
     icon: <RiLogoutBoxFill className="text-xl" />,
   },
 ];

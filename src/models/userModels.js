@@ -11,6 +11,11 @@ const userSchema = new mongoose.Schema({
     unique: true,
   },
 
+  profession: {
+    type: String,
+    required: true,
+  },
+
   isAdmin: {
     type: Boolean,
     default: false,

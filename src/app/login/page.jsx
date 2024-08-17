@@ -16,13 +16,15 @@ export default function LogIn() {
   // user login handle
 
   const onSubmit = async (data) => {
+    document.getElementById("my_modal_1").showModal();
     const { email, password } = data;
-    try {
-      const res = await userLogIn(email, password);
-      console.log(res.user);
-    } catch (error) {
-      console.log(error.message);
-    }
+    // try {
+    //   const res = await userLogIn(email, password);
+    //   if (res.user) {
+    //   }
+    // } catch (error) {
+    //   console.log(error.message);
+    // }
   };
 
   return (
@@ -30,7 +32,7 @@ export default function LogIn() {
       <div className="p-10 w-full lg:w-[40%] sm:w-[70%] mx-auto ">
         {/* header title */}
         <div>
-          <h1 className="text-4xl font-bold text-cyan-500"> CareLife</h1>
+          <h1 className="text-4xl font-bold "> CareLife</h1>
         </div>
 
         <div className=" mt-32 ">
@@ -102,8 +104,22 @@ export default function LogIn() {
         </div>
       </div>
 
-      <div className=" flex-1 h-screen ">
+      <div className=" hidden lg:block flex-1 h-screen ">
         <Image src={img} className="w-full h-full object-cover" alt="login" />
+      </div>
+
+      {/* logging modal section */}
+      <div>
+        <dialog id="my_modal_1" className="modal">
+          <div className="modal-box bg-accent flex flex-col items-center justify-center gap-5  ">
+            <h3 className="font-bold text-lg text-white  ">
+              Please wait, logging process is in progress...
+            </h3>
+            <p>
+              <span className="loading loading-spinner text-secondary"></span>
+            </p>
+          </div>
+        </dialog>
       </div>
     </div>
   );

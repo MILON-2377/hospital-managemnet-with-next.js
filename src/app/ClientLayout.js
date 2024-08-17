@@ -14,10 +14,15 @@ export default function ClientLayout({ children }) {
   const [isPath, setIsPath] = useState(false);
 
   useEffect(() => {
-    if (path === "/signup" || path === "/login" || path === "/" || path === "/patient-form-page") {
-      setIsPath(true);
-    } else {
+    if (
+      path === "/signup" ||
+      path === "/login" ||
+      path === "/" ||
+      path === "/patient-form-page"
+    ) {
       setIsPath(false);
+    } else {
+      setIsPath(true);
     }
   }, [path]);
 
@@ -26,9 +31,7 @@ export default function ClientLayout({ children }) {
       <AuthProviderContext>
         <QueryClientProvider client={queryClient}>
           <div className=" flex justify-between ">
-            <div className={isPath || path === "/" ? " hidden " : " block bg-white "}>
-              <Navbar />
-            </div>
+            <div className={" block bg-white "}>{isPath && <Navbar />}</div>
             <main className=" w-full h-full ">{children}</main>
           </div>
         </QueryClientProvider>

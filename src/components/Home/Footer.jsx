@@ -14,9 +14,9 @@ import { MdEmail, MdLocationOn } from "react-icons/md";
 export default function Footer() {
   return (
     <div className=" w-full flex flex-col gap-6 h-auto p-10 mt-16 bg-accent ">
-      <div className=" w-full flex justify-between ">
+      <div className=" w-full grid grid-cols-2 gap-6 lg:flex lg:justify-between ">
         <div className=" w-full ">
-          <h1 className=" text-5xl font-bold ">CareLife</h1>
+          <h1 className=" text-4xl font-bold ">CareLife</h1>
           <p className="text-[16px] w-full mt-8 font-[500] text-white ">
             CareLife connects patients with top local doctors, offering easy
             registration, appointment booking, and management through a
@@ -30,7 +30,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className=" mt-5 w-full ">
+        <div className=" lg:mt-5 w-full ">
           <p className=" text-2xl font-[500] text-white ">For Patients</p>
           <p className=" mt-4 text-[18px] flex items-center gap-2 text-white font-[500] ">
             <FaArrowRight />
