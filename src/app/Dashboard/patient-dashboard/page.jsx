@@ -4,6 +4,7 @@ import FavouritesDoctors from "@/components/PatientDashboardHome/FavouritesDocto
 import HealthShow from "@/components/PatientDashboardHome/HealthShow";
 import Notifications from "@/components/PatientDashboardHome/Notifications";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { BiSolidInjection } from "react-icons/bi";
 import {  FaTemperatureHigh, FaUserEdit } from "react-icons/fa";
 import { IoIosHeart } from "react-icons/io";
@@ -16,8 +17,9 @@ import {
 
 const healthPercentage = 90;
 export default function PatientDashboard() {
+  const router = useRouter();
   return (
-    <div className=" p-10 ">
+    <div className="p-10">
       <p className=" text-2xl font-bold ">Dashboard</p>
       <div className=" divider "></div>
 
@@ -170,7 +172,9 @@ export default function PatientDashboard() {
           <div className=" relative p-5 rounded-lg bg-violet-500 ">
             <p className="text-[18px] font-[500] text-white ">Book a new</p>
             <p className=" text-xl font-semibold text-white ">Appointment</p>
-            <p className=" absolute text-2xl right-3 top-[40%] font-bold  p-1 text-blue-500 rounded-full flex items-center justify-center bg-white  ">
+            <p 
+            onClick={() => router.push("/book-appointments") }
+            className=" absolute text-2xl hover:cursor-pointer right-3 top-[40%] font-bold  p-1 text-blue-500 rounded-full flex items-center justify-center bg-white  ">
               +
             </p>
           </div>

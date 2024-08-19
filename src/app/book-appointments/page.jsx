@@ -1,11 +1,14 @@
 "use client";
 
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { FaCalendarDay, FaCheckCircle, FaHeart } from "react-icons/fa";
 import { IoSearchOutline } from "react-icons/io5";
 import { MdLocationOn } from "react-icons/md";
 
 export default function BookAppointments() {
   const id = 1;
+  const router = useRouter();
   return (
     <div className=" w-full p-5 ">
       {/* header section */}
@@ -35,7 +38,7 @@ export default function BookAppointments() {
             className=" rounded-md border bg-white shadow "
           >
             <div className=" relative flex items-center justify-center p-5 ">
-              <div className=" w-16 h-16 rounded-lg bg-blue-200 "></div>
+              <div className=" w-20 h-20 rounded-lg bg-blue-200 "></div>
               <div className=" absolute right-10  p-2 rounded-full bg-gray-50 hover:cursor-pointer flex items-center justify-center ">
                 <FaHeart className=" text-[16px] text-red-500 " />
               </div>
@@ -81,7 +84,9 @@ export default function BookAppointments() {
                     className="mask mask-star-2 bg-orange-400"
                   />
                 </div>
-                <span className=" text-[18px] font-[500] text-yellow-500 ">{item.rating}</span>
+                <span className=" text-[18px] font-[500] text-yellow-500 ">
+                  {item.rating}
+                </span>
               </div>
             </div>
 
@@ -108,18 +113,37 @@ export default function BookAppointments() {
             <div className=" mt-5 mb-5 border-t w-full "></div>
 
             <div className=" p-5 flex items-center justify-center gap-5 ">
-              <a
+              <Link
                 href={`/book-appointments/${id}`}
                 className=" px-4 py-2 rounded-md bg-gray-50 hover:bg-gray-200 transition-all duration-200 font-semibold text-[16px] "
               >
                 View Profile
-              </a>
-              <button className=" px-4 py-2 rounded-md text-blue-500 border border-blue-500 hover:bg-blue-500 hover:text-white transition-all duration-200 font-semibold text-[16px] ">
+              </Link>
+              <button
+                onClick={() =>
+                  router.push("/book-appointments/book-appointment-view")
+                }
+                className=" px-4 py-2 rounded-md text-blue-500 border border-blue-500 hover:bg-blue-500 hover:text-white transition-all duration-200 font-semibold text-[16px] "
+              >
                 Book Now
               </button>
             </div>
           </div>
         ))}
+      </div>
+
+      {/* pagination */}
+      <div className=" mt-10 w-full p-5 flex items-center gap-3 justify-center ">
+        <button className="  text-white btn btn-accent  ">Previous</button>
+
+        <div>
+          <button className=" px-4 py-3 transition-all duration-200 hover:bg-gray-200 rounded-md bg-gray-100 text-black font-[500] ">
+            {" "}
+            1
+          </button>
+        </div>
+
+        <button className=" text-white btn btn-accent  ">Next</button>
       </div>
     </div>
   );

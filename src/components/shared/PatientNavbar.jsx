@@ -7,21 +7,18 @@ import { MdOutlineDashboardCustomize } from "react-icons/md";
 import {
   FaCalendarAlt,
   FaKey,
-  FaPrescriptionBottleAlt,
   FaRegCalendarCheck,
   FaUserEdit,
-  FaUserMd,
 } from "react-icons/fa";
 import { IoDocumentTextOutline } from "react-icons/io5";
-import { FaMessage } from "react-icons/fa6";
 import { RiLogoutBoxFill } from "react-icons/ri";
+import Link from "next/link";
 
 export default function PatientNavbar() {
   const { user } = useAuth();
   const path = usePathname();
-  const router = useRouter();
   return (
-    <div className=" w-[400px] shadow-md h-auto  ">
+    <div className=" w-full shadow-md rounded-b-md h-full  ">
       {/* profile section */}
       <div>
         <div className="relative  ">
@@ -55,7 +52,7 @@ export default function PatientNavbar() {
       {/* navbar links section */}
       <div className=" w-full p-10 bg-white  mb-5 flex flex-col gap-2 ">
         {[...patientNavbarLinks].map((item, index) => (
-          <a
+          <Link
             key={index}
             href={item?.path}
             className={
@@ -82,8 +79,15 @@ export default function PatientNavbar() {
                 </p>
               </>
             )}
-          </a>
+          </Link>
         ))}
+
+        <button
+          className={` p-3 rounded-md flex items-center gap-2 hover:bg-gray-100 text-[16px] font-[500] `}
+        >
+          <RiLogoutBoxFill className="text-xl font-bold" />
+          <span>LogOut</span>
+        </button>
       </div>
     </div>
   );
@@ -115,16 +119,12 @@ const patientNavbarLinks = [
 
   {
     title: "Profile Settings",
-    path: "/profile-settings",
+    path: "/profile-edit/patient",
     icon: <FaUserEdit className="text-xl font-bold" />,
   },
   {
     title: "Change Password",
     path: "/change-password",
     icon: <FaKey className="text-xl font-bold" />,
-  },
-  {
-    title: "Logout",
-    icon: <RiLogoutBoxFill className="text-xl font-bold" />,
   },
 ];
