@@ -1,33 +1,45 @@
 "use cleint";
 
+import { patientMedicalInfoAdd } from "@/redux/reducers/AddPatientInfo/AddPatientInfo";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { FaArrowRightLong } from "react-icons/fa6";
 import { IoMdArrowDropdown } from "react-icons/io";
+import { useDispatch } from "react-redux";
 
 export default function MedicalInfo() {
   const [isPhysiciansSelect, setIsPhysiciansSelect] = useState(physicians[0]);
   const [physicianSelct, setPhysicianSelect] = useState(false);
-  const {register, handleSubmit, reset, formState:{errors}} = useForm();
+  const dispatch = useDispatch();
+  const {
+    register,
+    setValue,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
 
   //   handle physicians select
   const handlePhysiciansSelect = (item) => {
     setIsPhysiciansSelect(item);
-    setValue("selectedPhysician", item);
+    setValue("primaryPhysician", item);
     setPhysicianSelect(true);
   };
 
-  return (
-    <div>
-      <form>
-        <div className="mt-10  w-full">
-          <div>
-            <h1 className="text-2xl font-bold text-gray-600">
-              Medical Information
-            </h1>
-          </div>
 
-          <div className="flex flex-col mt-7 gap-2">
-            <span className="text-xl text-gray-600 ">
+  // handle form submit
+  const onSubmit = (data) => {
+    dispatch(patientMedicalInfoAdd(data));
+  }
+
+  return (
+    <div className=" border rounded-md p-5 mt-10 ">
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div className=" w-full">
+          
+
+          <div className="flex flex-col gap-2">
+            <span className="text-[18px] font-[500] text-gray-600 ">
               Primary care physician
             </span>
 
@@ -46,7 +58,7 @@ export default function MedicalInfo() {
                       alt={isPhysiciansSelect.name}
                     />
                   </div>
-                  <p className="text-xl text-gray-700">
+                  <p className="text-[18px] font-[500] text-gray-700">
                     {isPhysiciansSelect?.name}
                   </p>
                 </div>
@@ -73,7 +85,7 @@ export default function MedicalInfo() {
                         alt={item.name}
                       />
                     </div>
-                    <p className=" text-gray-500 text-xl ">{item.name}</p>
+                    <p className=" text-gray-500 text-[18px] font-[500] ">{item.name}</p>
                   </div>
                 ))}
               </div>
@@ -81,7 +93,7 @@ export default function MedicalInfo() {
               {/* input for physician */}
               <input
                 type="hidden"
-                {...register("selectedPhysician", { required: true })}
+                {...register("primaryPhysician", { required: true })}
               />
             </div>
           </div>
@@ -89,11 +101,11 @@ export default function MedicalInfo() {
           <div className="grid mt-5 grid-cols-2 gap-5 ">
             <div className="flex flex-col gap-5">
               <label className="flex flex-col gap-2">
-                <span className="text-xl text-gray-600 ">
+                <span className="text-[18px] font-[500] text-gray-600 ">
                   InsuRance provider
                 </span>
                 <input
-                  className="px-4 py-2 text-xl placeholder:text-gray-500 text-gray-600 focus:border-cyan-500 focus:outline-none border border-gray-200 rounded-md bg-transparent "
+                  className="px-4 py-2 text-[18px] font-[500] placeholder:text-gray-500 text-gray-600 focus:border-cyan-500 focus:outline-none border border-gray-200 rounded-md bg-transparent "
                   placeholder="ex: CareLife Insurance"
                   type="text"
                   {...register("insuranceProvider", { required: true })}
@@ -102,9 +114,9 @@ export default function MedicalInfo() {
 
               {/* allergies filed */}
               <label className="flex flex-col gap-2">
-                <span className="text-xl text-gray-600 ">Allergies(any)</span>
+                <span className="text-[18px] font-[500] text-gray-600 ">Allergies(any)</span>
                 <textarea
-                  className="textarea text-xl border focus:border text-gray-600 focus:border-cyan-500 border-gray-200 focus:outline-none bg-transparent "
+                  className="textarea text-[18px] font-[500] border focus:border text-gray-600 focus:border-cyan-500 border-gray-200 focus:outline-none bg-transparent "
                   placeholder="ex: Peanuts, Penicillin, Pollen"
                   {...register("allergies", { required: true })}
                 ></textarea>
@@ -112,11 +124,11 @@ export default function MedicalInfo() {
 
               {/* family medical history */}
               <label className="flex flex-col gap-2">
-                <span className="text-xl text-gray-600 ">
+                <span className="text-[18px] font-[500] text-gray-600 ">
                   Family medical history
                 </span>
                 <textarea
-                  className="textarea text-xl border focus:border text-gray-600 focus:border-cyan-500 border-gray-200 focus:outline-none bg-transparent "
+                  className="textarea text-[18px] font-[500] border focus:border text-gray-600 focus:border-cyan-500 border-gray-200 focus:outline-none bg-transparent "
                   placeholder="ex: Mother had breast cancer"
                   {...register("family_medical_history", { required: true })}
                 ></textarea>
@@ -125,11 +137,11 @@ export default function MedicalInfo() {
 
             <div className="flex flex-col gap-5">
               <label className="flex flex-col gap-2">
-                <span className="text-xl text-gray-600 ">
+                <span className="text-[18px] font-[500] text-gray-600 ">
                   InsuRance policy number
                 </span>
                 <input
-                  className="px-4 py-2 text-xl placeholder:text-gray-500 text-gray-600 focus:border-cyan-500 focus:outline-none border border-gray-200 rounded-md bg-transparent "
+                  className="px-4 py-2 text-[18px] font-[500] placeholder:text-gray-500 text-gray-600 focus:border-cyan-500 focus:outline-none border border-gray-200 rounded-md bg-transparent "
                   placeholder="ex: CareLife Insurance"
                   type="text"
                   {...register("insurance_policy_number", { required: true })}
@@ -137,28 +149,36 @@ export default function MedicalInfo() {
               </label>
 
               <label className="flex flex-col gap-2">
-                <span className="text-xl text-gray-600 ">
+                <span className="text-[18px] font-[500] text-gray-600 ">
                   Current medications
                 </span>
                 <textarea
-                  className="textarea text-xl border focus:border text-gray-600 focus:border-cyan-500 border-gray-200 focus:outline-none bg-transparent "
+                  className="textarea text-[18px] font-[500] border focus:border text-gray-600 focus:border-cyan-500 border-gray-200 focus:outline-none bg-transparent "
                   placeholder="ex: Ibuprofen 200mg, Levothyroxine 50mcg"
                   {...register("current_medications", { required: true })}
                 ></textarea>
               </label>
 
               <label className="flex flex-col gap-2">
-                <span className="text-xl text-gray-600 ">
+                <span className="text-[18px] font-[500] text-gray-600 ">
                   Past medical history
                 </span>
                 <textarea
-                  className="textarea text-xl border focus:border text-gray-600 focus:border-cyan-500 border-gray-200 focus:outline-none bg-transparent "
+                  className="textarea text-[18px] font-[500] border focus:border text-gray-600 focus:border-cyan-500 border-gray-200 focus:outline-none bg-transparent "
                   placeholder="ex: Asthma diagnosis in childhood"
                   {...register("past_medical_history", { required: true })}
                 ></textarea>
               </label>
             </div>
           </div>
+        </div>
+
+        {/* button section */}
+        <div className="mb-5 flex justify-end">
+          <button className=" w-[200px]  mt-10 btn btn-accent text-white ">
+            <span className="text-[16px]">Next</span>
+            <FaArrowRightLong className="text-[16px] ml-3" />
+          </button>
         </div>
       </form>
     </div>

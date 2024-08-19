@@ -1,6 +1,8 @@
 "use client";
 
 import { useAuth } from "@/AuthProviderContext/AuthProviderContext";
+import IdentificationAndPrivacy from "@/components/patientInfoForm/IdentificationAndPrivacy";
+import InfoReviewAndSubmit from "@/components/patientInfoForm/InfoReviewAndSubmit";
 import MedicalInfo from "@/components/patientInfoForm/MedicalInfo";
 import PersonalInfo from "@/components/patientInfoForm/PersonalInfo";
 import { useEffect, useState } from "react";
@@ -96,9 +98,11 @@ export default function PatientForm() {
           <span className=" text-[18px] font-bold ">Review Information</span>
         </label>
       </div>
-      <div className=" lg:w-[50%] mx-auto ">
+      <div className=" w-[95%] lg:w-[50%] mx-auto ">
         {isChecked === 1 && <PersonalInfo />}
         {isChecked === 2 && <MedicalInfo />  }
+        {isChecked === 3 && <IdentificationAndPrivacy />}
+        {isChecked === 4 && <InfoReviewAndSubmit /> }
       </div>
     </div>
   );

@@ -3,6 +3,8 @@
 import { IoSearch } from "react-icons/io5";
 import { CgMenuGridR } from "react-icons/cg";
 import {
+  FaCalendar,
+  FaCalendarCheck,
   FaFilter,
   FaListUl,
   FaLongArrowAltLeft,
@@ -20,7 +22,7 @@ import { MdDelete } from "react-icons/md";
 import useAppointmentsData from "@/DataFetch/useAppointsData";
 import { IoVideocam } from "react-icons/io5";
 
-export default function DoctorAppointments() {
+export default function MyAppointments() {
   const [filterDate, setFilterDate] = useState(new Date().toLocaleDateString());
   const [appointFilter, setAppointmentFilter] = useState(false);
   const [visitType, setVisitType] = useState(false);
@@ -64,8 +66,8 @@ export default function DoctorAppointments() {
   return (
     <div className="w-[95%] mx-auto">
       {/* appointments header */}
-      <div className="flex justify-between mt-10 items-center ">
-        <p className="text-3xl font-bold">Appointments</p>
+      <div className="flex justify-between mt-10  ">
+        <p className="text-2xl font-bold">Appointments</p>
 
         {/* search */}
         <div className="flex items-center gap-5">
@@ -110,26 +112,26 @@ export default function DoctorAppointments() {
       </div>
 
       {/* divider */}
-      <div className=" border border-t-0 mt-10 px-5"></div>
+      <div className=" border border-t-0 mt-5 px-5"></div>
 
       {/* total details and filter section */}
       <div className=" flex items-center justify-between ">
         <div className="flex items-center mt-5 gap-5">
-          <div className=" px-4 py-2 bg-gray-100 text-[18px] font-semibold hover:text-white rounded-md hover:bg-blue-500  flex items-center gap-2 text-gray-600 ">
+          <div className=" px-4 py-2 bg-gray-100 text-[16px] font-[500] hover:text-white rounded-md hover:bg-blue-500  flex items-center gap-2 text-gray-600 ">
             Upcoming{" "}
-            <p className=" w-12 text-center h-7  rounded-3xl bg-white text-black">
+            <p className="w-10 h-6 py-1 px-2 flex items-center justify-center rounded-3xl bg-white text-black">
               12
             </p>
           </div>
-          <div className=" px-4 py-2 bg-gray-100 text-[18px] font-semibold hover:text-white rounded-md hover:bg-blue-500  flex items-center gap-2 text-gray-600 ">
+          <div className=" px-4 py-2 bg-gray-100 text-[16px] font-[500] hover:text-white rounded-md hover:bg-blue-500  flex items-center gap-2 text-gray-600 ">
             Cancelled{" "}
-            <p className=" w-12 text-center h-7  rounded-3xl bg-white text-black">
+            <p className="w-10 h-6 py-1 px-2 flex items-center justify-center rounded-3xl bg-white text-black">
               12
             </p>
           </div>
-          <div className=" px-4 py-2 bg-gray-100 text-[18px] font-semibold hover:text-white rounded-md hover:bg-blue-500  flex items-center gap-2 text-gray-600 ">
+          <div className=" px-4 py-2 bg-gray-100 text-[16px] font-[500] hover:text-white rounded-md hover:bg-blue-500  flex items-center gap-2 text-gray-600 ">
             Completed{" "}
-            <p className=" w-12 text-center h-7  rounded-3xl bg-white text-black">
+            <p className=" w-10 h-6 py-1 px-2 flex items-center justify-center text-center  rounded-3xl bg-white text-black">
               12
             </p>
           </div>
@@ -158,7 +160,7 @@ export default function DoctorAppointments() {
               <span>
                 <FaFilter className="text-xl text-gray-500 " />
               </span>
-              <span className=" text-[18px] font-semibold ">Filter by</span>
+              <span className=" text-[16px] font-semibold ">Filter by</span>
               <span>
                 <IoMdArrowDropdown className="text-2xl  " />
               </span>
@@ -173,7 +175,7 @@ export default function DoctorAppointments() {
                     onClick={() => setAppointmentFilter(!appointFilter)}
                     className="flex items-center justify-between p-3 bg-gray-50 cursor-pointer"
                   >
-                    <span className="text-[18px] font-semibold">
+                    <span className="text-[16px] font-semibold">
                       Appointment type
                     </span>
                     <motion.span
@@ -219,7 +221,7 @@ export default function DoctorAppointments() {
                     onClick={() => setVisitType(!visitType)}
                     className="flex items-center justify-between p-3 bg-gray-50 cursor-pointer"
                   >
-                    <span className="text-[18px] font-semibold">
+                    <span className="text-[16px] font-semibold">
                       Visit type
                     </span>
                     <motion.span
@@ -235,7 +237,7 @@ export default function DoctorAppointments() {
                         initial={{ opacity: 0, height: 0 }}
                         animate={{ opacity: 1, height: "auto" }}
                         exit={{ opacity: 0, height: 0 }}
-                        transition={{ duration: 0.1 }}
+                        transition={{ duration: 0.2 }}
                         className="flex flex-col gap-2 py-5 overflow-hidden"
                       >
                         {visitTypeData.map((item, index) => (
@@ -284,10 +286,10 @@ export default function DoctorAppointments() {
               <div className="flex items-center gap-2 ">
                 <div className=" w-14 h-14 rounded-xl bg-blue-200 "></div>
                 <div className="flex flex-col gap-1">
-                  <p className="text[18px] text-sky-500 font-[550] ">
+                  <p className="text[16px] text-sky-500 font-[550] ">
                     #d00{idx + 1}
                   </p>
-                  <p className="card-title">
+                  <p className="card-title text-[16px]">
                     {item.name ? item.name : item.doctor.name}
                   </p>
                 </div>
@@ -295,43 +297,47 @@ export default function DoctorAppointments() {
 
               {/* date and time and visit type */}
               <div className=" flex flex-col gap-1">
-                <p className="text[18px] font-normal ">
-                  {item.appointment_date}
+                <p className="text[16px] font-normal ">
+                  {new Date(item.appointment_date).toLocaleString()}
                 </p>
                 <p className=" flex items-center gap-1 ">
-                  <span className="text[18px] font-normal ">General visit</span>
-                  <span className="text[18px] font-normal ">|</span>
-                  <span className="text[18px] font-normal ">Video Call</span>
+                  <span className="text[16px] font-normal ">General visit</span>
+                  <span className="text[16px] font-normal ">|</span>
+                  <span className="text[16px] font-normal ">Video Call</span>
                 </p>
               </div>
 
               {/* email and phone number */}
               <div className=" flex flex-col gap-1">
-                <p className=" text-[18px] font-normal text-slate-800  ">
+                <p className=" text-[16px] font-normal text-slate-800  ">
                   {item.patientId}
                 </p>
-                <p className=" text-[18px] font-normal text-slate-800 ">
+                <p className=" text-[16px] font-normal text-slate-800 ">
                   {item.phoneNumber ? item.phoneNumber : "+86 132458-4524"}
                 </p>
               </div>
 
               {/* action btns section */}
               <div className=" flex items-center gap-2 ">
-                <a href="/appointments/doctor/view-appointment" className=" flex items-center justify-center hover:cursor-pointer transition-all duration-200 w-10 h-10 rounded-full bg-gray-100 hover:bg-blue-500 hover:text-white ">
-                  <FaEye className="text-xl" />
+                <a
+                  href="/appointments/doctor/view-appointment"
+                  className=" flex items-center justify-center hover:cursor-pointer transition-all duration-200 w-10 h-10 rounded-full bg-gray-100 hover:bg-blue-500 hover:text-white "
+                >
+                  <FaEye className="text-[16px]" />
                 </a>
                 <p className=" flex items-center justify-center hover:cursor-pointer transition-all duration-200 w-10 h-10 rounded-full bg-gray-100 hover:bg-blue-500 hover:text-white ">
-                  <FaMessage className="text-xl" />
+                  <FaMessage className="text-[16px]" />
                 </p>
                 <p className=" flex items-center justify-center hover:cursor-pointer transition-all duration-200 w-10 h-10 rounded-full bg-gray-100 hover:bg-blue-500 hover:text-white ">
-                  <MdDelete className="text-xl" />
+                  <MdDelete className="text-[16px]" />
                 </p>
               </div>
 
               {/* start now btn */}
-              <p className="text[18px] underline hover:cursor-pointer font-semibold ">
-                Start Now
-              </p>
+              <button className="text[16px] flex items-center gap-2 px-3 py-2 transition-all duration-200 hover:bg-blue-500 hover:text-white rounded-md border text-blue-500 hover:cursor-pointer font-semibold ">
+                <FaCalendarCheck className=" hover:text-white inline-block text-sm  " />
+                Attend
+              </button>
             </div>
           ))}
         </div>
@@ -345,40 +351,45 @@ export default function DoctorAppointments() {
               key={item._id}
               className=" w-full rounded-md bg-white shadow-lg p-5 flex flex-col gap-5 "
             >
-              <div className="flex items-center gap-2 ">
-                <div className=" w-14 h-14 rounded-xl bg-blue-200 "></div>
-                <div className="flex flex-col gap-1">
-                  <div className=" flex gap-10 justify-between">
+              <div className=" w-full flex items-center justify-between ">
+                <div className="flex items-center gap-2 ">
+                  <div className=" w-12 h-12 rounded-xl bg-blue-200 "></div>
+                  <div className="flex flex-col gap-1">
                     <div className=" flex flex-col">
-                      <p className="text[18px] font-[550] text-cyan-500 ">
+                      <p className="text-[16px] font-[550] text-cyan-500 ">
                         #d00{idx + 1}
                       </p>
-                      <div className=" flex items-center justify-between gap-1 ">
-                        <p className="card-title">{item.doctor.name}</p>
-                        <p className=" w-14 h-7 flex items-center justify-center rounded-xl bg-green-400 text-white ">
+                      <div className=" flex items-center justify-between gap-2 ">
+                        <p className="card-title text-[16px] ">
+                          {item.doctor.name}
+                        </p>
+                        <p className=" text-sm w-12 h-5 flex items-center justify-center rounded-xl bg-green-400 text-white ">
                           New
                         </p>
                       </div>
                     </div>
-                    <p className=" w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center ">
-                    <IoVideocam className="text-xl text-blue-500" />
-                    </p>
                   </div>
                 </div>
+                <p className=" w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center ">
+                  <IoVideocam className="text-[16px] text-blue-500" />
+                </p>
               </div>
 
               {/* date and time */}
               <div className="p-4 rounded-md bg-gray-100">
-                <p className="text-[18px] font-[550] ">
-                  {item.appointment_date}
+                <p className="text-[16px] font-[550] ">
+                  { new Date(item.appointment_date).toLocaleString()}
                 </p>
-                <p className="text-[18px] font-[550] ">General Visit</p>
+                <p className="text-[16px] font-[550] ">General Visit</p>
               </div>
 
               {/* action btns */}
               <div className=" flex items-center justify-between gap-1 ">
                 <div className=" flex items-center gap-2 ">
-                  <a href="/appointment/doctor/view-appointment" className=" flex items-center justify-center hover:cursor-pointer transition-all duration-200 w-10 h-10 rounded-full bg-gray-100 hover:bg-blue-500 hover:text-white ">
+                  <a
+                    href="/appointment/doctor/view-appointment"
+                    className=" flex items-center justify-center hover:cursor-pointer transition-all duration-200 w-10 h-10 rounded-full bg-gray-100 hover:bg-blue-500 hover:text-white "
+                  >
                     <FaEye className="text-xl" />
                   </a>
                   <p className=" flex items-center justify-center hover:cursor-pointer transition-all duration-200 w-10 h-10 rounded-full bg-gray-100 hover:bg-blue-500 hover:text-white ">
@@ -388,7 +399,7 @@ export default function DoctorAppointments() {
                     <MdDelete className="text-xl" />
                   </p>
                 </div>
-                <p className=" text-[18px] font-semibold underline ">
+                <p className=" text-[16px] font-semibold underline ">
                   Start Now
                 </p>
               </div>

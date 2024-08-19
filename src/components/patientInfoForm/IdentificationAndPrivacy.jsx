@@ -1,24 +1,40 @@
 "use client";
 
-export default function IdentificationAndPrivacy() {
-  return (
-    <div>
-      <form>
-        <div className=" w-full mt-10">
-          <div>
-            <h1 className="text-2xl font-bold text-gray-600">
-              Identification and Verification
-            </h1>
-          </div>
+import { patientIdentificationInfoAdd } from "@/redux/reducers/AddPatientInfo/AddPatientInfo";
+import { useForm } from "react-hook-form";
+import { FaArrowRightLong } from "react-icons/fa6";
+import { IoCloudUploadOutline } from "react-icons/io5";
+import { useDispatch } from "react-redux";
 
-          <div className="flex flex-col gap-5 mt-7">
+export default function IdentificationAndPrivacy() {
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
+  const dispatch = useDispatch();
+
+  // handle form submit
+  const onSubmit = (data) => {
+    dispatch(patientIdentificationInfoAdd(data));
+  };
+  return (
+    <div className=" w-full rounded-md border  p-5 mt-10  mb-10 ">
+      <form onSubmit={handleSubmit(onSubmit)}
+      className=" "
+      >
+        <div className=" w-full ">
+         
+
+          <div className="flex flex-col gap-5 ">
             <label className="flex flex-col gap-2">
-              <span className="text-xl text-gray-600 ">
+              <span className="text-[18px] font-[500] text-gray-600 ">
                 Identification type
               </span>
               <select
                 {...register("identification_type", { required: true })}
-                className="select border text-gray-600 text-xl border-gray-200 bg-transparent  focus:outline-none w-full "
+                className="select border text-gray-600 text-[18px] font-[500] border-gray-200 bg-transparent  focus:outline-none w-full "
               >
                 <option>Birth Certification</option>
                 <option>Password</option>
@@ -27,11 +43,11 @@ export default function IdentificationAndPrivacy() {
             </label>
 
             <label className="flex flex-col gap-2">
-              <span className="text-xl text-gray-600 ">
+              <span className="text-[18px] font-[500] text-gray-600 ">
                 Identification Number
               </span>
               <input
-                className="px-4 py-2 text-xl placeholder:text-gray-500 text-gray-600 focus:border-cyan-500 focus:outline-none border border-gray-200 rounded-md bg-transparent "
+                className="px-4 py-2 text-[18px] font-[500] placeholder:text-gray-500 text-gray-600 focus:border-cyan-500 focus:outline-none border border-gray-200 rounded-md bg-transparent "
                 placeholder="ex: 202564-2545023578"
                 type="text"
                 {...register("identification_number", { required: true })}
@@ -69,7 +85,7 @@ export default function IdentificationAndPrivacy() {
                 className="checkbox checkbox-accent"
                 defaultChecked
               />
-              <span className="label-text text-xl text-gray-400">
+              <span className="label-text text-[18px] font-[500] text-gray-400">
                 I consent to receive treatment for my health condition.
               </span>
             </label>
@@ -84,7 +100,7 @@ export default function IdentificationAndPrivacy() {
                 className="checkbox checkbox-accent"
                 defaultChecked
               />
-              <span className="label-text text-xl text-gray-400">
+              <span className="label-text text-[18px] font-[500] text-gray-400">
                 I consent to the use and disclosure of my health information for
                 treatment purposes.
               </span>
@@ -109,6 +125,14 @@ export default function IdentificationAndPrivacy() {
               <p className="text-red-500">This field is required.</p>
             )}
           </div>
+        </div>
+
+        {/* button section */}
+        <div className="mb-5 flex justify-end">
+          <button className=" w-[200px]  mt-10 btn btn-accent text-white ">
+            <span className="text-[16px]">Next</span>
+            <FaArrowRightLong className="text-[16px] ml-3" />
+          </button>
         </div>
       </form>
     </div>

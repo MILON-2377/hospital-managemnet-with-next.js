@@ -1,4 +1,5 @@
 "use client";
+
 import Image from "next/image";
 import patientIcon from "../../../public/assets/patientIcon.jpg";
 import {
@@ -12,7 +13,7 @@ import WeeklyOver from "@/components/DashBoard/WeeklyOver";
 import RecentInvoice from "@/components/DashBoard/RecentInvoice";
 import Notification from "@/components/DashBoard/Notification";
 
-export default function Dashboard() {
+export default function DoctorDashbord() {
   return (
     <div>
       {/* appointment and percentage section */}

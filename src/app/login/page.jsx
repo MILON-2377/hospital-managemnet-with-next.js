@@ -7,24 +7,29 @@ import Image from "next/image";
 import { useState } from "react";
 import { useAuth } from "@/AuthProviderContext/AuthProviderContext";
 import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
 
 export default function LogIn() {
   const { userLogIn } = useAuth();
   const [showPass, setShowPass] = useState(false);
   const { register, handleSubmit, reset } = useForm();
+  const router = useRouter();
 
   // user login handle
 
   const onSubmit = async (data) => {
     document.getElementById("my_modal_1").showModal();
     const { email, password } = data;
-    // try {
-    //   const res = await userLogIn(email, password);
-    //   if (res.user) {
-    //   }
-    // } catch (error) {
-    //   console.log(error.message);
-    // }
+    try {
+      const res = await userLogIn(email, password);
+      if (res.user) {
+        router.push("/Dashboard");
+        document.getElementById("my_modal_1").close();
+        reset();
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
   return (
