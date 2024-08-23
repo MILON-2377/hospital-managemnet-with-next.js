@@ -4,33 +4,54 @@ import { FaEye, FaEyeSlash, FaUser } from "react-icons/fa";
 import { MdOutlineWifiPassword } from "react-icons/md";
 import img from "../../../public/bearded-doctor-listening-patient.jpg";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "@/AuthProviderContext/AuthProviderContext";
 import { useForm } from "react-hook-form";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function LogIn() {
-  const { userLogIn } = useAuth();
+  const { userLogIn, user } = useAuth();
   const [showPass, setShowPass] = useState(false);
   const { register, handleSubmit, reset } = useForm();
   const router = useRouter();
+  const path = usePathname();
 
   // user login handle
-
   const onSubmit = async (data) => {
     document.getElementById("my_modal_1").showModal();
     const { email, password } = data;
     try {
       const res = await userLogIn(email, password);
-      if (res.user) {
-        router.push("/Dashboard");
-        document.getElementById("my_modal_1").close();
+      if (res) {
         reset();
       }
     } catch (error) {
-      console.log(error.message);
+      document.getElementById("my_modal_1").close();
+      toast(error.message);
     }
   };
+
+  useEffect(() => {
+    if (user) {
+      const { profession } = user;
+      const dashboardRoute =
+        profession === "Patient"
+          ? "/Dashboard/patient-dashboard"
+          : profession === "Doctor"
+          ? "/Dashboard/doctor-dashboard"
+          : null;
+
+      if (dashboardRoute) {
+        router.push(dashboardRoute);
+      }
+    }
+  }, [user]);
+
+  useEffect(() => {
+    document.getElementById("my_modal_1").close();
+  }, [path]);
 
   return (
     <div className=" flex justify-between gap-6 ">
@@ -116,16 +137,20 @@ export default function LogIn() {
       {/* logging modal section */}
       <div>
         <dialog id="my_modal_1" className="modal">
-          <div className="modal-box bg-accent flex flex-col items-center justify-center gap-5  ">
-            <h3 className="font-bold text-lg text-white  ">
+          <div className=" p-5 bg-accent flex flex-col items-center justify-center text-white gap-3  ">
+            <h3 className=" text-white  ">
               Please wait, logging process is in progress...
             </h3>
-            <p>
-              <span className="loading loading-spinner text-secondary"></span>
+            <p className=" w-full text-center text-white ">
+              <span className="loading loading-bars loading-sm"></span>
+              <span className="loading loading-bars loading-md"></span>{" "}
             </p>
           </div>
         </dialog>
       </div>
+
+      {/* react toastify container */}
+      <ToastContainer />
     </div>
   );
 }

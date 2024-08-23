@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { v4 as uuidv4 } from "uuid";
 
 const userSchema = new mongoose.Schema({
   userName: {
@@ -19,6 +20,10 @@ const userSchema = new mongoose.Schema({
   isAdmin: {
     type: Boolean,
     default: false,
+  },
+  userId: {
+    type: String,
+    default: uuidv4,
   },
 });
 

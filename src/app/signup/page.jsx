@@ -32,6 +32,7 @@ export default function SignUp() {
   const onSubmit = async (data) => {
     const { email, password, userName } = data;
     setIsSigning(true);
+
     try {
       const userRegisterRes = await userRegisterHandle(email, password);
       if (userRegisterRes.user.email) {
@@ -44,7 +45,7 @@ export default function SignUp() {
           if (profession === "Patient") {
             router.push("/patient-form-page");
           } else {
-            router.push("/Dashboard");
+            router.push("/Dashboard/doctor-dashboard");
           }
 
           setIsSigning(false);
@@ -198,17 +199,7 @@ export default function SignUp() {
               )}
             </div>
 
-            {isSigning ? (
-              <>
-                <button className="btn flex items-center gap-2 btn-accent text-white ">
-                  <span className="loading loading-spinner text-secondary"></span>
-                </button>
-              </>
-            ) : (
-              <>
-                <button className="btn btn-accent text-white ">Sign Up</button>
-              </>
-            )}
+            <button className="btn btn-accent text-white ">Sign Up</button>
           </form>
         </div>
 

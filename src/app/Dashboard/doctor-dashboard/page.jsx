@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import patientIcon from "../../../public/assets/patientIcon.jpg";
+import patientIcon from "../../../../public/assets/patientIcon.jpg";
 import {
   FaCalendarCheck,
   FaCheck,

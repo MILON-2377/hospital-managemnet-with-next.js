@@ -9,7 +9,7 @@ export default function ViewAppointment() {
   return (
     <div className=" w-full p-5 ">
       {/* header title */}
-      <p className=" text-2xl font-bold ">Appointment Details</p>
+      <p className=" text-xl font-bold ">Appointment Details</p>
       <div className=" border border-t-0 mt-5 "></div>
 
       {/* appointment details displaying */}
@@ -19,26 +19,26 @@ export default function ViewAppointment() {
           <div className=" flex items-center gap-3">
             <div className="w-28 h-28 rounded-md bg-blue-200"></div>
             <div className="flex flex-col -mt-3">
-              <p className="text-[18px] font-[550] text-cyan-500 ">Id</p>
-              <p className="text-[18px] font-[550] card-title  ">name</p>
-              <p className="text-[18px] font-[550] flex items-center gap-1  ">
+              <p className="text-[16px] font-[550] text-cyan-500 ">Id</p>
+              <p className="text-[16px] font-[550] card-title  ">name</p>
+              <p className="text-[16px] font-[550] flex items-center gap-1  ">
                 <span>
                   <MdEmail className="text-xl text-gray-500" />
                 </span>
                 <span>email</span>
               </p>
-              <p className="text-[18px] font-[550]  ">phone number</p>
+              <p className="text-[16px] font-[550]  ">phone number</p>
             </div>
           </div>
 
           {/* type of appointment */}
           <div>
-            <p className="text-xl font-semibold ">Type of Appointment</p>
-            <p className="flex items-center gap-2">
+            <p className="text-[18px] font-semibold ">Type of Appointment</p>
+            <p className="flex items-center mt-3 gap-2">
               <span>
                 <SiAnytype className="text-3xl text-cyan-500 " />
               </span>
-              <span className="text-[18px] font-[550] ">Direct visit</span>
+              <span className="text-[16px] font-[550] ">Direct visit</span>
             </p>
           </div>
 
@@ -53,10 +53,10 @@ export default function ViewAppointment() {
               </p>
             </div>
             <p>
-              <span className="text-[18px] font-[550] ">
+              <span className="text-[16px] font-[550] ">
                 Consultation Fees :{" "}
               </span>
-              <span className="text-[18px] font-[550] ">$200</span>
+              <span className="text-[16px] font-[550] ">$200</span>
             </p>
 
             <div className="flex items-center gap-4 ml-36 ">
@@ -77,31 +77,31 @@ export default function ViewAppointment() {
 
         <div className="flex justify-between mt-5 ">
           <div>
-            <p className="text-[18px] font-semibold ">
+            <p className="text-[16px] font-semibold ">
               Appointment Date And Time
             </p>
-            <p className=" text-gray-500 text-[18px] font-[550] ">
+            <p className=" text-gray-500 text-[16px] font-[550] ">
               date and time
             </p>
           </div>
 
           <div>
-            <p className="text-[18px] font-semibold ">Clinic Location</p>
-            <p className=" text-gray-500 text-[18px] font-[550] ">location</p>
+            <p className="text-[16px] font-semibold ">Clinic Location</p>
+            <p className=" text-gray-500 text-[16px] font-[550] ">location</p>
           </div>
 
           <div>
-            <p className="text-[18px] font-semibold ">Location</p>
-            <p className=" text-gray-500 text-[18px] font-[550] ">
+            <p className="text-[16px] font-semibold ">Location</p>
+            <p className=" text-gray-500 text-[16px] font-[550] ">
               actual location
             </p>
           </div>
 
           <div>
-            <p className="text-[18px] font-semibold ">Visit Type</p>
-            <p className=" text-gray-500 text-[18px] font-[550] ">eneral</p>
+            <p className="text-[16px] font-semibold ">Visit Type</p>
+            <p className=" text-gray-500 text-[16px] font-[550] ">eneral</p>
           </div>
-          <button className=" px-4 py-2 rounded-md bg-accent transition-all duration-200 hover:bg-opacity-80 active:scale-95 text-white text-[18px] font-semibold ">
+          <button className=" px-4 py-2 rounded-md bg-accent transition-all duration-200 hover:bg-opacity-80 active:scale-95 text-white text-[16px] font-semibold ">
             Start Session
           </button>
         </div>
@@ -109,7 +109,7 @@ export default function ViewAppointment() {
 
       {/* recent appointments section */}
       <div className="mt-5">
-        <p className="text-2xl font-bold   ">Recent Appointments</p>
+        <p className="text-xl font-bold   ">Recent Appointments</p>
         <div className="flex flex-col gap-5">
           <div
             className={
@@ -120,32 +120,32 @@ export default function ViewAppointment() {
             <div className="flex items-center gap-2 ">
               <div className=" w-14 h-14 rounded-xl bg-blue-200 "></div>
               <div className="flex flex-col gap-1">
-                <p className="text[18px] text-sky-500 font-[550] ">#d001</p>
+                <p className="text[16px] text-sky-500 font-[550] ">#d001</p>
                 <p className="card-title">Milon Miah</p>
               </div>
             </div>
 
             {/* date and time and visit type */}
             <div className=" flex flex-col gap-1">
-              <p className="text[18px] font-normal ">
+              <p className="text[16px] font-normal ">
                 {new Date().toLocaleString()}
               </p>
               <p className=" flex items-center gap-1 ">
-                <span className="text[18px] font-normal ">General visit</span>
-                <span className="text[18px] font-normal ">|</span>
-                <span className="text[18px] font-normal ">Video Call</span>
+                <span className="text[16px] font-normal ">General visit</span>
+                <span className="text[16px] font-normal ">|</span>
+                <span className="text[16px] font-normal ">Video Call</span>
               </p>
             </div>
 
             {/* email and phone number */}
             <div className=" flex flex-col gap-1">
-              <p className=" text-[18px] flex items-center gap-1 font-normal text-slate-800  ">
+              <p className=" text-[16px] flex items-center gap-1 font-normal text-slate-800  ">
                 <span>
                   <MdEmail className="text-xl text-gray-500 " />
                 </span>
                 <span className="text-black  ">milon.miah@qq.com</span>
               </p>
-              <p className=" text-[18px] font-normal text-slate-800 ">
+              <p className=" text-[16px] font-normal text-slate-800 ">
                 {"+86 132458-4524"}
               </p>
             </div>
@@ -169,32 +169,32 @@ export default function ViewAppointment() {
             <div className="flex items-center gap-2 ">
               <div className=" w-14 h-14 rounded-xl bg-blue-200 "></div>
               <div className="flex flex-col gap-1">
-                <p className="text[18px] text-sky-500 font-[550] ">#d002</p>
+                <p className="text[16px] text-sky-500 font-[550] ">#d002</p>
                 <p className="card-title">Sakil Sheikh</p>
               </div>
             </div>
 
             {/* date and time and visit type */}
             <div className=" flex flex-col gap-1">
-              <p className="text[18px] font-normal ">
+              <p className="text[16px] font-normal ">
                 {new Date().toLocaleString()}
               </p>
               <p className=" flex items-center gap-1 ">
-                <span className="text[18px] font-normal ">General visit</span>
-                <span className="text[18px] font-normal ">|</span>
-                <span className="text[18px] font-normal ">Video Call</span>
+                <span className="text[16px] font-normal ">General visit</span>
+                <span className="text[16px] font-normal ">|</span>
+                <span className="text[16px] font-normal ">Video Call</span>
               </p>
             </div>
 
             {/* email and phone number */}
             <div className=" flex flex-col gap-1">
-              <p className=" text-[18px] flex items-center gap-1 font-normal text-slate-800  ">
+              <p className=" text-[16px] flex items-center gap-1 font-normal text-slate-800  ">
                 <span>
                   <MdEmail className="text-xl text-gray-500 " />
                 </span>
                 <span className="text-black  ">sakil@qq.com</span>
               </p>
-              <p className=" text-[18px] font-normal text-slate-800 ">
+              <p className=" text-[16px] font-normal text-slate-800 ">
                 {"+86 132458-4524"}
               </p>
             </div>

@@ -18,7 +18,7 @@ export default function Banner() {
       transition={{ y: { duration: 1 } }}
       className={` lg:h-[650px] w-[95%] mx-auto lg:w-full flex justify-between  `}
     >
-      <div className=" w-full lg:flex-1 lg:ml-10 h-full mt-32 ">
+      <div className=" w-full lg:flex-1 lg:ml-10 h-full mt-20 ">
         <p className="text-5xl leading-[60px] font-bold">
           Begin <span className="text-blue-500"> your journey to </span> better
           health with <span className="text-cyan-500">CareLife</span>

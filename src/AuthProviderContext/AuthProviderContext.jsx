@@ -9,6 +9,7 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
+  updatePassword,
 } from "firebase/auth";
 import React, { createContext, useContext, useEffect, useState } from "react";
 
@@ -35,12 +36,22 @@ const AuthProviderContext = ({ children }) => {
     return signInWithPopup(auth,googleProvider);
   }
 
-  // Hj@3hkjk -------------------pass
 
   // user logged out handle
   const userLoggedOut = () => {
     return signOut(auth);
   };
+
+
+
+  // password update 
+  const userPasswordUpdate = (newPass) => {
+    const user = auth.currentUser;
+    return updatePassword(user ,newPass);
+  }
+
+
+
 
   // user onAuthStateChanged to is user logged in handle
   useEffect(() => {
@@ -88,7 +99,8 @@ const AuthProviderContext = ({ children }) => {
     userLogIn,
     user,
     loading,
-    googleLogIn
+    googleLogIn,
+    userPasswordUpdate
   };
 
   return (

@@ -9,8 +9,8 @@ export default function PatientProfileEdit() {
     <div className=" w-full p-5 mt-5 ">
       {/* header */}
       <div className=" border rounded-md p-5 ">
-        <div className=" flex items-center gap-5 ">
-          <div className=" w-32 h-32 rounded-md border flex items-center justify-center bg-gray-50 ">
+        <div className=" flex sm:flex-row flex-col items-center gap-5 ">
+          <div className=" sm:w-32 sm:h-32 rounded-md border flex items-center justify-center bg-gray-50 ">
             <FaFileArrowUp className=" text-3xl " />
           </div>
           <div className="flex flex-col gap-2">
@@ -34,7 +34,7 @@ export default function PatientProfileEdit() {
         <p className=" text-xl font-bold ">Information</p>
 
         <div className=" mt-5 border rounded-md p-5 ">
-          <div className=" flex items-center justify-between gap-5 ">
+          <div className=" flex sm:flex-row flex-col items-center justify-between gap-5 ">
             <label className="flex w-full flex-col gap-2">
               <span className=" text-[16px] font-[500] text-black ">
                 First name
@@ -66,7 +66,7 @@ export default function PatientProfileEdit() {
               />
             </label>
           </div>
-          <div className=" flex mt-8 items-center justify-between gap-5 ">
+          <div className=" flex sm:flex-row flex-col mt-8 items-center justify-between gap-5 ">
             <label className="flex w-full flex-col gap-2">
               <span className=" text-[16px] font-[500] text-black ">
                 Phone number
@@ -114,7 +114,7 @@ export default function PatientProfileEdit() {
               className=" w-full focus:outline-none border px-4 py-2 rounded-md "
             />
           </label>
-          <div className=" flex mt-8 items-center justify-between gap-5 ">
+          <div className=" flex sm:flex-row flex-col mt-8 items-center justify-between gap-5 ">
             <label className="flex w-full flex-col gap-2">
               <span className=" text-[16px] font-[500] text-black ">City</span>
               <input
@@ -132,7 +132,7 @@ export default function PatientProfileEdit() {
               />
             </label>
           </div>
-          <div className=" flex mt-8 items-center justify-between gap-5 ">
+          <div className=" flex sm:flex-row flex-col mt-8 items-center justify-between gap-5 ">
             <label className="flex w-full flex-col gap-2">
               <span className=" text-[16px] font-[500] text-black ">Country</span>
               <input

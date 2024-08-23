@@ -33,7 +33,7 @@ export default function BookAppointmentView() {
         </div>
       </div>
 
-      <div className=" mt-8 flex items-center justify-between">
+      <div className=" mt-8 flex sm:flex-row flex-col sm:items-center gap-5 sm:gap-0 justify-between">
         <div>
           <p className=" text-[16px] font-[600] ">22 December 2024</p>
           <p className=" text-[16px] text-gray-500 font-[500] ">Monday</p>
@@ -43,13 +43,13 @@ export default function BookAppointmentView() {
           <div
             tabIndex={0}
             role="button"
-            className=" px-4 py-2 flex items-center gap-4 rounded-md border w-[320px] "
+            className=" w-full px-4 py-2 flex items-center gap-4 rounded-md border sm:w-[320px] "
           >
             <FaCalendarPlus className=" text-xl text-gray-500 " />
             <input
               type="text"
               value={dateChoose}
-              className=" focus:outline-none focus:border-none bg-transparent "
+              className=" w-full sm:w-auto focus:outline-none focus:border-none bg-transparent "
             />
           </div>
           <ul
@@ -105,47 +105,59 @@ export default function BookAppointmentView() {
       </div>
 
       <div className=" border  rounded-md p-5 mt-10 ">
-        <div className=" w-full relative flex items-center justify-evenly ">
-          <div>
-            <p className=" text-xl font-semibold ">MON</p>
-            <p className=" text-[16px] text-gray-500 ">20 Aug 2024</p>
-          </div>
-          <div>
-            <p className=" text-xl font-semibold ">TUE</p>
-            <p className=" text-[16px] text-gray-500 ">20 Aug 2024</p>
-          </div>
-          <div>
-            <p className=" text-xl font-semibold ">WED</p>
-            <p className=" text-[16px] text-gray-500 ">20 Aug 2024</p>
-          </div>
-          <div>
-            <p className=" text-xl font-semibold ">THU</p>
-            <p className=" text-[16px] text-gray-500 ">20 Aug 2024</p>
-          </div>
-          <div>
-            <p className=" text-xl font-semibold ">FRI</p>
-            <p className=" text-[16px] text-gray-500 ">20 Aug 2024</p>
-          </div>
-          <div>
-            <p className=" text-xl font-semibold ">SAT</p>
-            <p className=" text-[16px] text-gray-500 ">20 Aug 2024</p>
-          </div>
-          <div>
-            <p className=" text-xl font-semibold ">SUN</p>
-            <p className=" text-[16px] text-gray-500 ">20 Aug 2024</p>
+        <div className=" w-full lg:relative">
+          <div className=" w-full mb-5 lg:hidden flex items-center justify-between ">
+            <button className=" p-1 rounded-full hover:border ">
+              <IoIosArrowBack className=" text-2xl " />
+            </button>
+            <button className=" p-1 rounded-full hover:border ">
+              <IoIosArrowForward className=" text-2xl " />
+            </button>
           </div>
 
-          <button className=" p-1 rounded-full hover:border absolute left-0 ">
+          <div className=" lg:flex items-center justify-evenly grid sm:grid-cols-4 px-2 lg:px-0 grid-cols-2 gap-3 ">
+            <div>
+              <p className=" text-xl font-semibold ">MON</p>
+              <p className=" text-[16px] text-gray-500 ">20 Aug 2024</p>
+            </div>
+            <div>
+              <p className=" text-xl font-semibold ">TUE</p>
+              <p className=" text-[16px] text-gray-500 ">20 Aug 2024</p>
+            </div>
+            <div>
+              <p className=" text-xl font-semibold ">WED</p>
+              <p className=" text-[16px] text-gray-500 ">20 Aug 2024</p>
+            </div>
+            <div>
+              <p className=" text-xl font-semibold ">THU</p>
+              <p className=" text-[16px] text-gray-500 ">20 Aug 2024</p>
+            </div>
+            <div>
+              <p className=" text-xl font-semibold ">FRI</p>
+              <p className=" text-[16px] text-gray-500 ">20 Aug 2024</p>
+            </div>
+            <div>
+              <p className=" text-xl font-semibold ">SAT</p>
+              <p className=" text-[16px] text-gray-500 ">20 Aug 2024</p>
+            </div>
+            <div>
+              <p className=" text-xl font-semibold ">SUN</p>
+              <p className=" text-[16px] text-gray-500 ">20 Aug 2024</p>
+            </div>
+          </div>
+
+          
+          <button className=" lg:block  p-1 rounded-full hover:border hidden lg:absolute top-5 -left-3 ">
             <IoIosArrowBack className=" text-2xl " />
           </button>
-          <button className=" p-1 rounded-full hover:border absolute right-0 ">
+          <button className=" lg:block p-1 rounded-full hover:border hidden lg:absolute top-5  -right-3 ">
             <IoIosArrowForward className=" text-2xl " />
           </button>
         </div>
 
         <div className=" mt-5 mb-5 border-t "></div>
 
-        <div className=" grid grid-cols-8 gap-5 ">
+        <div className=" grid sm:grid-cols-4 grid-cols-2 lg:grid-cols-8 gap-5 ">
           {[...times].map((item, idx) => (
             <button
               key={idx + 1}
@@ -154,7 +166,7 @@ export default function BookAppointmentView() {
                 item.id === timeChoose.id
                   ? "bg-blue-500 text-white "
                   : "bg-gray-100"
-              } transition-all duration-200 hover:bg-blue-500 hover:text-white rounded-md border  text-black font-[600] text-[16px] `}
+              } transition-all duration-200 hover:bg-white hover:text-black rounded-md border  text-black font-[600] text-[16px] `}
             >
               {item.time}
             </button>
@@ -163,7 +175,9 @@ export default function BookAppointmentView() {
       </div>
 
       <div className=" w-full flex justify-end mt-8 ">
-        <button className=" w-[300px] btn text-xl btn-accent text-white ">Proceed to Pay</button>
+        <button className=" w-full sm:w-[300px] btn text-[16px] btn-accent text-white ">
+          Proceed to Pay
+        </button>
       </div>
     </div>
   );

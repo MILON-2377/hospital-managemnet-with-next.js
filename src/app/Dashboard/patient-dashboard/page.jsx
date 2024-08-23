@@ -19,22 +19,22 @@ const healthPercentage = 90;
 export default function PatientDashboard() {
   const router = useRouter();
   return (
-    <div className="p-10">
-      <p className=" text-2xl font-bold ">Dashboard</p>
-      <div className=" divider "></div>
+    <div className=" w-full p-5 lg:p-10">
+      <p className=" text-xl lg:text-2xl font-bold ">Dashboard</p>
+      <div className=" w-full divider "></div>
 
       {/* health records and book appointment section */}
-      <section className=" flex justify-between gap-5 ">
-        <div className=" flex-1 border rounded-md p-5 ">
+      <section className=" w-full flex lg:flex-row flex-col justify-between gap-5 ">
+        <div className=" flex-1 border flex flex-col rounded-md p-5 ">
           <div className="flex items-center justify-between ">
-            <p className=" text-xl font-bold ">Health Records</p>
+            <p className=" text-[18px] font-bold ">Health Records</p>
             <div className=" px-4 py-3 rounded-md border bg-gray-100 "></div>
           </div>
 
           {/* divider */}
           <div className=" mt-2 mb-2 border-t "></div>
 
-          <div className=" w-full flex items-center justify-between gap-5 mt-5 ">
+          <div className=" w-full flex sm:flex-row flex-col items-center justify-between gap-5 mt-5 ">
             <div className="w-full ">
               <div className=" w-full flex flex-row justify-between ">
                 <div className=" flex flex-col gap-7 ">
@@ -182,7 +182,11 @@ export default function PatientDashboard() {
           <div className=" border rounded-md p-5 mt-5 ">
             <div className=" flex items-center justify-between ">
               <p className="text-xl font-semibold ">Doctors</p>
-              <p className=" text-[18px] font-[500] underline text-blue-500 ">
+              <p 
+              onClick={() => {
+                router.push("/book-appointments")
+              }}
+              className=" text-[18px] font-[500] hover:cursor-pointer underline text-blue-500 ">
                 View All
               </p>
             </div>

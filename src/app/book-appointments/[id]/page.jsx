@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { BsFillBookmarkStarFill, BsFillPatchCheckFill } from "react-icons/bs";
 import {
   FaCheck,
@@ -20,6 +21,7 @@ import {
 } from "react-icons/md";
 
 export default function ViewDoctorProfile() {
+  const router = useRouter();
   return (
     <div className=" w-full p-5 ">
       <div className=" border rounded-md p-5  ">
@@ -190,8 +192,10 @@ export default function ViewDoctorProfile() {
               </span>
               <span className=" text-sm ">for a Session </span>
             </p>
-            <button className=" btn btn-accent text-white text-xl ">
-              Book Appointment{" "}
+            <button 
+            onClick={() => router.push("/book-appointments/book-appointment-view") }
+            className=" btn btn-accent text-white text-[16px] ">
+              Book Appointment
             </button>
           </section>
         </div>
@@ -201,11 +205,11 @@ export default function ViewDoctorProfile() {
 
       <div>
         <p className=" text-xl font-bold ">Doctor Bio </p>
-        <p className=" mt-3 text-[16px] font-[500] ">bio here</p>
-        <div className=" flex items-center gap-2 hover:cursor-pointer mt-5 hover:underline ">
-          <p className=" text-[16px] font-[550]  text-blue-500 ">See more</p>
+        <p className=" mt-3 text-[16px] font-[500] ">Dr. Emily Thompson is a renowned cardiologist with over 15 years of experience in treating complex heart conditions. She is dedicated to providing compassionate care and is highly respected for her expertise in the field of cardiology. Dr. Thompson is affiliated with leading hospitals in New York and has received numerous awards for her contributions to cardiac care.</p>
+        <p className=" flex items-center gap-2 hover:cursor-pointer mt-3 hover:underline ">
+          <span className=" text-[16px] font-[550]  text-blue-500 ">See more</span>
           <MdOutlineKeyboardArrowDown className=" text-xl " />
-        </div>
+        </p>
       </div>
     </div>
   );

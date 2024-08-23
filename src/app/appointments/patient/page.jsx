@@ -21,6 +21,7 @@ import { FaMessage } from "react-icons/fa6";
 import { MdDelete } from "react-icons/md";
 import useAppointmentsData from "@/DataFetch/useAppointsData";
 import { IoVideocam } from "react-icons/io5";
+import Link from "next/link";
 
 export default function MyAppointments() {
   const [filterDate, setFilterDate] = useState(new Date().toLocaleDateString());
@@ -319,12 +320,12 @@ export default function MyAppointments() {
 
               {/* action btns section */}
               <div className=" flex items-center gap-2 ">
-                <a
+                <Link
                   href="/appointments/doctor/view-appointment"
                   className=" flex items-center justify-center hover:cursor-pointer transition-all duration-200 w-10 h-10 rounded-full bg-gray-100 hover:bg-blue-500 hover:text-white "
                 >
                   <FaEye className="text-[16px]" />
-                </a>
+                </Link>
                 <p className=" flex items-center justify-center hover:cursor-pointer transition-all duration-200 w-10 h-10 rounded-full bg-gray-100 hover:bg-blue-500 hover:text-white ">
                   <FaMessage className="text-[16px]" />
                 </p>
@@ -378,7 +379,7 @@ export default function MyAppointments() {
               {/* date and time */}
               <div className="p-4 rounded-md bg-gray-100">
                 <p className="text-[16px] font-[550] ">
-                  { new Date(item.appointment_date).toLocaleString()}
+                  {new Date(item.appointment_date).toLocaleString()}
                 </p>
                 <p className="text-[16px] font-[550] ">General Visit</p>
               </div>
@@ -409,18 +410,12 @@ export default function MyAppointments() {
       </div>
 
       {/* pagination section */}
-      <div className=" w-[1114px] fixed bottom-0 right-0 px-16 py-5 flex items-center justify-between bg-gray-50  ">
-        <button
-          onClick={previousPage}
-          className=" px-4 py-3 transition-all duration-200 hover:bg-green-100 active:bg-green-200 active:scale-95 rounded-md bg-gray-100 "
-        >
-          <FaLongArrowAltLeft className="text-3xl text-green-500 " />
+      <div className=" w-full mt-10 mb-10 flex items-center justify-center gap-5  ">
+        <button onClick={previousPage} className="btn btn-accent text-white">
+          Previous
         </button>
-        <button
-          onClick={handleNextPage}
-          className=" px-4 py-3 felx transition-all duration-200 hover:bg-green-100 active:bg-green-200 active:scale-95 rounded-md bg-gray-100 "
-        >
-          <FaLongArrowAltRight className="text-3xl text-green-500 " />
+        <button onClick={handleNextPage} className="btn btn-accent text-white">
+          Next{" "}
         </button>
       </div>
     </div>

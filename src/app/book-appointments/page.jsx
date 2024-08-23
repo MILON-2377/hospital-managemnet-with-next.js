@@ -1,7 +1,9 @@
 "use client";
 
+import useDoctorsData from "@/DataFetch/useDoctorsData";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import { FaCalendarDay, FaCheckCircle, FaHeart } from "react-icons/fa";
 import { IoSearchOutline } from "react-icons/io5";
 import { MdLocationOn } from "react-icons/md";
@@ -9,6 +11,43 @@ import { MdLocationOn } from "react-icons/md";
 export default function BookAppointments() {
   const id = 1;
   const router = useRouter();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [doctorsData, setDoctorsData] = useState([]);
+  const [totalPage, setTotalPage] = useState(0);
+  const [pages, setPages] = useState([]);
+
+  // data loading
+  const { data = [], refetch } = useDoctorsData(currentPage);
+
+  useEffect(() => {
+    setDoctorsData(data?.doctors);
+    const newTotalPage = data?.total ? Math.ceil(data.total / 10) : 1;
+    setTotalPage(newTotalPage);
+    const pagesArray = Array.from(
+      { length: newTotalPage },
+      (_, idx) => idx + 1
+    );
+    setPages(pagesArray);
+  }, [data]);
+
+  // onClickNext handle
+  const onClickNext = () => {
+    if (totalPage === currentPage) return;
+    const newPage = currentPage + 1;
+    setCurrentPage(newPage);
+  };
+
+  const onClickPrev = () => {
+    if (currentPage === 1) return;
+    const newPage = currentPage - 1;
+    setCurrentPage(newPage);
+  };
+
+  useEffect(() => {
+    refetch();
+  }, [currentPage]);
+
+
   return (
     <div className=" w-full p-5 ">
       {/* header section */}
@@ -32,7 +71,7 @@ export default function BookAppointments() {
 
       {/* displaying doctors */}
       <div className=" grid lg:grid-cols-3 gap-5 grid-cols-1 sm:grid-cols-2 ">
-        {[...doctors].map((item, idx) => (
+        {doctorsData?.map((item, idx) => (
           <div
             key={item.name + idx}
             className=" rounded-md border bg-white shadow "
@@ -134,121 +173,26 @@ export default function BookAppointments() {
 
       {/* pagination */}
       <div className=" mt-10 w-full p-5 flex items-center gap-3 justify-center ">
-        <button className="  text-white btn btn-accent  ">Previous</button>
+        <button onClick={onClickPrev} className="  text-white btn btn-accent  ">
+          Previous
+        </button>
 
-        <div>
-          <button className=" px-4 py-3 transition-all duration-200 hover:bg-gray-200 rounded-md bg-gray-100 text-black font-[500] ">
-            {" "}
-            1
-          </button>
+        <div className=" flex items-center gap-2 ">
+          {pages?.map((item, idx) => (
+            <button
+              key={idx + 1}
+              onClick={() => setCurrentPage(item) }
+              className={` ${item === currentPage && "bg-pink-500 text-white" } px-4 py-3 transition-all duration-200 hover:bg-gray-200 rounded-md bg-gray-100 text-black font-[500] `}
+            >
+              {item}
+            </button>
+          ))}
         </div>
 
-        <button className=" text-white btn btn-accent  ">Next</button>
+        <button onClick={onClickNext} className=" text-white btn btn-accent  ">
+          Next
+        </button>
       </div>
     </div>
   );
 }
-
-// doctors data
-const doctors = [
-  {
-    name: "Dr. Susan Fenimore",
-    degree: "BSG - Bachelor of Science in Genetic Counseling",
-    rating: 4.0,
-    nextAvailability: "11 Apr 2024",
-    location: "Chicago, USA",
-    lastBooked: "08 Feb 2023",
-    img: "https://example.com/images/dr-susan-fenimore.jpg",
-    bio: "Dr. Susan Fenimore is an experienced genetic counselor with a background in genetic disorders and personalized patient care.",
-  },
-  {
-    name: "Dr. Martin Adian",
-    degree: "BDS, MDS - Oral & Maxillofacial Surgery",
-    rating: 5.0,
-    nextAvailability: "02 Mar 2024",
-    location: "Old Trafford, UK",
-    lastBooked: "20 Jan 2023",
-    img: "https://example.com/images/dr-martin-adian.jpg",
-    bio: "Dr. Martin Adian specializes in oral and maxillofacial surgery, offering advanced care in facial trauma and reconstruction.",
-  },
-  {
-    name: "Dr. Emily Johnson",
-    degree: "MD - Cardiology",
-    rating: 4.5,
-    nextAvailability: "15 May 2024",
-    location: "New York, USA",
-    lastBooked: "10 Mar 2023",
-    img: "https://example.com/images/dr-emily-johnson.jpg",
-    bio: "Dr. Emily Johnson is a cardiologist known for her work in heart disease prevention and treatment.",
-  },
-  {
-    name: "Dr. John Miller",
-    degree: "MBBS, MD - Pediatrics",
-    rating: 4.7,
-    nextAvailability: "01 Jun 2024",
-    location: "Sydney, Australia",
-    lastBooked: "15 Feb 2023",
-    img: "https://example.com/images/dr-john-miller.jpg",
-    bio: "Dr. John Miller is a pediatrician dedicated to providing comprehensive care for children and adolescents.",
-  },
-  {
-    name: "Dr. Clara Smith",
-    degree: "MD - Dermatology",
-    rating: 4.8,
-    nextAvailability: "20 Apr 2024",
-    location: "Toronto, Canada",
-    lastBooked: "05 Jan 2023",
-    img: "https://example.com/images/dr-clara-smith.jpg",
-    bio: "Dr. Clara Smith specializes in dermatology with expertise in skin cancer treatment and cosmetic dermatology.",
-  },
-  {
-    name: "Dr. James Lee",
-    degree: "PhD - Neuroscience",
-    rating: 4.9,
-    nextAvailability: "07 Jul 2024",
-    location: "Seoul, South Korea",
-    lastBooked: "22 Feb 2023",
-    img: "https://example.com/images/dr-james-lee.jpg",
-    bio: "Dr. James Lee is a leading neuroscientist with a focus on neurodegenerative diseases and brain health.",
-  },
-  {
-    name: "Dr. Anna Garcia",
-    degree: "MD - Obstetrics and Gynecology",
-    rating: 4.3,
-    nextAvailability: "18 May 2024",
-    location: "Madrid, Spain",
-    lastBooked: "25 Mar 2023",
-    img: "https://example.com/images/dr-anna-garcia.jpg",
-    bio: "Dr. Anna Garcia is an OB-GYN providing compassionate care in women’s health and reproductive medicine.",
-  },
-  {
-    name: "Dr. William Brown",
-    degree: "MD - Orthopedic Surgery",
-    rating: 4.6,
-    nextAvailability: "25 Jun 2024",
-    location: "Los Angeles, USA",
-    lastBooked: "12 Apr 2023",
-    img: "https://example.com/images/dr-william-brown.jpg",
-    bio: "Dr. William Brown is an orthopedic surgeon known for his expertise in joint replacement and sports injuries.",
-  },
-  {
-    name: "Dr. Linda Harris",
-    degree: "DVM - Veterinary Medicine",
-    rating: 4.4,
-    nextAvailability: "30 Aug 2024",
-    location: "London, UK",
-    lastBooked: "05 Mar 2023",
-    img: "https://example.com/images/dr-linda-harris.jpg",
-    bio: "Dr. Linda Harris is a veterinarian specializing in small animal care with a focus on preventive medicine.",
-  },
-  {
-    name: "Dr. Michael Johnson",
-    degree: "MD - Psychiatry",
-    rating: 4.2,
-    nextAvailability: "12 Sep 2024",
-    location: "Berlin, Germany",
-    lastBooked: "01 Feb 2023",
-    img: "https://example.com/images/dr-michael-johnson.jpg",
-    bio: "Dr. Michael Johnson is a psychiatrist with a deep understanding of mental health disorders and therapeutic interventions.",
-  },
-];
