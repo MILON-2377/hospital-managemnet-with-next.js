@@ -3,8 +3,10 @@
 import { FaLink } from "react-icons/fa";
 import { IoSearchOutline } from "react-icons/io5";
 import { MdPrintDisabled } from "react-icons/md";
+import { useSelector } from "react-redux";
 
 export default function Invoice() {
+  const doctor = useSelector(state => state.doctorReducer.doctor );
   return (
     <div className=" w-full p-5 ">
       <p className=" text-2xl font-bold ">Invoices</p>
@@ -46,7 +48,11 @@ export default function Invoice() {
             <tr>
               <td className=" text-blue-500 ">#d001</td>
               <td>
-                <div className=" w-12 h-12 rounded-full bg-blue-200 "></div>
+                <div className=" w-12 h-12 rounded-full ">
+                  <img src={doctor.img} alt={doctor.img} 
+                  className=" w-full h-full object-cover rounded-full "
+                  />
+                </div>
               </td>
               <td>21 Aug 2024</td>
               <td>20 Apr 2024</td>

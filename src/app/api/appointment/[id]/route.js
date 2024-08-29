@@ -43,7 +43,6 @@ export async function PUT(req) {
       updatedDocument: updateDocument,
     });
   } catch (error) {
-    console.log(error.message);
     return NextResponse.json({ message: error.message });
   }
 }

@@ -9,8 +9,6 @@ import {
   FaRegCalendarAlt,
 } from "react-icons/fa";
 import { IoIosWarning } from "react-icons/io";
-import { FaLongArrowAltRight } from "react-icons/fa";
-import { FaLongArrowAltLeft } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 import useAppointmentsDataLoading from "@/DataFetch/useAppointmentsDataLoading";
 import axiosSecure from "@/Hooks/userAxiosSecure";
@@ -30,20 +28,34 @@ export default function Requests() {
   const [cancelAppointments, setCancelAppointments] = useState(0);
   const [id, setId] = useState("");
   const router = useRouter();
+  const [pages, setPages] = useState([]);
 
   // data loading handle
   const { data = [], refetch } = useAppointmentsDataLoading(currentPage);
 
   useEffect(() => {
-    setAppointments(data?.appointments);
-    const page = data.total ? Math.ceil(data.total / 10) : 1;
-    setTotalPage(page);
-    setPendingAppointments(data?.approvedAppointment);
-    setApprovedAppointments(data?.totalPendingAppointments);
-  }, [data]);
+    if (data) {
+      setAppointments(data.appointments)
+      const newTotalPage = data.total ? Math.ceil(data.total / 10) : 1;
+
+      if (newTotalPage !== totalPage) {
+        setTotalPage(newTotalPage);
+      }
+
+      const pagesArray = Array.from(
+        { length: newTotalPage },
+        (_, idx) => idx + 1
+      );
+
+      if (JSON.stringify(pagesArray) !== JSON.stringify(pages)) {
+        setPages(pagesArray);
+      }
+    }
+  }, [data, totalPage, pages]);
+
 
   // pagination current page handle
-  const handleNextPage = () => {
+  const onClickNext = () => {
     if (currentPage === totalPage) return;
 
     const newPage = currentPage + 1;
@@ -51,7 +63,7 @@ export default function Requests() {
   };
 
   // handle Previous page
-  const previousPage = () => {
+  const onClickPrev = () => {
     if (currentPage === 1) return;
     const newPage = currentPage - 1;
     setCurrentPage(newPage);
@@ -63,37 +75,46 @@ export default function Requests() {
   }, [currentPage]);
 
   // handle appointment schedule
-  const { register, control, handleSubmit, reset } = useForm();
+  const { register, handleSubmit, reset } = useForm();
   const [selectDate, setSelectDate] = useState(null);
-  const onSubmit = async(data) => {
+  const onSubmit = async (data) => {
     const appointment_date = selectDate.toLocaleDateString();
     try {
-        const res = await axiosSecure.put(`/appointment/${id}`, {appointment_date, ...data, approved:true});
-        if(res.data){
-            refetch();
-            document.getElementById('my_modal_3').close()
-        }
+      const res = await axiosSecure.put(`/appointment/${id}`, {
+        appointment_date,
+        ...data,
+        approved: true,
+      });
+      console.log(res.data);
+      if (res.data) {
+        refetch();
+        document.getElementById("my_modal_3").close();
+        reset();
+      }
     } catch (error) {
-        console.log(error.message);
+      console.log(error.message);
     }
   };
 
   //   handle appointment reject procceessing
   const [rejectedId, setRejectedId] = useState("");
   const [rejectReson, setRejectReason] = useState("");
-  const rejectHandle = async(e) => {
+  const rejectHandle = async (e) => {
     e.preventDefault();
     if (rejectReson.length === 0) return;
 
     try {
-        const res = await axiosSecure.put(`/appointment/${rejectedId}`, {rejectReson, rejected:true});
-        if(res.data){
-            e.target.reset();
-            refetch();
-            document.getElementById('my_modal_1').close();
-        }
+      const res = await axiosSecure.put(`/appointment/${rejectedId}`, {
+        rejectReson,
+        rejected: true,
+      });
+      if (res.data) {
+        e.target.reset();
+        refetch();
+        document.getElementById("my_modal_1").close();
+      }
     } catch (error) {
-        console.log(error.message);
+      console.log(error.message);
     }
   };
 
@@ -104,7 +125,7 @@ export default function Requests() {
         <div>
           <h1 className="text-gray-600i text-3xl font-bold">
             Welcome,
-            <span className="ml-2">Admin name</span>
+            <span className="ml-2">{user?.userName}</span>
           </h1>
           <p className="text-xl mt-3 text-gray-500">
             Start day with managing new appointments
@@ -132,9 +153,7 @@ export default function Requests() {
                 <span>
                   <FaBeer className="text-gray-300 text-4xl " />
                 </span>
-                <h2 className="text-amber-500 text-4xl font-bold ">
-                  5
-                </h2>
+                <h2 className="text-amber-500 text-4xl font-bold ">5</h2>
               </div>
               <p className="mt-5 ">Total number of pending appointments</p>
             </div>
@@ -181,18 +200,23 @@ export default function Requests() {
                         </div>
                       </div>
                       <div>
-                        <div className="font-bold">{item?.patientId}</div>
+                        <div className="flex flex-col gap-1  ">
+                          <p className=" text-cyan-500 ">#0452</p>
+                          <p className=" text-[18px] font-bold ">
+                            {item?.patient.name}
+                          </p>
+                        </div>
                       </div>
                     </div>
                   </td>
-                  <td>{item?.expected_date}</td>
+                  <td>{new Date(item?.appointment_date).toLocaleString()}</td>
                   <td>{item.approved ? "Approved" : "Pending"}</td>
                   <th>
                     <div className="flex items-center gap-3">
                       <div className="rounded-full h-12 w-12">
                         <img
                           className="w-full h-full object-cover rounded-full "
-                          src={item.doctor.image}
+                          src={item.doctor.img}
                           alt={item.doctor.name}
                         />
                       </div>
@@ -236,18 +260,27 @@ export default function Requests() {
       </div>
 
       {/* pagination section */}
-      <div className=" w-[1114px] fixed bottom-0 right-0 px-16 py-5 flex items-center justify-between bg-gray-50  ">
-        <button
-          onClick={previousPage}
-          className=" px-4 py-3 transition-all duration-200 hover:bg-green-100 active:bg-green-200 active:scale-95 rounded-md bg-gray-100 "
-        >
-          <FaLongArrowAltLeft className="text-3xl text-green-500 " />
+      <div className=" mt-10 w-full p-5 flex items-center gap-3 justify-center ">
+        <button onClick={onClickPrev} className="  text-white btn btn-accent  ">
+          Previous
         </button>
-        <button
-          onClick={handleNextPage}
-          className=" px-4 py-3 felx transition-all duration-200 hover:bg-green-100 active:bg-green-200 active:scale-95 rounded-md bg-gray-100 "
-        >
-          <FaLongArrowAltRight className="text-3xl text-green-500 " />
+
+        <div className=" flex items-center gap-2 ">
+          {pages?.map((item, idx) => (
+            <button
+              key={idx + 1}
+              onClick={() => setCurrentPage(item)}
+              className={` ${
+                item === currentPage && "bg-pink-500 text-white"
+              } px-4 py-3 transition-all duration-200 hover:bg-gray-200 rounded-md bg-gray-100 text-black font-[500] `}
+            >
+              {item}
+            </button>
+          ))}
+        </div>
+
+        <button onClick={onClickNext} className=" text-white btn btn-accent  ">
+          Next
         </button>
       </div>
 
@@ -333,7 +366,11 @@ export default function Requests() {
               <textarea
                 onChange={(e) => setRejectReason(e.target.value)}
                 placeholder="Reject reason"
-                className={` ${rejectReson.length === 0 ? "border-gray-200" : "focus:border-cyan-500"} mt-2 border px-4 py-3 focus:outline-none  w-full rounded-md h-[100px] `}
+                className={` ${
+                  rejectReson.length === 0
+                    ? "border-gray-200"
+                    : "focus:border-cyan-500"
+                } mt-2 border px-4 py-3 focus:outline-none  w-full rounded-md h-[100px] `}
               />
               <button className=" active:bg-opacity-80 transition-all duration-200 scale-95 texl-[18px] px-4 py-3 rounded-md bg-accent text-white -ml-1 mt-5  ">
                 Reject procceessing

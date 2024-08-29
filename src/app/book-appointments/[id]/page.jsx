@@ -19,15 +19,21 @@ import {
   MdOutlineKeyboardArrowDown,
   MdPhoneCallback,
 } from "react-icons/md";
+import { useSelector } from "react-redux";
 
 export default function ViewDoctorProfile() {
   const router = useRouter();
+  const doctor = useSelector(state => state.doctorReducer.doctor);
   return (
     <div className=" w-full p-5 ">
       <div className=" border rounded-md p-5  ">
         <div className=" flex items-center gap-5 ">
           {/* profile pic */}
-          <div className=" rounded-lg bg-blue-300 h-44 w-44 "></div>
+          <div className=" rounded-lg h-44 w-44 ">
+            <img src={doctor.img} alt={doctor.img}
+            className=" w-full h-full object-cover rounded-lg "
+            />
+          </div>
 
           {/* details */}
           <div className=" flex-1 flex flex-col gap-2 ">
@@ -40,7 +46,7 @@ export default function ViewDoctorProfile() {
 
             {/* name */}
             <div className=" flex items-center gap-3 ">
-              <p className=" text-xl font-bold ">name</p>
+              <p className=" text-xl font-bold ">{doctor.name}</p>
               <BsFillPatchCheckFill className=" text-xl text-green-500 " />
               <div className=" px-3 py-1 rounded-md bg-gray-100 flex items-center gap-2 ">
                 <p className=" w-2 h-2 rounded-full bg-green-500 "></p>
@@ -49,7 +55,7 @@ export default function ViewDoctorProfile() {
             </div>
 
             {/* qualifications */}
-            <p className=" text-[16px] font-[500] ">Qualifications</p>
+            <p className=" text-[16px] font-[500] ">{doctor.degree}</p>
             <p className=" text-[16px] font-[500] flex items-center gap-2 ">
               <span>Specks : </span>
               <span>English, Hindi, Bangla</span>
@@ -57,7 +63,7 @@ export default function ViewDoctorProfile() {
             <p className=" text-[16px] font-[500] flex items-center gap-1 ">
               <MdLocationOn className=" text-xl text-gray-500 " />
               <span>Location : </span>
-              <span>China, Sichuan, Nanchong</span>
+              <span>{doctor.location}</span>
             </p>
           </div>
 
@@ -205,7 +211,7 @@ export default function ViewDoctorProfile() {
 
       <div>
         <p className=" text-xl font-bold ">Doctor Bio </p>
-        <p className=" mt-3 text-[16px] font-[500] ">Dr. Emily Thompson is a renowned cardiologist with over 15 years of experience in treating complex heart conditions. She is dedicated to providing compassionate care and is highly respected for her expertise in the field of cardiology. Dr. Thompson is affiliated with leading hospitals in New York and has received numerous awards for her contributions to cardiac care.</p>
+        <p className=" mt-3 text-[16px] font-[500] ">{doctor.bio}</p>
         <p className=" flex items-center gap-2 hover:cursor-pointer mt-3 hover:underline ">
           <span className=" text-[16px] font-[550]  text-blue-500 ">See more</span>
           <MdOutlineKeyboardArrowDown className=" text-xl " />

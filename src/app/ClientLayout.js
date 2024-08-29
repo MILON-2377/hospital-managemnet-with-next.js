@@ -29,7 +29,7 @@ export default function ClientLayout({ children }) {
             <body className={`${inter.className} flex flex-col lg:flex-row lg:justify-between `}>
               {shouldShowNavbar && (
                 <div className=" lg:block lg:flex-1 lg:h-auto ">
-                  {" "}
+    
                   <Navbar />
                 </div>
               )}

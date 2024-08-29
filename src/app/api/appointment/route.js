@@ -15,6 +15,7 @@ export async function GET(req) {
       approved: false,
       rejected: false,
     };
+    
 
     const total = await Appointments.countDocuments(filter);
     const appointments = await Appointments.find(filter).skip(skip).limit(10);

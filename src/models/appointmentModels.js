@@ -3,34 +3,36 @@ import mongoose from "mongoose";
 const appointmentSchema = new mongoose.Schema(
   {
     patient: {
-      type: String,
-      required: true,
-    },
-    patientId: {
-      type: String,
-      required: [true, "this is field is required"],
-    },
-    appointment_reason: {
-      type: String,
-      required: [true, "reason is required"],
-    },
-    comments: {
-      type: String,
-      required: [true, "appointment method is required"],
-    },
-    doctor: {
-      image: {
-        type: String,
-        required: true,
-      },
       name: {
         type: String,
         required: true,
       },
+      id: {
+        type: String,
+        required: true,
+      },
+      img: {
+        type: String,
+        required: true,
+      },
     },
-    expected_date: {
-      type: Date,
-      required: [true, "this is required"],
+    doctor: {
+      name: {
+        type: String,
+        required: true,
+      },
+      id: {
+        type: String,
+        required: true,
+      },
+      img: {
+        type: String,
+        required: true,
+      },
+    },
+    doctorComments: {
+      type: String,
+      default: "",
     },
     approved: {
       type: Boolean,
@@ -41,12 +43,12 @@ const appointmentSchema = new mongoose.Schema(
       default: false,
     },
 
-    rejectReason: {
+    rejected_reason: {
       type: String,
     },
     appointment_date: {
       type: Date,
-      default: new Date().toLocaleDateString(),
+      required: true,
     },
   },
   { strict: false }

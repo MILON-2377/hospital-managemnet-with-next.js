@@ -5,18 +5,31 @@ export async function GET(req) {
   try {
     const { searchParams } = new URL(req.url);
     const page = searchParams.get("page");
+    const filterName = searchParams.get("filter");
 
     const skip = (page - 1) * 10;
     const filter = {
-      approved: true,
+      approved: filterName,
     };
 
-    const total = await Appointments.countDocuments(filter);
+
+
+    // pending appointments total
+    const pendings = await Appointments.countDocuments({
+      approved: false,
+    });
+    const approveds = await Appointments.countDocuments({
+      approved: true,
+    });
+
+    const total = await Appointments.countDocuments();
     const appointments = await Appointments.find(filter).skip(skip).limit(10);
 
     return NextResponse.json({
       total,
       appointments,
+      pendings,
+      approveds
     });
   } catch (error) {
     console.log(error.message);

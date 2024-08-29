@@ -1,7 +1,7 @@
 "use client";
 import { useAuth } from "@/AuthProviderContext/AuthProviderContext";
 import { usePathname, useRouter } from "next/navigation";
-import img from "../../../public/assets/patien-form-page1.jpg";
+import img from "../../../public/assets/patientBackgroun.jpg";
 import Image from "next/image";
 import { MdOutlineDashboardCustomize } from "react-icons/md";
 import {
@@ -20,7 +20,7 @@ export default function PatientNavbar() {
   const path = usePathname();
   const router = useRouter();
   return (
-    <div>
+    <div className=" w-full h-full ">
       {/* for small devices */}
       <PatientSideBar navLinks={patientNavbarLinks} />
 
@@ -38,9 +38,13 @@ export default function PatientNavbar() {
             </div>
 
             {/* profile image */}
-            <div className=" absolute top-[150px] left-[35%] w-32 h-32 rounded-full border-[3px] border-white ">
+            <div className=" absolute top-[150px] left-[34%] w-32 h-32 rounded-full border-[3px] border-white ">
               <img
-                src={user?.img}
+                src={
+                  user?.photo
+                    ? user.photo
+                    : "https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg"
+                }
                 alt={user?.name}
                 className=" w-full h-full object-cover rounded-full "
               />
@@ -52,12 +56,12 @@ export default function PatientNavbar() {
               <span className=" text-[16px] font-[500] text-sky-500 ">
                 Patient ID :
               </span>
-              <span className=" ml-1 ">patient Id</span>
+              <span className=" ml-1 ">#d00245</span>
             </p>
-            <div className=" flex items-center gap-2 ">
+            <div className=" flex items-center gap-2 w-full justify-center ">
               <p className=" w-2 h-2 rounded-full bg-green-400 "></p>
-              <p className=" text-[16px] font-[500] text-blue-500 ">gender</p>
-              <p>age</p>
+              <p className=" text-[16px] font-[500] text-blue-500 ">Male</p>
+              <p>22 years old 5 months</p>
             </div>
           </div>
         </div>

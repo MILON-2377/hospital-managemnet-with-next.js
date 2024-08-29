@@ -42,6 +42,11 @@ const doctorSchema = new mongoose.Schema({
     }
   });
 
+doctorSchema.index({
+  name: "text",
+  bio: "text",
+});
+
 const Doctors = mongoose.models.allDoctors || mongoose.model("allDoctors", doctorSchema);
 export default Doctors;
   

@@ -30,12 +30,12 @@ export default function PatientSideBar({ navLinks }) {
               aria-label="close sidebar"
               className="drawer-overlay"
             ></label>
-            <ul className="menu bg-base-100 text-base-content min-h-full w-[80%] sm:w-80 p-4">
+            <ul className="menu bg-base-100 text-base-content min-h-full w-[80%] sm:w-[350px] p-4">
               <li className=" text-2xl font-bold px-3 ">
                 Dr. {user?.userName}
               </li>
 
-              <div className=" mt-5 mb-5 border-t border-t-gray-200 "></div>
+              <div className=" mt-5 mb-5 border-t border-t-gray-200 w-full "></div>
 
               {[...navLinks].map((item, index) => (
                 <Link

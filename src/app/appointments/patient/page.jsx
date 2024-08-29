@@ -2,14 +2,7 @@
 
 import { IoSearch } from "react-icons/io5";
 import { CgMenuGridR } from "react-icons/cg";
-import {
-  FaCalendar,
-  FaCalendarCheck,
-  FaFilter,
-  FaListUl,
-  FaLongArrowAltLeft,
-  FaLongArrowAltRight,
-} from "react-icons/fa";
+import { FaCalendarCheck, FaFilter, FaListUl } from "react-icons/fa";
 import { FaCalendarDays } from "react-icons/fa6";
 import DatePicker from "react-datepicker";
 import { useEffect, useState } from "react";
@@ -31,15 +24,30 @@ export default function MyAppointments() {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPage, setTotalPage] = useState(0);
   const [appointments, setAppointmnets] = useState([]);
+  const [pages, setPages] = useState([]);
+  const [pendingsAppointments, setPendingAppointments] = useState(0);
+  const [filtersName, setFiltersName] = useState(false);
 
   // handle data loading
-  const { data = [], refetch, isLoading } = useAppointmentsData(currentPage);
+  const {
+    data = [],
+    refetch,
+    isLoading,
+  } = useAppointmentsData(currentPage, filtersName);
 
   useEffect(() => {
     const page = data?.total ? Math.ceil(data.total / 10) : 1;
-    setTotalPage(page);
+    if (page !== totalPage) {
+      setTotalPage(page);
+    }
+    const pagesArray = Array.from({ length: page }, (_, idx) => idx + 1);
+
+    if (JSON.stringify(pagesArray) !== JSON.stringify(pages)) {
+      setPages(pagesArray);
+    }
     setAppointmnets(data?.appointments);
-  }, [data]);
+    setPendingAppointments(data?.pendings);
+  }, [data, totalPage, pages]);
 
   // pagination handle
   const handleNextPage = () => {
@@ -58,9 +66,7 @@ export default function MyAppointments() {
 
   useEffect(() => {
     refetch();
-  }, [currentPage]);
-
-  console.log(appointments);
+  }, [currentPage, filtersName]);
 
   if (isLoading) return <p>Loading</p>;
 
@@ -117,23 +123,34 @@ export default function MyAppointments() {
 
       {/* total details and filter section */}
       <div className=" flex items-center justify-between ">
+        {/* filter section */}
         <div className="flex items-center mt-5 gap-5">
-          <div className=" px-4 py-2 bg-gray-100 text-[16px] font-[500] hover:text-white rounded-md hover:bg-blue-500  flex items-center gap-2 text-gray-600 ">
-            Upcoming{" "}
+          <div
+            onClick={() => setFiltersName(false)}
+            className={` px-4 hover:cursor-pointer py-2 ${
+              filtersName ? " bg-gray-100 " : "bg-blue-500 text-white "
+            } text-[16px] font-[500] hover:text-white rounded-md hover:bg-blue-500  flex items-center gap-2 text-gray-600 `}
+          >
+            Pending
             <p className="w-10 h-6 py-1 px-2 flex items-center justify-center rounded-3xl bg-white text-black">
-              12
+              {pendingsAppointments}
             </p>
           </div>
-          <div className=" px-4 py-2 bg-gray-100 text-[16px] font-[500] hover:text-white rounded-md hover:bg-blue-500  flex items-center gap-2 text-gray-600 ">
-            Cancelled{" "}
+          <div
+            onClick={() => setFiltersName(true)}
+            className={` px-4 py-2 hover:cursor-pointer ${
+              filtersName ? " bg-blue-500 text-white " : "bg-gray-100"
+            } text-[16px] font-[500] hover:text-white rounded-md hover:bg-blue-500  flex items-center gap-2 text-gray-600 `}
+          >
+            Approved
             <p className="w-10 h-6 py-1 px-2 flex items-center justify-center rounded-3xl bg-white text-black">
-              12
+              {data?.approveds}
             </p>
           </div>
-          <div className=" px-4 py-2 bg-gray-100 text-[16px] font-[500] hover:text-white rounded-md hover:bg-blue-500  flex items-center gap-2 text-gray-600 ">
-            Completed{" "}
+          <div className=" hover:cursor-pointer px-4 py-2 bg-gray-100 text-[16px] font-[500] hover:text-white rounded-md hover:bg-blue-500  flex items-center gap-2 text-gray-600 ">
+            Canceled
             <p className=" w-10 h-6 py-1 px-2 flex items-center justify-center text-center  rounded-3xl bg-white text-black">
-              12
+              {data?.canceled ? data?.canceled : 0}
             </p>
           </div>
         </div>
@@ -146,7 +163,7 @@ export default function MyAppointments() {
 
             <DatePicker
               value={filterDate}
-              onChange={(date) => setFilterDate(date.toLocaleDateString())}
+              onChange={(date) => setFilterDate(new Date(date).toDateString())}
               className=" focus:outline-none focus:border-none "
             />
           </div>
@@ -285,7 +302,13 @@ export default function MyAppointments() {
             >
               {/* name and image */}
               <div className="flex items-center gap-2 ">
-                <div className=" w-14 h-14 rounded-xl bg-blue-200 "></div>
+                <div className=" w-14 h-14 rounded-xl ">
+                  <img
+                    src={item.doctor.img}
+                    alt={item.name}
+                    className=" w-full h-full object-cover rounded-xl "
+                  />
+                </div>
                 <div className="flex flex-col gap-1">
                   <p className="text[16px] text-sky-500 font-[550] ">
                     #d00{idx + 1}
@@ -335,10 +358,12 @@ export default function MyAppointments() {
               </div>
 
               {/* start now btn */}
-              <button className="text[16px] flex items-center gap-2 px-3 py-2 transition-all duration-200 hover:bg-blue-500 hover:text-white rounded-md border text-blue-500 hover:cursor-pointer font-semibold ">
-                <FaCalendarCheck className=" hover:text-white inline-block text-sm  " />
-                Attend
-              </button>
+              {item.approved && (
+                <button className="text[16px] flex items-center gap-2 px-3 py-2 transition-all duration-200 hover:bg-blue-500 hover:text-white rounded-md border text-blue-500 hover:cursor-pointer font-semibold ">
+                  <FaCalendarCheck className=" hover:text-white inline-block text-sm  " />
+                  Attend
+                </button>
+              )}
             </div>
           ))}
         </div>
@@ -414,6 +439,19 @@ export default function MyAppointments() {
         <button onClick={previousPage} className="btn btn-accent text-white">
           Previous
         </button>
+        <div className=" flex items-center gap-2 ">
+          {pages?.map((item, idx) => (
+            <button
+              key={idx + 1}
+              onClick={() => setCurrentPage(item)}
+              className={` ${
+                item === currentPage && "bg-pink-500 text-white"
+              } px-4 py-3 transition-all duration-200 hover:bg-gray-200 rounded-md bg-gray-100 text-black font-[500] `}
+            >
+              {item}
+            </button>
+          ))}
+        </div>
         <button onClick={handleNextPage} className="btn btn-accent text-white">
           Next{" "}
         </button>
