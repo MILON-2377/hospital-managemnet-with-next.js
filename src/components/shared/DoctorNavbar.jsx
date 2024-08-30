@@ -167,7 +167,7 @@ const navbarLinks = [
   },
   {
     title: "Change Password",
-    path: "/change-password",
+    path: "/changed-password/doctor",
     icon: <FaKey />,
   },
 ];
