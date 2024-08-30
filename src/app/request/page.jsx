@@ -12,7 +12,6 @@ import { IoIosWarning } from "react-icons/io";
 import { useRouter } from "next/navigation";
 import useAppointmentsDataLoading from "@/DataFetch/useAppointmentsDataLoading";
 import axiosSecure from "@/Hooks/userAxiosSecure";
-import Swal from "sweetalert2";
 import { useForm } from "react-hook-form";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";

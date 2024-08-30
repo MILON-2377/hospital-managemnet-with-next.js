@@ -54,6 +54,10 @@ const appointmentSchema = new mongoose.Schema(
   { strict: false }
 );
 
+appointmentSchema.index({
+  "patient.name": "text",
+});
+
 const Appointments =
   mongoose.models.appointments ||
   mongoose.model("appointments", appointmentSchema);

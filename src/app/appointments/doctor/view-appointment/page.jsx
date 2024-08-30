@@ -4,8 +4,10 @@ import { MdEmail } from "react-icons/md";
 import { SiAnytype } from "react-icons/si";
 import { BiSolidMessageRounded } from "react-icons/bi";
 import { FaEye } from "react-icons/fa";
+import { useSelector } from "react-redux";
 
 export default function ViewAppointment() {
+  const patient = useSelector((state) => state.doctorReducer.doctor);
   return (
     <div className=" w-full p-5 ">
       {/* header title */}
@@ -17,15 +19,21 @@ export default function ViewAppointment() {
         <div className="flex justify-between items-center">
           {/* image name */}
           <div className=" flex items-center gap-3">
-            <div className="w-28 h-28 rounded-md bg-blue-200"></div>
+            <div className="w-28 h-28 rounded-md">
+              <img
+                src={patient?.patient.img}
+                alt={patient?.patient.name}
+                className=" w-full h-full object-cover rounded-md "
+              />
+            </div>
             <div className="flex flex-col -mt-3">
-              <p className="text-[16px] font-[550] text-cyan-500 ">Id</p>
-              <p className="text-[16px] font-[550] card-title  ">name</p>
+              <p className="text-[16px] font-[550] text-cyan-500 ">#d001</p>
+              <p className="text-[16px] font-[550] card-title  ">{patient?.patient.name}</p>
               <p className="text-[16px] font-[550] flex items-center gap-1  ">
                 <span>
                   <MdEmail className="text-xl text-gray-500" />
                 </span>
-                <span>email</span>
+                <span>{patient.patient.id}</span>
               </p>
               <p className="text-[16px] font-[550]  ">phone number</p>
             </div>
@@ -81,7 +89,7 @@ export default function ViewAppointment() {
               Appointment Date And Time
             </p>
             <p className=" text-gray-500 text-[16px] font-[550] ">
-              date and time
+              {new Date(patient.appointment_date).toLocaleString()}
             </p>
           </div>
 
@@ -99,7 +107,7 @@ export default function ViewAppointment() {
 
           <div>
             <p className="text-[16px] font-semibold ">Visit Type</p>
-            <p className=" text-gray-500 text-[16px] font-[550] ">eneral</p>
+            <p className=" text-gray-500 text-[16px] font-[550] ">general</p>
           </div>
           <button className=" px-4 py-2 rounded-md bg-accent transition-all duration-200 hover:bg-opacity-80 active:scale-95 text-white text-[16px] font-semibold ">
             Start Session
@@ -152,10 +160,7 @@ export default function ViewAppointment() {
 
             {/* action btns section */}
             <div className=" flex items-center gap-2 ">
-              <p
-              
-                className=" flex items-center justify-center hover:cursor-pointer transition-all duration-200 w-10 h-10 rounded-full bg-gray-100 hover:bg-blue-500 hover:text-white "
-              >
+              <p className=" flex items-center justify-center hover:cursor-pointer transition-all duration-200 w-10 h-10 rounded-full bg-gray-100 hover:bg-blue-500 hover:text-white ">
                 <FaEye className="text-xl" />
               </p>
             </div>
@@ -201,10 +206,7 @@ export default function ViewAppointment() {
 
             {/* action btns section */}
             <div className=" flex items-center gap-2 ">
-              <p
-               
-                className=" flex items-center justify-center hover:cursor-pointer transition-all duration-200 w-10 h-10 rounded-full bg-gray-100 hover:bg-blue-500 hover:text-white "
-              >
+              <p className=" flex items-center justify-center hover:cursor-pointer transition-all duration-200 w-10 h-10 rounded-full bg-gray-100 hover:bg-blue-500 hover:text-white ">
                 <FaEye className="text-xl" />
               </p>
             </div>

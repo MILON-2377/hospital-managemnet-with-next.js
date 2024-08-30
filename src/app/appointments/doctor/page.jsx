@@ -19,6 +19,11 @@ import { FaMessage } from "react-icons/fa6";
 import { MdDelete } from "react-icons/md";
 import useAppointmentsData from "@/DataFetch/useAppointsData";
 import { IoVideocam } from "react-icons/io5";
+import useApprovedAppointments from "@/DataFetch/useApprovedAppointments";
+import { useAuth } from "@/AuthProviderContext/AuthProviderContext";
+import Link from "next/link";
+import { useDispatch } from "react-redux";
+import { addDoctor } from "@/redux/reducers/AddDoctorSlice/addDoctorSlice";
 
 export default function DoctorAppointments() {
   const [filterDate, setFilterDate] = useState(new Date().toLocaleDateString());
@@ -28,15 +33,30 @@ export default function DoctorAppointments() {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPage, setTotalPage] = useState(0);
   const [appointments, setAppointmnets] = useState([]);
+  const { user } = useAuth();
+  const [search, setSearch] = useState("");
+  const dispatch = useDispatch();
+  const [pages, setPages] = useState([]);
 
   // handle data loading
-  const { data = [], refetch, isLoading } = useAppointmentsData(currentPage);
+  const {
+    data = [],
+    refetch,
+    isLoading,
+  } = useApprovedAppointments(currentPage, user?.email, search);
 
   useEffect(() => {
     const page = data?.total ? Math.ceil(data.total / 10) : 1;
-    setTotalPage(page);
+    if (page !== totalPage) {
+      setTotalPage(page);
+    }
+    const pagesArray = Array.from({ length: page }, (_, idx) => idx + 1);
+
+    if (JSON.stringify(pagesArray) !== JSON.stringify(pages)) {
+      setPages(pagesArray);
+    }
     setAppointmnets(data?.appointments);
-  }, [data]);
+  }, [data, totalPage, pages]);
 
   // pagination handle
   const handleNextPage = () => {
@@ -57,7 +77,14 @@ export default function DoctorAppointments() {
     refetch();
   }, [currentPage]);
 
-  console.log(appointments);
+  // search handle
+  const onSearchClick = (e) => {
+    e.preventDefault();
+    refetch();
+    e.target.reset();
+  };
+
+  // console.log(appointments)
 
   if (isLoading) return <p>Loading</p>;
 
@@ -68,9 +95,10 @@ export default function DoctorAppointments() {
         <p className="text-3xl font-bold">Appointments</p>
 
         {/* search */}
-        <div className="flex items-center gap-5">
+        <form onSubmit={onSearchClick} className="flex items-center gap-5">
           <label className=" border border-gray-200 rounded-md flex items-center justify-between ">
             <input
+              onChange={(e) => setSearch(e.target.value)}
               className=" px-4 focus:outline-none focus:border-none "
               type="text"
               placeholder="Search"
@@ -106,7 +134,7 @@ export default function DoctorAppointments() {
               />
             </p>
           </div>
-        </div>
+        </form>
       </div>
 
       {/* divider */}
@@ -143,7 +171,7 @@ export default function DoctorAppointments() {
 
             <DatePicker
               value={filterDate}
-              onChange={(date) => setFilterDate(date.toLocaleDateString())}
+              onChange={(date) => setFilterDate(new Date(date).toLocaleDateString())}
               className=" focus:outline-none focus:border-none "
             />
           </div>
@@ -282,14 +310,18 @@ export default function DoctorAppointments() {
             >
               {/* name and image */}
               <div className="flex items-center gap-2 ">
-                <div className=" w-14 h-14 rounded-xl bg-blue-200 "></div>
+                <div className=" w-14 h-14 rounded-xl">
+                  <img
+                    src={item.patient.img}
+                    alt={item.patient.name}
+                    className=" w-full h-full object-cover rounded-xl "
+                  />
+                </div>
                 <div className="flex flex-col gap-1">
                   <p className="text[18px] text-sky-500 font-[550] ">
                     #d00{idx + 1}
                   </p>
-                  <p className="card-title">
-                    {item.name ? item.name : item.doctor.name}
-                  </p>
+                  <p className="card-title">{item.patient.name}</p>
                 </div>
               </div>
 
@@ -317,9 +349,13 @@ export default function DoctorAppointments() {
 
               {/* action btns section */}
               <div className=" flex items-center gap-2 ">
-                <a href="/appointments/doctor/view-appointment" className=" flex items-center justify-center hover:cursor-pointer transition-all duration-200 w-10 h-10 rounded-full bg-gray-100 hover:bg-blue-500 hover:text-white ">
+                <Link
+                  onClick={() => dispatch(addDoctor(item))}
+                  href="/appointments/doctor/view-appointment"
+                  className=" flex items-center justify-center hover:cursor-pointer transition-all duration-200 w-10 h-10 rounded-full bg-gray-100 hover:bg-blue-500 hover:text-white "
+                >
                   <FaEye className="text-xl" />
-                </a>
+                </Link>
                 <p className=" flex items-center justify-center hover:cursor-pointer transition-all duration-200 w-10 h-10 rounded-full bg-gray-100 hover:bg-blue-500 hover:text-white ">
                   <FaMessage className="text-xl" />
                 </p>
@@ -361,7 +397,7 @@ export default function DoctorAppointments() {
                       </div>
                     </div>
                     <p className=" w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center ">
-                    <IoVideocam className="text-xl text-blue-500" />
+                      <IoVideocam className="text-xl text-blue-500" />
                     </p>
                   </div>
                 </div>
@@ -378,7 +414,10 @@ export default function DoctorAppointments() {
               {/* action btns */}
               <div className=" flex items-center justify-between gap-1 ">
                 <div className=" flex items-center gap-2 ">
-                  <a href="/appointment/doctor/view-appointment" className=" flex items-center justify-center hover:cursor-pointer transition-all duration-200 w-10 h-10 rounded-full bg-gray-100 hover:bg-blue-500 hover:text-white ">
+                  <a
+                    href="/appointment/doctor/view-appointment"
+                    className=" flex items-center justify-center hover:cursor-pointer transition-all duration-200 w-10 h-10 rounded-full bg-gray-100 hover:bg-blue-500 hover:text-white "
+                  >
                     <FaEye className="text-xl" />
                   </a>
                   <p className=" flex items-center justify-center hover:cursor-pointer transition-all duration-200 w-10 h-10 rounded-full bg-gray-100 hover:bg-blue-500 hover:text-white ">
@@ -398,18 +437,25 @@ export default function DoctorAppointments() {
       </div>
 
       {/* pagination section */}
-      <div className=" w-[1114px] fixed bottom-0 right-0 px-16 py-5 flex items-center justify-between bg-gray-50  ">
-        <button
-          onClick={previousPage}
-          className=" px-4 py-3 transition-all duration-200 hover:bg-green-100 active:bg-green-200 active:scale-95 rounded-md bg-gray-100 "
-        >
-          <FaLongArrowAltLeft className="text-3xl text-green-500 " />
+      <div className=" w-full mt-10 mb-10 flex items-center justify-center gap-5  ">
+        <button onClick={previousPage} className="btn btn-accent text-white">
+          Previous
         </button>
-        <button
-          onClick={handleNextPage}
-          className=" px-4 py-3 felx transition-all duration-200 hover:bg-green-100 active:bg-green-200 active:scale-95 rounded-md bg-gray-100 "
-        >
-          <FaLongArrowAltRight className="text-3xl text-green-500 " />
+        <div className=" flex items-center gap-2 ">
+          {pages?.map((item, idx) => (
+            <button
+              key={idx + 1}
+              onClick={() => setCurrentPage(item)}
+              className={` ${
+                item === currentPage && "bg-pink-500 text-white"
+              } px-4 py-3 transition-all duration-200 hover:bg-gray-200 rounded-md bg-gray-100 text-black font-[500] `}
+            >
+              {item}
+            </button>
+          ))}
+        </div>
+        <button onClick={handleNextPage} className="btn btn-accent text-white">
+          Next{" "}
         </button>
       </div>
     </div>

@@ -11,7 +11,6 @@ import {
   FaCalendarDay,
   FaKey,
   FaRegCalendarCheck,
-  FaUser,
   FaUserEdit,
 } from "react-icons/fa";
 import { RiLogoutBoxFill } from "react-icons/ri";
@@ -160,14 +159,10 @@ const navbarLinks = [
     path: "/Available-timings",
     icon: <FaCalendarDay />,
   },
-  {
-    title: "My Patients",
-    path: "/my-patients",
-    icon: <FaUser />,
-  },
+ 
   {
     title: "Profile Settings",
-    path: "/profile-settings",
+    path: "/profile-edit/doctor",
     icon: <FaUserEdit className="text-xl" />,
   },
   {
