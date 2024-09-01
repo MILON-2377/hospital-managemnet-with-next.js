@@ -84,10 +84,6 @@ export default function DoctorAppointments() {
     e.target.reset();
   };
 
-  // console.log(appointments)
-
-  if (isLoading) return <p>Loading</p>;
-
   return (
     <div className="w-[95%] mx-auto">
       {/* appointments header */}
@@ -328,7 +324,7 @@ export default function DoctorAppointments() {
               {/* date and time and visit type */}
               <div className=" flex flex-col gap-1">
                 <p className="text[18px] font-normal ">
-                  {item.appointment_date}
+                  {new Date(item.appointment_date).toLocaleString()}
                 </p>
                 <p className=" flex items-center gap-1 ">
                   <span className="text[18px] font-normal ">General visit</span>

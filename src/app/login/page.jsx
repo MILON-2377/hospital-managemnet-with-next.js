@@ -29,7 +29,11 @@ export default function LogIn() {
       }
     } catch (error) {
       document.getElementById("my_modal_1").close();
-      toast(error.message);
+      if (error.code) {
+        toast("The password is invalid or the user does not have a password");
+      } else {
+        toast(error.message);
+      }
     }
   };
 
@@ -47,7 +51,7 @@ export default function LogIn() {
         router.push(dashboardRoute);
       }
     }
-  }, [user]);
+  }, [user, router]);
 
   useEffect(() => {
     document.getElementById("my_modal_1").close();

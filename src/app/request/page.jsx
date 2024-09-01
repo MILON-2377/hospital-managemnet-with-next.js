@@ -26,7 +26,6 @@ export default function Requests() {
   const [approvedAppointments, setApprovedAppointments] = useState(0);
   const [cancelAppointments, setCancelAppointments] = useState(0);
   const [id, setId] = useState("");
-  const router = useRouter();
   const [pages, setPages] = useState([]);
 
   // data loading handle
@@ -152,7 +151,7 @@ export default function Requests() {
                 <span>
                   <FaBeer className="text-gray-300 text-4xl " />
                 </span>
-                <h2 className="text-amber-500 text-4xl font-bold ">5</h2>
+                <h2 className="text-amber-500 text-4xl font-bold ">{pendingAppointments}</h2>
               </div>
               <p className="mt-5 ">Total number of pending appointments</p>
             </div>

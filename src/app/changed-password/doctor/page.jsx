@@ -24,7 +24,7 @@ export default function ChangeDoctorPassword() {
 
     if (password !== conFirmPass)
       return toast("New password and confirm password does not matched!");
-    document.getElementById("my_modal_1").showModal();
+    document.getElementById("my_modal_6").showModal();
 
     userPasswordUpdate(conFirmPass)
       .then(() => {
@@ -33,13 +33,13 @@ export default function ChangeDoctorPassword() {
         router.push("/login");
       })
       .catch((error) => {
-        document.getElementById("my_modal_1").close();
+        document.getElementById("my_modal_6").close();
         toast(error.message);
       });
   };
 
   useEffect(() => {
-    document.getElementById("my_modal_1").close();
+    document.getElementById("my_modal_6").close();
   },[path])
 
   return (
@@ -128,9 +128,8 @@ export default function ChangeDoctorPassword() {
 
       {/* modal container */}
       <div>
-        {/* document.getElementById("my_modal_1").showModal()} */}
 
-        <dialog id="my_modal_1" className="modal">
+        <dialog id="my_modal_6" className="modal">
           <div className=" p-5 rounded-md bg-accent text-white flex flex-col items-center justify-center gap-3">
             <span>Updating your password, please wait...</span>
             <p className=" w-full text-center ">

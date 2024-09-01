@@ -11,20 +11,20 @@ export default function DoctorPreLogIn({ logIn }) {
 
   //   handle update password
   const onSubmit = async (e) => {
+    document.getElementById("my_modal_6").showModal();
     e.preventDefault();
     userLoggedOut();
     const pass = e.target.pass.value;
     const email = user?.email;
-    document.getElementById("my_modal_1").showModal();
 
     userLogIn(email, pass)
       .then(() => {
         e.target.reset();
         logIn(true);
-        document.getElementById("my_modal_1").close();
+        document.getElementById("my_modal_6").close();
       })
       .catch((error) => {
-        document.getElementById("my_modal_1").close();
+        document.getElementById("my_modal_6").close();
         toast(error.message);
       });
   };
@@ -65,9 +65,9 @@ export default function DoctorPreLogIn({ logIn }) {
 
       {/* modal container */}
       <div>
-        <dialog id="my_modal_1" className="modal">
+        <dialog id="my_modal_6" className="modal">
           <div className=" p-5 rounded-md bg-accent text-white flex flex-col items-center justify-center gap-3">
-            <span>Updating your password, please wait...</span>
+            <span>We will be back soon, please wait...</span>
             <p className=" w-full text-center ">
               <span className="loading loading-bars loading-sm"></span>
               <span className="loading loading-bars loading-md"></span>

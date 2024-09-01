@@ -16,11 +16,13 @@ import {
 import { RiLogoutBoxFill } from "react-icons/ri";
 import Link from "next/link";
 import PatientSideBar from "./PatientSideBar";
+import { useEffect, useState } from "react";
 
 export default function DoctorNavbar() {
   const { user, userLoggedOut } = useAuth();
-  const router = useRouter();
   const path = usePathname();
+  const router = useRouter();
+  const [isPathChange, setIsPathChange] = useState(null);
 
   // handle onclick
   const handleOnClick = (name) => {
@@ -28,6 +30,12 @@ export default function DoctorNavbar() {
       userLoggedOut();
     }
   };
+
+  useEffect(() => {
+    setIsPathChange(path);
+    const modal = document.getElementById("my_modal_1");
+    modal.close();
+  }, [path]);
 
   return (
     <div className=" w-full h-full ">
@@ -48,13 +56,17 @@ export default function DoctorNavbar() {
             {/* profile image */}
 
             <div className=" absolute top-[150px] left-[140px] w-32 h-32 rounded-full border border-white ">
-              {
-                user?.photo ? <>
-                
-                </> : <>
-                <Image src={img1} alt="profile" className=" w-full h-full rounded-full object-cover " />
+              {user?.photo ? (
+                <></>
+              ) : (
+                <>
+                  <Image
+                    src={img1}
+                    alt="profile"
+                    className=" w-full h-full rounded-full object-cover "
+                  />
                 </>
-              }
+              )}
             </div>
           </div>
           <div className="p-5 bg-white mt-16 gap-3 flex items-center justify-center flex-col ">
@@ -95,7 +107,13 @@ export default function DoctorNavbar() {
         <div className=" w-full p-10 bg-white  mb-5 flex flex-col gap-2 ">
           {[...navbarLinks].map((item, index) => (
             <Link
-              onClick={() => handleOnClick(item.title)}
+              onClick={() => {
+                if (isPathChange !== item.path) {
+                  document.getElementById("my_modal_1").showModal();
+
+                  handleOnClick(item.title);
+                }
+              }}
               key={index}
               href={item.path}
               className={
@@ -108,13 +126,7 @@ export default function DoctorNavbar() {
                 <span>{item?.icon}</span>
                 <span className=" "> {item.title}</span>
               </>
-              {item.title === "Requests" && (
-                <>
-                  <p className="text-[16px] w-5 ml-40 h-5 flex items-center justify-center rounded-full  bg-yellow-400 text-white ">
-                    3
-                  </p>
-                </>
-              )}
+
               {item.title === "Message" && (
                 <>
                   <p className="text-[16px] w-5 ml-40 h-5 flex items-center justify-center rounded-full  bg-yellow-400 text-white ">
@@ -126,12 +138,29 @@ export default function DoctorNavbar() {
           ))}
 
           <button
+            onClick={() => {
+              document.getElementById("my_modal_1").showModal();
+              router.push("/login");
+              userLoggedOut();
+            }}
             className={` p-3 rounded-md flex items-center gap-2 hover:bg-gray-100 text-[16px] font-[500] `}
           >
             <RiLogoutBoxFill className="text-xl" />
             LogOut
           </button>
         </div>
+      </div>
+
+      {/* modal */}
+      <div>
+        <dialog id="my_modal_1" className="modal">
+          <div className=" p-5 rounded-md bg-accent text-white flex flex-col items-center justify-center gap-3">
+            <p className=" w-full text-center ">
+              <span className="loading loading-bars loading-sm"></span>
+              <span className="loading loading-bars loading-md"></span>
+            </p>
+          </div>
+        </dialog>
       </div>
     </div>
   );
@@ -159,7 +188,7 @@ const navbarLinks = [
     path: "/Available-timings",
     icon: <FaCalendarDay />,
   },
- 
+
   {
     title: "Profile Settings",
     path: "/profile-edit/doctor",
