@@ -9,14 +9,17 @@ import Image from "next/image";
 import { useForm } from "react-hook-form";
 import { useAuth } from "@/AuthProviderContext/AuthProviderContext";
 import axiosPublic from "@/Hooks/useAxiosPublic";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import { FaUserDoctor } from "react-icons/fa6";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function SignUp() {
-  const { userRegisterHandle } = useAuth();
+  const { userRegisterHandle, user } = useAuth();
   const [profession, setProfession] = useState("");
   const [isProffessionChange, setIsProfessionChange] = useState(false);
+  const path = usePathname();
   const {
     register,
     handleSubmit,
@@ -25,13 +28,12 @@ export default function SignUp() {
   } = useForm();
   const [isSigning, setIsSigning] = useState(false);
   const router = useRouter();
-  const passwordPattern =
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
   // form handle
   const onSubmit = async (data) => {
     const { email, password, userName } = data;
     setIsSigning(true);
+    document.getElementById("my_modal_4").showModal();
 
     try {
       const userRegisterRes = await userRegisterHandle(email, password);
@@ -53,9 +55,15 @@ export default function SignUp() {
         }
       }
     } catch (error) {
-      console.log(error.message);
+      document.getElementById("my_modal_4").close();
+      toast(error.code);
     }
   };
+
+  // path change handle loading
+  useEffect(() => {
+    document.getElementById("my_modal_4").close();
+  }, [path]);
 
   return (
     <div className=" w-full h-screen bg-white flex justify-between ">
@@ -123,6 +131,7 @@ export default function SignUp() {
                   tabIndex={0}
                   role="button"
                   value={profession.length > 0 ? `${profession}` : ""}
+                  readOnly
                   placeholder="Ex: Doctor"
                   className="  border w-full border-gray-200 px-12 py-2 rounded-md "
                 />
@@ -219,6 +228,24 @@ export default function SignUp() {
           alt="doctor"
         />
       </div>
+
+      {/* signing modal  */}
+      <div>
+        <dialog id="my_modal_4" className="modal">
+          <div className=" p-5 bg-accent flex flex-col items-center justify-center text-white gap-3  ">
+            <h3 className=" text-white  ">
+              Please wait, logging process is in progress...
+            </h3>
+            <p className=" w-full text-center text-white ">
+              <span className="loading loading-bars loading-sm"></span>
+              <span className="loading loading-bars loading-md"></span>{" "}
+            </p>
+          </div>
+        </dialog>
+      </div>
+
+      {/* react toastify container */}
+      <ToastContainer />
     </div>
   );
 }

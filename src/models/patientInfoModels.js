@@ -35,6 +35,7 @@ const identificationInfoSchema = new mongoose.Schema({
 });
 
 const patientSchema = new mongoose.Schema({
+  patientId: { type: String, required: true, unique: true },
   personalInfo: { type: personalInfoSchema, required: true },
   medicalInfo: { type: medicalInfoSchema, required: true },
   identificationInfo: { type: identificationInfoSchema, required: true },

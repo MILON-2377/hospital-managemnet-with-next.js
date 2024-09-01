@@ -11,7 +11,7 @@ export async function POST(req) {
 
         const reqBody = await req.json();
 
-        // console.log(reqBody);
+        console.log(reqBody);
 
         const newDocument = new PatientInformation(reqBody);
         const saveDocument = await newDocument.save();

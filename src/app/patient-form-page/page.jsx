@@ -40,7 +40,8 @@ export default function PatientForm() {
       <div className=" p-10 flex flex-col gap-3 ">
         <label className="flex items-center gap-2 ">
           <div
-            className={`w-6 h-6 flex items-center justify-center rounded-full border border-cyan-400 `}
+          onClick={() => setIsChecked(1)}
+            className={`w-6 h-6 hover:cursor-pointer flex items-center justify-center rounded-full border border-cyan-400 `}
           >
             <div
               className={` w-3 h-3 rounded-full ${
@@ -55,7 +56,8 @@ export default function PatientForm() {
         </p>
         <label className="flex items-center gap-2 ">
           <div
-            className={`w-6 h-6 flex items-center justify-center rounded-full border border-cyan-400 `}
+           onClick={() => setIsChecked(2)}
+            className={`w-6 h-6 hover:cursor-pointer flex items-center justify-center rounded-full border border-cyan-400 `}
           >
             <div
               className={` w-3 h-3 rounded-full ${
@@ -70,7 +72,8 @@ export default function PatientForm() {
         </p>
         <label className="flex items-center gap-2 ">
           <div
-            className={`w-6 h-6 flex items-center justify-center rounded-full border border-cyan-400 `}
+           onClick={() => setIsChecked(3)}
+            className={`w-6 h-6 hover:cursor-pointer flex items-center justify-center rounded-full border border-cyan-400 `}
           >
             <div
               className={` w-3 h-3 rounded-full ${
@@ -87,7 +90,8 @@ export default function PatientForm() {
         </p>
         <label className="flex items-center gap-2 ">
           <div
-            className={`w-6 h-6 flex items-center justify-center rounded-full border border-cyan-400 `}
+           onClick={() => setIsChecked(4)}
+            className={`w-6 h-6 hover:cursor-pointer flex items-center justify-center rounded-full border border-cyan-400 `}
           >
             <div
               className={` w-3 h-3 rounded-full ${

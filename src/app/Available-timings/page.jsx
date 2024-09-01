@@ -28,9 +28,6 @@ export default function AvailableTimings() {
     setIsDurationClick(false);
   }, [duration]);
 
-  useEffect(() => {
-    console.log(appointmentSpace);
-  }, [appointmentSpace]);
 
   const onSubmit = (data) => {
     console.log(data);

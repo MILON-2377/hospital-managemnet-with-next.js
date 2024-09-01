@@ -1,22 +1,41 @@
 "use client";
 
+import { useAuth } from "@/AuthProviderContext/AuthProviderContext";
 import axiosSecure from "@/Hooks/userAxiosSecure";
+import { usePathname, useRouter } from "next/navigation";
+import { useEffect } from "react";
 import { useSelector } from "react-redux";
 
 export default function InfoReviewAndSubmit() {
   const patientInfo = useSelector(
     (state) => state.patientInfoReducer.patientIfo
   );
+  const { user } = useAuth();
+  const path = usePathname();
+  const router = useRouter();
 
   //   patient info submit handle
   const submitPatientInfo = async () => {
+    const patientId = user?.email;
+    document.getElementById("my_modal_5").showModal();
     try {
-      const res = await axiosSecure.post("/patient", { ...patientInfo });
-      console.log(res.data);
+      const res = await axiosSecure.post("/patient", {
+        ...patientInfo,
+        patientId,
+      });
+      if (res.data.message === "success") {
+        router.push("/Dashboard/patient-dashboard");
+      }
     } catch (error) {
-      console.log(error.message);
+      // console.log(error.message);
     }
   };
+
+  // loading modal close handle
+  useEffect(() => {
+    document.getElementById("my_modal_5").close();
+  }, [path]);
+
   return (
     <div className=" w-full border rounded-md p-5 mt-10 ">
       <div className=" w-full ">
@@ -183,6 +202,21 @@ export default function InfoReviewAndSubmit() {
         <button className=" btn mt-10 btn-accent text-white w-[180px] ">
           Submit
         </button>
+      </div>
+
+      {/* submit modal loading */}
+      <div>
+        <dialog id="my_modal_5" className="modal">
+          <div className=" p-5 bg-accent flex flex-col items-center justify-center text-white gap-3  ">
+            <h3 className=" text-white  ">
+              Please wait, your information is being submitted...
+            </h3>
+            <p className=" w-full text-center text-white ">
+              <span className="loading loading-bars loading-sm"></span>
+              <span className="loading loading-bars loading-md"></span>{" "}
+            </p>
+          </div>
+        </dialog>
       </div>
     </div>
   );
