@@ -1,8 +1,7 @@
 import { NextResponse } from "next/server";
 
-// This function can be marked `async` if using `await` inside
 export function middleware(req) {
-  const token = req.cookies.get("token")?.value || null;
+  const token = req.cookies.get("token")|| null;
 
   if (!token) {
     return NextResponse.redirect(new URL("/login", req.url));
@@ -13,5 +12,21 @@ export function middleware(req) {
 
 // See "Matching Paths" below to learn more
 export const config = {
-  matcher: ["/dashboard/[id]", "/appointment"],
+  matcher: [
+    // Doctor routes
+    "/Dashboard/doctor-dashboard",
+    "/request",
+    "/appointments/doctor",
+    "/available-timings",
+    "/profile-edit/doctor",
+    "/changed-password/doctor",
+
+    // Patient routes
+    "/Dashboard/patient-dashboard",
+    "/appointments/patient",
+    "/book-appointments",
+    "/invoice",
+    "/profile-edit/patient",
+    "/changed-password/patient",
+  ],
 };

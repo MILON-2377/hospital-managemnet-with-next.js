@@ -15,6 +15,7 @@ import { MdDelete } from "react-icons/md";
 import useAppointmentsData from "@/DataFetch/useAppointsData";
 import { IoVideocam } from "react-icons/io5";
 import Link from "next/link";
+import Loading from "@/components/Loading/Loading";
 
 export default function MyAppointments() {
   const [filterDate, setFilterDate] = useState(new Date().toLocaleDateString());
@@ -66,9 +67,9 @@ export default function MyAppointments() {
 
   useEffect(() => {
     refetch();
-  }, [currentPage, filtersName]);
+  }, [currentPage, filtersName, refetch]);
 
-  if (isLoading) return <p>Loading</p>;
+  if (isLoading) return <Loading />;
 
   return (
     <div className="w-[95%] mx-auto">

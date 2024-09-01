@@ -3,12 +3,14 @@
 import { CiMenuFries } from "react-icons/ci";
 import { useAuth } from "@/AuthProviderContext/AuthProviderContext";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter, } from "next/navigation";
+import { RiLogoutBoxFill } from "react-icons/ri";
+import Cookies from "js-cookie";
 
 export default function PatientSideBar({ navLinks }) {
-  const { user } = useAuth();
+  const { user, userLoggedOut } = useAuth();
   const path = usePathname();
-  const router = useRouter();
+  const {push} = useRouter();
 
   return (
     <div className="lg:hidden navbar flex items-center justify-between">
@@ -32,7 +34,7 @@ export default function PatientSideBar({ navLinks }) {
             ></label>
             <ul className="menu bg-base-100 text-base-content min-h-full w-[80%] sm:w-[350px] p-4">
               <li className=" text-2xl font-bold px-3 ">
-                Dr. {user?.userName}
+                {user?.userName}
               </li>
 
               <div className=" mt-5 mb-5 border-t border-t-gray-200 w-full "></div>
@@ -67,6 +69,19 @@ export default function PatientSideBar({ navLinks }) {
                   )}
                 </Link>
               ))}
+
+              <button
+                onClick={() => {
+                  push("/login");
+                  userLoggedOut();
+                  
+                }}
+                href="/login"
+                className={` p-3 rounded-md flex items-center gap-2 hover:bg-gray-100 text-[16px] font-[500] `}
+              >
+                <RiLogoutBoxFill className="text-xl font-bold" />
+                <span>LogOut</span>
+              </button>
             </ul>
           </div>
         </div>

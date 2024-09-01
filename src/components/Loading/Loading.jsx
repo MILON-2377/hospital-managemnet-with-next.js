@@ -2,22 +2,16 @@
 
 import { useEffect } from "react";
 
-export default function Loading({ h, t, loading }) {
+export default function Loading() {
   useEffect(() => {
-    if (loading) {
-      document.getElementById("my_modal_5").showModal();
-    } else document.getElementById("my_modal_5").close();
-  }, [loading]);
+    document.getElementById("my_modal_3").showModal();
+  }, []);
   return (
-    <dialog id="my_modal_5">
-      <div className="modal-box bg-accent text-white flex flex-col gap-3 ">
-        <h3 className="font-bold text-lg">{h}</h3>
-        <div className=" flex items-center justify-center ">
-          <span className="loading loading-bars loading-xs"></span>
-          <span className="loading loading-bars loading-sm"></span>
-          <span className="loading loading-bars loading-md"></span>
-          <span className="loading loading-bars loading-lg"></span>
-        </div>
+    <dialog id="my_modal_3" className="modal">
+      <div className=" w-24 flex items-center justify-center modal-box bg-accent text-white ">
+        <span className="loading loading-bars loading-xs"></span>
+        <span className="loading loading-bars loading-sm"></span>
+        <span className="loading loading-bars loading-md"></span>
       </div>
     </dialog>
   );

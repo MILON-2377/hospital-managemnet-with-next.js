@@ -1,4 +1,5 @@
 import connect from "@/dbConfig/dbConfig";
+import PatientInformation from "@/models/patientInfoModels";
 import Users from "@/models/userModels";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -33,7 +34,14 @@ export async function GET(req) {
 
     const userData = await Users.findOne({ email });
 
-    return NextResponse.json({ message: "success", userData });
+    const profession = userData?.profession;
+
+    const patientInfo =
+      profession === "Patient"
+        ? await PatientInformation.find({ patientId: email })
+        : false;
+
+    return NextResponse.json({ message: "success", userData, patientInfo });
   } catch (error) {
     console.log("user data does not get", error);
     return NextResponse.json({ error: "user data does not laodded", error });

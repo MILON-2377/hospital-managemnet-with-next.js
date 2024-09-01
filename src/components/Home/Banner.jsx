@@ -8,9 +8,11 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { FaCircleCheck } from "react-icons/fa6";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Banner() {
   const [selectDate, setSelectedDate] = useState(null);
+  const {push} = useRouter();
   return (
     <motion.div
       initial={{ opacity: 0, y: 100 }}
@@ -26,7 +28,9 @@ export default function Banner() {
         <p className=" text-xl mt-3 text-gray-400 ">
           Where top-rated doctors are ready to assist
         </p>
-        <button className=" mt-10 w-[250px] px-4 py-3 bg-accent text-white hover:bg-white hover:text-accent font-semibold transition-all duration-200 border border-gray-200 rounded-md active:scale-95 active:bg-accent active:bg-opacity-45 ">
+        <button
+        onClick={() => push("/signup")}
+        className=" mt-10 w-[250px] px-4 py-3 bg-accent text-white hover:bg-white hover:text-accent font-semibold transition-all duration-200 border border-gray-200 rounded-md active:scale-95 active:bg-accent active:bg-opacity-45 ">
           Schedule Your Consultation
         </button>
 

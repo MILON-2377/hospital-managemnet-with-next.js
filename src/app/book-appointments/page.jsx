@@ -1,5 +1,6 @@
 "use client";
 
+import Loading from "@/components/Loading/Loading";
 import useDoctorsData from "@/DataFetch/useDoctorsData";
 import {
   addDoctor,
@@ -24,7 +25,7 @@ export default function BookAppointments() {
   const dispatch = useDispatch();
 
   // data loading
-  const { data = [], refetch } = useDoctorsData(currentPage, search);
+  const { data = [], refetch, isLoading } = useDoctorsData(currentPage, search);
 
   useEffect(() => {
     if (data) {
@@ -70,6 +71,8 @@ export default function BookAppointments() {
     e.target.reset();
   };
 
+  if (isLoading) return <Loading />;
+
   return (
     <div className=" w-full p-5 ">
       {/* header section */}
@@ -103,8 +106,10 @@ export default function BookAppointments() {
           >
             <div className=" relative flex items-center justify-center p-5 ">
               <div className=" w-20 h-20 rounded-lg ">
-                <img src={item.img} alt={item.img}
-                className=" w-full h-full object-cover rounded-md "
+                <img
+                  src={item.img}
+                  alt={item.img}
+                  className=" w-full h-full object-cover rounded-md "
                 />
               </div>
               <div className=" absolute right-10  p-2 rounded-full bg-gray-50 hover:cursor-pointer flex items-center justify-center ">

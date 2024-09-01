@@ -14,11 +14,20 @@ import { IoDocumentTextOutline } from "react-icons/io5";
 import { RiLogoutBoxFill } from "react-icons/ri";
 import Link from "next/link";
 import PatientSideBar from "./PatientSideBar";
+import { useEffect, useState } from "react";
 
 export default function PatientNavbar() {
   const { user, userLoggedOut } = useAuth();
+  const [isPathChange, setIsPathChange] = useState(null);
   const path = usePathname();
-  const router = useRouter();
+  const { push } = useRouter();
+
+  // handle path change loading
+  useEffect(() => {
+    setIsPathChange(path);
+    document.getElementById("my_modal_1").close();
+  }, [path]);
+
   return (
     <div className=" w-full h-full ">
       {/* for small devices */}
@@ -74,6 +83,11 @@ export default function PatientNavbar() {
             <Link
               key={index}
               href={item?.path}
+              onClick={() => {
+                if (isPathChange !== item.path) {
+                  document.getElementById("my_modal_1").showModal();
+                }
+              }}
               className={
                 path === item?.path
                   ? "p-3 rounded-md flex items-center gap-2 bg-blue-500 text-white text-[16px] font-[500] "
@@ -101,8 +115,10 @@ export default function PatientNavbar() {
             </Link>
           ))}
 
-          <Link
+          <button
             onClick={() => {
+              document.getElementById("my_modal_1").showModal();
+              push("/login");
               userLoggedOut();
             }}
             href="/login"
@@ -110,8 +126,20 @@ export default function PatientNavbar() {
           >
             <RiLogoutBoxFill className="text-xl font-bold" />
             <span>LogOut</span>
-          </Link>
+          </button>
         </div>
+      </div>
+
+      {/* modal */}
+      <div>
+        <dialog id="my_modal_1" className="modal">
+          <div className=" p-5 rounded-md bg-accent text-white flex flex-col items-center justify-center gap-3">
+            <p className=" w-full text-center ">
+              <span className="loading loading-bars loading-sm"></span>
+              <span className="loading loading-bars loading-md"></span>
+            </p>
+          </div>
+        </dialog>
       </div>
     </div>
   );
