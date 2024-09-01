@@ -45,12 +45,12 @@ export default function PersonalInfo() {
   }, [errors]);
 
   return (
-    <div className=" w-full p-10 border rounded-md lg:mt-10 border-gray-200 ">
+    <div className=" w-full p-5 lg:p-10 border rounded-md lg:mt-10 ">
       <form onSubmit={handleSubmit(onSubmit)} className="w-full">
         <label className=" w-full flex flex-col gap-2">
           <span className="text-[16px] text-gray-500 ">Full name</span>
           <input
-            className="px-4 w-full py-2 text-[16px] placeholder:text-gray-500 text-gray-600 focus:border-cyan-500 focus:outline-none border border-gray-200 rounded-md bg-transparent "
+            className="px-4 w-full py-2 text-[16px] placeholder:text-gray-500 text-gray-600 focus:border-cyan-500 focus:outline-none border rounded-md bg-transparent "
             placeholder="ex: milon miah"
             type="text"
             {...register("fullName", {
@@ -65,7 +65,7 @@ export default function PersonalInfo() {
             <div className="flex flex-col gap-2">
               <span className="text-[16px] text-gray-600 ">Email address</span>
               <label
-                className={` px-3 flex items-center text-[16px] gap-4 border border-gray-200 rounded-md `}
+                className={` px-3 flex items-center text-[16px] gap-4 border rounded-md `}
               >
                 <span>
                   <MdOutlineMailOutline className=" text-2xl text-gray-400 " />
@@ -86,7 +86,7 @@ export default function PersonalInfo() {
             <div className="flex flex-col gap-2">
               <span className="text-[16px] text-gray-600 ">Date of birth</span>
               <label
-                className={`px-3 py-2 flex items-center gap-4 border border-gray-200 rounded-md `}
+                className={`px-3 py-2 flex items-center gap-4 border rounded-md `}
               >
                 <span>
                   <FaCalendarAlt className=" text-[16px] text-gray-400 " />
@@ -104,7 +104,7 @@ export default function PersonalInfo() {
             <label className="flex flex-col gap-2">
               <span className="text-[16px] text-gray-600 ">Address</span>
               <input
-                className="px-4 py-2 text-[16px] text-gray-600 placeholder:text-gray-500  focus:border-cyan-500 focus:outline-none border border-gray-200 rounded-md bg-transparent "
+                className="px-4 py-2 text-[16px] text-gray-600 placeholder:text-gray-500  focus:border-cyan-500 focus:outline-none border rounded-md bg-transparent "
                 placeholder="Ex: 1302 Kolabagan, Dhaka "
                 type="text"
                 {...register("address", {
@@ -119,7 +119,7 @@ export default function PersonalInfo() {
                 Emergency contact name
               </span>
               <input
-                className="px-4 py-2 text-[16px] placeholder:text-gray-500 text-gray-600 focus:border-cyan-500 focus:outline-none border border-gray-200 rounded-md bg-transparent "
+                className="px-4 py-2 text-[16px] placeholder:text-gray-500 text-gray-600 focus:border-cyan-500 focus:outline-none border rounded-md bg-transparent "
                 placeholder="Guardian's name "
                 type="text"
                 {...register("emergency_contact_name", {
@@ -136,14 +136,14 @@ export default function PersonalInfo() {
                 Emergency phone number
               </span>
               <label
-                className={` px-3 flex items-center gap-4 border border-gray-200 rounded-md `}
+                className={` px-3 flex items-center gap-4 border rounded-md `}
               >
                 <span>
                   <IoCallOutline className=" text-2xl text-gray-400 " />
                 </span>
                 <input
                   onChange={(e) => setEmail(e.target.value)}
-                  className="py-2 focus:border-none text-[16px] border-none placeholder:text-gray-500 text-gray-600  focus:outline-none border border-gray-200 rounded-md bg-transparent "
+                  className="py-2 focus:border-none text-[16px] border-none placeholder:text-gray-500 text-gray-600  focus:outline-none border rounded-md bg-transparent "
                   placeholder="+86 131850-84669"
                   type="text"
                   {...register("emergency_contact_phone", {
@@ -197,7 +197,7 @@ export default function PersonalInfo() {
             <label className="flex flex-col gap-2">
               <span className="text-[16px] text-gray-600 ">Occupation</span>
               <input
-                className="px-4 py-2 text-[16px] text-gray-600 placeholder:text-gray-500  focus:border-cyan-500 focus:outline-none border border-gray-200 rounded-md bg-transparent "
+                className="px-4 py-2 text-[16px] text-gray-600 placeholder:text-gray-500  focus:border-cyan-500 focus:outline-none border rounded-md bg-transparent "
                 placeholder="Software Engineer"
                 type="text"
                 {...register("occupation", {
@@ -210,14 +210,14 @@ export default function PersonalInfo() {
             <div className="flex flex-col gap-2">
               <span className="text-[16px] text-gray-600 ">Phone number</span>
               <label
-                className={` px-3 flex items-center gap-4 border border-gray-200 rounded-md `}
+                className={` px-3 flex items-center gap-4 border rounded-md `}
               >
                 <span>
                   <IoCallOutline className=" text-2xl text-gray-400 " />
                 </span>
                 <input
                   onChange={(e) => setEmail(e.target.value)}
-                  className="py-2 focus:border-none text-[16px] border-none placeholder:text-gray-500 text-gray-600  focus:outline-none border border-gray-200 rounded-md bg-transparent "
+                  className="py-2 focus:border-none text-[16px] border-none placeholder:text-gray-500 text-gray-600  focus:outline-none border rounded-md bg-transparent "
                   placeholder="+86 131850-84887"
                   type="text"
                   {...register("phoneNumber", {

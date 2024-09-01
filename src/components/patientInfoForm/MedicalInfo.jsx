@@ -15,8 +15,6 @@ export default function MedicalInfo() {
     register,
     setValue,
     handleSubmit,
-    reset,
-    formState: { errors },
   } = useForm();
 
   //   handle physicians select
@@ -98,7 +96,7 @@ export default function MedicalInfo() {
             </div>
           </div>
 
-          <div className="grid mt-5 grid-cols-2 gap-5 ">
+          <div className="grid mt-5 grid-cols-1 sm:grid-cols-2 gap-5 ">
             <div className="flex flex-col gap-5">
               <label className="flex flex-col gap-2">
                 <span className="text-[18px] font-[500] text-gray-600 ">
