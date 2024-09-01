@@ -1,6 +1,5 @@
 "use client";
 
-import { useAuth } from "@/AuthProviderContext/AuthProviderContext";
 import IdentificationAndPrivacy from "@/components/patientInfoForm/IdentificationAndPrivacy";
 import InfoReviewAndSubmit from "@/components/patientInfoForm/InfoReviewAndSubmit";
 import MedicalInfo from "@/components/patientInfoForm/MedicalInfo";
@@ -10,7 +9,6 @@ import { IoIosArrowRoundDown } from "react-icons/io";
 import { useSelector } from "react-redux";
 
 export default function PatientForm() {
-  const { user } = useAuth();
   const [isChecked, setIsChecked] = useState(1);
   const patientInfo = useSelector(
     (state) => state.patientInfoReducer.patientIfo

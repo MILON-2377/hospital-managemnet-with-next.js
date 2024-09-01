@@ -68,10 +68,6 @@ const AuthProviderContext = ({ children }) => {
               `/users?email=${currentUser.email}`
             );
 
-            if (!userRes.data.patientInfo) {
-              router.push("/patient-form-page");
-            }
-
             if (userRes.data.userData) {
               setUser(userRes?.data?.userData);
               setLaoding(false);

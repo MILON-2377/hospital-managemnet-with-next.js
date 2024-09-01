@@ -1,17 +1,16 @@
+// pages/api/appointments.js
 import Appointments from "@/models/appointmentModels";
 import { NextResponse } from "next/server";
 
 export async function GET(req) {
   try {
-    const { searchParams } = new URL(req.url);
-    const email = searchParams.get("email");
-    const page = parseInt(searchParams.get("page"), 10) || 1;
-    const search = searchParams.get("search");
+    const url = new URL(req.url);
+    const email = url.searchParams.get("email");
+    const page = parseInt(url.searchParams.get("page"), 10) || 1;
+    const search = url.searchParams.get("search");
 
     const skip = (page - 1) * 10;
-    console.log(search);
 
-    // Construct the filter object dynamically
     const filter = { approved: true, "doctor.id": email };
 
     if (search) {
@@ -23,7 +22,6 @@ export async function GET(req) {
 
     return NextResponse.json({ appointments, total });
   } catch (error) {
-    console.log(error.message);
     return NextResponse.json({ message: error.message });
   }
 }

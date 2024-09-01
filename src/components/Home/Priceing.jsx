@@ -52,7 +52,7 @@ export default function Priceing() {
             <span className="mt-4 text-gray-300">/monthly</span>
           </div>
 
-          <p className=" mt-5 text-xl font-semibold ">What's included</p>
+          <p className=" mt-5 text-xl font-semibold ">Whats included</p>
 
           <div className={`  mt-5 flex flex-col gap-2`}>
             <p className="flex items-center gap-2">
@@ -148,7 +148,7 @@ export default function Priceing() {
           </div>
 
           <p className=" mt-5 text-xl font-semibold text-white ">
-            What's included
+            Whats included
           </p>
 
           <div className={`  mt-5 flex flex-col gap-2`}>
@@ -244,7 +244,7 @@ export default function Priceing() {
             <span className="mt-4 text-gray-300">/monthly</span>
           </div>
 
-          <p className=" mt-5 text-xl font-semibold ">What's included</p>
+          <p className=" mt-5 text-xl font-semibold ">Whats included</p>
 
           <div className={`  mt-5 flex flex-col gap-2`}>
             <p className="flex items-center gap-2">

@@ -35,7 +35,7 @@ export default function PersonalInfo() {
     if (Object.keys(errors).length > 0) {
       Object.values(errors).forEach((error) => {
         if (error?.message) {
-            console.log(error.message);
+          console.log(error.message);
           toast.warn(error.message, {
             autoClose: 5000,
           });
@@ -46,7 +46,6 @@ export default function PersonalInfo() {
 
   return (
     <div className=" w-full p-10 border rounded-md lg:mt-10 border-gray-200 ">
-      
       <form onSubmit={handleSubmit(onSubmit)} className="w-full">
         <label className=" w-full flex flex-col gap-2">
           <span className="text-[16px] text-gray-500 ">Full name</span>
@@ -60,7 +59,7 @@ export default function PersonalInfo() {
           />
         </label>
 
-        <div className=" w-full flex justify-between mt-5 gap-6 ">
+        <div className=" w-full flex sm:flex-row flex-col sm:justify-between mt-5 gap-6 ">
           <div className=" w-full flex flex-col gap-5 ">
             {/* email address */}
             <div className="flex flex-col gap-2">
@@ -157,9 +156,8 @@ export default function PersonalInfo() {
             {/* gender */}
             <div className="flex flex-col gap-2">
               <span className="text-[16px] text-gray-600">Gender</span>
-              <div className="flex items-center justify-between sm:gap-2 lg:gap-5">
-                <label className="label flex items-center sm:gap-2 px-2 cursor-pointer border border-gray-200 border-dashed rounded-md">
-                  <span className="text-[16px] text-gray-500">Male</span>
+              <div className="flex items-center justify-between  sm:gap-2 lg:gap-5">
+                <label className="label flex items-center sm:gap-2  px-1 sm:px-2 cursor-pointer border gap-1 border-dashed rounded-md">
                   <input
                     type="radio"
                     value="male"
@@ -168,8 +166,9 @@ export default function PersonalInfo() {
                     })}
                     className="radio border border-gray-500 checked:bg-accent"
                   />
+                  <span className="text-[16px] text-gray-500">Male</span>
                 </label>
-                <label className="label flex items-center sm:gap-2 px-2 cursor-pointer border border-gray-200 border-dashed rounded-md">
+                <label className="label flex items-center sm:gap-2  px-1 sm:px-2 cursor-pointer border gap-1 border-dashed rounded-md">
                   <input
                     type="radio"
                     value="female"
@@ -180,7 +179,7 @@ export default function PersonalInfo() {
                   />
                   <span className="text-[16px] text-gray-500">Female</span>
                 </label>
-                <label className="label flex items-center sm:gap-2 px-2 cursor-pointer border border-gray-200 border-dashed rounded-md">
+                <label className="label flex items-center sm:gap-2  px-1 sm:px-2 cursor-pointer border gap-1 border-dashed rounded-md">
                   <input
                     type="radio"
                     value="other"

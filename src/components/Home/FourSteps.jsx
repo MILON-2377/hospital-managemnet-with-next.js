@@ -19,7 +19,7 @@ export default function FourSteps() {
       {/* details section */}
       <div className="p-10 w-[95%] mx-auto lg:w-[60%] sm:w-[90%] h-full ">
         <div>
-          <p className=" text-xl text-blue-400 ">How it's work</p>
+          <p className=" text-xl text-blue-400 ">How it,s work</p>
           <p className=" text-4xl mt-2 font-bold ">
             4 easy steps to get your solution
           </p>

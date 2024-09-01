@@ -23,7 +23,9 @@ import useApprovedAppointments from "@/DataFetch/useApprovedAppointments";
 import { useAuth } from "@/AuthProviderContext/AuthProviderContext";
 import Link from "next/link";
 import { useDispatch } from "react-redux";
+import img1 from "../../../../public/assets/doctor.jpg";
 import { addDoctor } from "@/redux/reducers/AddDoctorSlice/addDoctorSlice";
+import Image from "next/image";
 
 export default function DoctorAppointments() {
   const [filterDate, setFilterDate] = useState(new Date().toLocaleDateString());
@@ -75,7 +77,7 @@ export default function DoctorAppointments() {
 
   useEffect(() => {
     refetch();
-  }, [currentPage]);
+  }, [currentPage, refetch]);
 
   // search handle
   const onSearchClick = (e) => {
@@ -167,7 +169,9 @@ export default function DoctorAppointments() {
 
             <DatePicker
               value={filterDate}
-              onChange={(date) => setFilterDate(new Date(date).toLocaleDateString())}
+              onChange={(date) =>
+                setFilterDate(new Date(date).toLocaleDateString())
+              }
               className=" focus:outline-none focus:border-none "
             />
           </div>
