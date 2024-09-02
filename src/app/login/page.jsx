@@ -58,11 +58,11 @@ export default function LogIn() {
   }, [path]);
 
   return (
-    <div className=" flex justify-between gap-6 ">
-      <div className="p-10 w-full lg:w-[40%] sm:w-[70%] mx-auto ">
+    <div className=" sm:w-full w-[95%] mx-auto flex lg:flex-row flex-col lg:justify-between gap-6 ">
+      <div className=" sm:p-10 p-5 w-full lg:w-[40%] sm:w-[70%] mx-auto ">
         {/* header title */}
-        <div>
-          <h1 className="text-4xl font-bold "> CareLife</h1>
+        <div className=" mt-10 sm:mt-0 ">
+          <h1 className=" text-3xl sm:text-4xl font-bold "> CareLife</h1>
         </div>
 
         <div className=" mt-32 ">
@@ -74,11 +74,11 @@ export default function LogIn() {
           <div className="mt-6 w-full flex flex-col ">
             <span className="text-xl text-gray-600">Email</span>
             <label className="flex w-full items-center mt-2 ">
-              <p className=" border-r-0 rounded-md rounded-r-none border border-gray-200 px-3 py-3">
+              <p className=" border-r-0 rounded-md rounded-r-none border px-3 py-3">
                 <FaUser className="text-2xl text-gray-400" />
               </p>
               <input
-                className=" w-full py-3 px-2 focus:outline-none border-l-0 rounded-l-none border border-gray-200 rounded-md"
+                className=" w-full py-3 px-2 focus:outline-none border-l-0 rounded-l-none border rounded-md"
                 type="email"
                 placeholder="ex: milon.miah@qq.com"
                 {...register("email", { required: true })}
@@ -88,11 +88,11 @@ export default function LogIn() {
           <div className="mt-6 w-full flex flex-col">
             <span className="text-xl text-gray-600">Password</span>
             <label className="flex items-center mt-2 relative ">
-              <p className="border-r-0 rounded-md rounded-r-none border border-gray-200 px-3 py-3">
+              <p className="border-r-0 rounded-md rounded-r-none border px-3 py-3">
                 <MdOutlineWifiPassword className="text-2xl text-gray-400" />
               </p>
               <input
-                className=" w-full py-3 px-2 focus:outline-none border-l-0 rounded-l-none border border-gray-200 rounded-md"
+                className=" w-full py-3 px-2 focus:outline-none border-l-0 rounded-l-none border rounded-md"
                 type={showPass ? "text" : "password"}
                 placeholder="password: xxxxxx"
                 {...register("password", { required: true })}
@@ -120,14 +120,14 @@ export default function LogIn() {
         </form>
         <div className="flex items-center mt-7 gap-5">
           <label>
-            <p className="hover:underline text-blue-500 transition-all duration-200 active:text-blue-600 hover:cursor-pointer ">
+            <p className="hover:underline text-sm sm:text-[18px] text-blue-500 transition-all duration-200 active:text-blue-600 hover:cursor-pointer ">
               Forgot password
             </p>
           </label>
           <span>||</span>
           <label className="flex items-center gap-2">
-            <p className="">Do not have an account?</p>
-            <a className="text-blue-500 hover:underline" href="/signup">
+            <p className="sm:text-[18px] text-sm ">Do not have an account?</p>
+            <a className="text-blue-500 text-sm sm:text-[18px] hover:underline" href="/signup">
               SignUp
             </a>
           </label>
