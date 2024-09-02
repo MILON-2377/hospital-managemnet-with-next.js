@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { FaEye } from "react-icons/fa";
 
 export default function RecentInvoice() {
@@ -18,13 +19,16 @@ export default function RecentInvoice() {
         {appointmentData?.map((item) => (
           <div key={item.id} className="w-full flex justify-between gap-5 ">
             <div className="flex w-full items-center gap-2">
-              <div className=" w-12 h-12 rounded-md bg-blue-200 ">
-                <img
+              <div className="relative w-16 h-16 rounded-md overflow-hidden">
+                <Image
                   src={item.image}
                   alt={item.name}
-                  className="w-full h-full object-cover rounded-md "
+                  fill={true}
+                  style={{ objectFit: "cover" }}
+                  className="rounded-md"
                 />
               </div>
+
               <div className=" flex flex-col gap-1 ">
                 <p className="card-title text-sm">{item.name}</p>
                 <p className="text-sm text-sky-500 ">#00{item.id}</p>
@@ -42,9 +46,10 @@ export default function RecentInvoice() {
 
             <div className="  flex items-center gap-2">
               <a
-              href="/Dashboard/invoice-view"
-              className=" w-8 h-8 rounded-full hover:bg-blue-500 transition-all hover:cursor-pointer duration-200 hover:text-white flex items-center justify-center  border border-green-500 ">
-                <FaEye className="text-xl" />
+                href="/Dashboard/invoice-view"
+                className=" sm:w-8 w-5 h-5 sm:h-8 rounded-full hover:bg-blue-500 transition-all hover:cursor-pointer duration-200 hover:text-white flex items-center justify-center  border border-green-500 "
+              >
+                <FaEye className=" text-sm sm:text-xl" />
               </a>
             </div>
           </div>
@@ -60,7 +65,7 @@ const appointmentData = [
     id: 1,
     name: "John Doe",
     image:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRij6dtiHizH96qpCOe8WeXXP3yLyQJkPdGVg&s",
+      "https://img.freepik.com/free-photo/beautiful-young-female-posing_23-2148880228.jpg?t=st=1725289475~exp=1725293075~hmac=5a4a755be29dd8c720daf8d3b9554cdf669ae0d94e0c07fa129317ef82531406&w=360",
     date: "11 Nov",
     amount: 420,
   },
@@ -68,7 +73,7 @@ const appointmentData = [
     id: 2,
     name: "Jane Smith",
     image:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTFNkJpg5tIB3DZsMqxgGCyRtSwDuav9LEdbZI06evMasI6tmkPahgI1ftvuA7qbHSsbgg&usqp=CAU",
+      "https://img.freepik.com/free-photo/close-up-portrait-korean-young-asian-woman-professional-looking-confident-assertive-camera-white-background-business-people-concept_1258-97331.jpg?t=st=1725288738~exp=1725292338~hmac=be207da2e9bd2d1041fab432680bb7d9de368480d0529e970615e2b90a32e139&w=900",
     date: "11 Nov",
     amount: 330,
   },
@@ -76,7 +81,7 @@ const appointmentData = [
     id: 3,
     name: "Michael Brown",
     image:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnZ0yJDHmFwDqOMljDHXB7JN5gMJdR35s8yj12-sVDbTQcXYlIf-NRKDXEcD9c_vGCYNk&usqp=CAU",
+      "https://img.freepik.com/free-photo/portrait-young-smiling-man_171337-11976.jpg?t=st=1725290759~exp=1725294359~hmac=8f5eb470b5d6d52746f07b81c1656d6b5334c07734bb0e49c1b7744206596090&w=900",
     date: "11 Nov",
     amount: 520,
   },
@@ -84,7 +89,7 @@ const appointmentData = [
     id: 4,
     name: "Emily Johnson",
     image:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcG7bjaEFwSdVs4KvkIleUaasOjgFKrf7z6g&s",
+      "https://img.freepik.com/free-photo/front-view-handsome-corporate-man_23-2148336855.jpg?t=st=1725289432~exp=1725293032~hmac=b56cdff96e117e6274f95060b87cdf03564439e7307ce6fa40ab2bad6b983a6b&w=996",
     date: "11 Nov",
     amount: 460,
   },
@@ -92,7 +97,7 @@ const appointmentData = [
     id: 5,
     name: "William Davis",
     image:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDkboRWjcG9fDVJv-Y5tONb9Y_jrvqbH3tTyXmAErQ3gOqYJ1Xaw_rlx4Jse-cs0CFPnU&usqp=CAU",
+      "https://img.freepik.com/free-photo/closeup-portrait-young-girl-posing-looking-camera-isolated-grey-background-concept-beauty_155003-45882.jpg?t=st=1725290816~exp=1725294416~hmac=247c394acf1844ab86e1380a58336084d5dd43ecebaf3f2882322826fe4d1588&w=900",
     date: "11 Nov",
     amount: 500,
   },

@@ -3,14 +3,14 @@
 import { CiMenuFries } from "react-icons/ci";
 import { useAuth } from "@/AuthProviderContext/AuthProviderContext";
 import Link from "next/link";
-import { usePathname, useRouter, } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { RiLogoutBoxFill } from "react-icons/ri";
 import Cookies from "js-cookie";
 
 export default function PatientSideBar({ navLinks }) {
   const { user, userLoggedOut } = useAuth();
   const path = usePathname();
-  const {push} = useRouter();
+  const { push } = useRouter();
 
   return (
     <div className="lg:hidden navbar flex items-center justify-between">
@@ -33,9 +33,7 @@ export default function PatientSideBar({ navLinks }) {
               className="drawer-overlay"
             ></label>
             <ul className="menu bg-base-100 text-base-content min-h-full w-[80%] sm:w-[350px] p-4">
-              <li className=" text-2xl font-bold px-3 ">
-                {user?.userName}
-              </li>
+              <li className=" text-2xl font-bold px-3 ">{user?.userName}</li>
 
               <div className=" mt-5 mb-5 border-t border-t-gray-200 w-full "></div>
 
@@ -45,28 +43,14 @@ export default function PatientSideBar({ navLinks }) {
                   href={item?.path}
                   className={
                     path === item?.path
-                      ? "p-3 rounded-md flex items-center gap-2 bg-blue-500 text-white text-[16px] font-[500] "
-                      : ` p-3 rounded-md flex items-center gap-2 hover:bg-gray-100 text-[16px] font-[500] `
+                      ? "p-3 rounded-md w-full flex items-center gap-2 bg-blue-500 text-white text-[16px] font-[500] "
+                      : ` p-3 w-full rounded-md flex items-center gap-2 hover:bg-gray-100 text-[16px] font-[500] `
                   }
                 >
                   <>
                     <span>{item?.icon}</span>
                     <span className=" "> {item.title}</span>
                   </>
-                  {item.title === "Requests" && (
-                    <>
-                      <p className="text-[16px] w-5 ml-40 h-5 flex items-center justify-center rounded-full  bg-yellow-400 text-white ">
-                        3
-                      </p>
-                    </>
-                  )}
-                  {item.title === "Message" && (
-                    <>
-                      <p className="text-[16px] w-5 ml-40 h-5 flex items-center justify-center rounded-full  bg-yellow-400 text-white ">
-                        9
-                      </p>
-                    </>
-                  )}
                 </Link>
               ))}
 
@@ -74,7 +58,6 @@ export default function PatientSideBar({ navLinks }) {
                 onClick={() => {
                   push("/login");
                   userLoggedOut();
-                  
                 }}
                 href="/login"
                 className={` p-3 rounded-md flex items-center gap-2 hover:bg-gray-100 text-[16px] font-[500] `}
