@@ -4,6 +4,7 @@ import { useState } from "react";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { patientSaysData } from "@/componentsData/patientSaysData";
 import { AnimatePresence, wrap, motion } from "framer-motion";
+import Image from "next/image";
 
 const variants = {
   enter: (direction) => ({
@@ -45,7 +46,7 @@ export default function WhatOurPatientSays() {
   };
 
   return (
-    <div className=" bg-gray-50 mt-16 w-full p-5 lg:p-10 h-[520px] lg:h-[450px] ">
+    <div className=" bg-gray-50 mt-16 w-full py-5 px-2 sm:p-5 lg:p-10 h-[520px] lg:h-[450px] ">
       <div className="relative w-full ">
         <AnimatePresence initial={false} custom={direction}>
           <motion.div
@@ -69,11 +70,15 @@ export default function WhatOurPatientSays() {
             }}
             className=" w-full absolute lg:top-8 lg:left-10 flex flex-col lg:flex-row lg:p-10 gap-6"
           >
-            <div className=" mx-auto w-[100px] h-[100px] sm:w-[220px]  sm:h-[220px] rounded-full">
-              <img
+            <div className=" lg:-mt-10 mx-auto w-[100px] h-[100px] border sm:w-[250px]  sm:h-[250px] rounded-full overflow-hidden">
+              <Image
                 src={patientSaysData[commentsIndex].img}
                 alt={patientSaysData[commentsIndex].name}
-                className="w-full h-full rounded-full object-cover"
+                width={400}
+                height={400}
+                layout="responsive"
+                style={{objectFit:"cover"}}
+                className="rounded-full "
               />
             </div>
             <div className=" ml-10 ">
@@ -92,15 +97,15 @@ export default function WhatOurPatientSays() {
 
         <button
           onClick={() => paginate(1)}
-          className="absolute top-32 lg:top-40 right-0 z-50 lg:right-4 w-12 h-12 flex items-center justify-center hover:text-white transition-all duration-200 rounded-full border border-gray-200 hover:bg-teal-500"
+          className="absolute top-32 lg:top-40 right-0 z-50 lg:right-4 w-8 sm:w-12 h-8 sm:h-12 flex items-center justify-center hover:text-white transition-all duration-200 rounded-full border border-gray-200 hover:bg-teal-500"
         >
-          <IoIosArrowForward className="text-5xl hover:text-white text-sky-500" />
+          <IoIosArrowForward className="  text-3xl sm:text-5xl hover:text-white text-sky-500" />
         </button>
         <button
           onClick={() => paginate(-1)}
-          className="w-12 z-50 h-12 top-32 left-0 lg:top-40 absolute lg:left-4 flex items-center justify-center hover:text-white transition-all duration-200 rounded-full border border-gray-200 hover:bg-teal-500"
+          className="w-8 sm:w-12 z-50 h-8 sm:h-12 top-32 left-0 lg:top-40 absolute lg:left-4 flex items-center justify-center hover:text-white transition-all duration-200 rounded-full border border-gray-200 hover:bg-teal-500"
         >
-          <IoIosArrowBack className="text-5xl hover:text-white text-sky-500" />
+          <IoIosArrowBack className=" text-3xl sm:text-5xl hover:text-white text-sky-500" />
         </button>
       </div>
     </div>

@@ -9,7 +9,7 @@ import { IoCall } from "react-icons/io5";
 
 export default function Features() {
   return (
-    <motion.div className="mt-16 w-[95%] lg:w-full mx-auto grid grid-cols-3 lg:grid-cols-6 gap-5 lg:gap-6 lg:p-10 ">
+    <motion.div className="mt-16 w-[95%] lg:w-full mx-auto grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-5 lg:gap-6 lg:p-10 ">
       <motion.div
       className="p-4 h-[200px hover:bg-blue-300 duration-200 hover:cursor-pointer w-full lg:w-[170px] flex items-center justify-center flex-col gap-8 border border-gray-200 rounded-md  ">
         <motion.div

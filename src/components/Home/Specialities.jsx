@@ -11,7 +11,7 @@ export default function Specialities() {
   // Smooth scroll to the next set of items
   const handleNext = () => {
     const container = containerRef.current;
-    const scrollAmount = container.offsetWidth / 2; // Scroll by one viewport width
+    const scrollAmount = container.offsetWidth / 2; 
     const totalWidth = container.scrollWidth;
     const currentScroll = container.scrollLeft;
 
@@ -43,7 +43,7 @@ export default function Specialities() {
     if (isScrolling) {
       setTimeout(() => {
         setIsScrolling(false);
-      }, 500); // Adjust timing for smooth scroll effect
+      }, 500); 
     }
   }, [isScrolling]);
 
@@ -55,26 +55,26 @@ export default function Specialities() {
       className=" w-[95%] mx-auto mt-20 lg:w-full lg:p-10"
     >
       {/* header */}
-      <div className="flex items-center justify-between">
+      <div className=" w-full flex items-center justify-between">
         <div className="w-full flex items-center">
-          <h1 className="text-4xl font-bold">Specialities</h1>
-          <span className="text-5xl -mt-12 -ml-2 text-sky-500 font-bold">+</span>
-          <span className="text-4xl -mt-12 -ml-2 opacity-25 text-sky-500 font-bold">+</span>
+          <h1 className=" text-3xl sm:text-4xl font-bold">Specialities</h1>
+          <span className=" text-3xl sm:text-5xl -mt-12 -ml-2 text-sky-500 font-bold">+</span>
+          <span className=" text-3xl sm:text-4xl -mt-12 -ml-2 opacity-25 text-sky-500 font-bold">+</span>
         </div>
 
         {/* pagination buttons */}
-        <div className="flex items-center gap-5">
+        <div className=" w-full flex items-center justify-end gap-5">
           <button
             onClick={handlePrevious}
-            className="w-12 h-12 flex items-center justify-center hover:text-white transition-all duration-200 rounded-full border border-gray-200 hover:bg-teal-500"
+            className=" sm:w-12 w-8 h-8 sm:h-12 flex items-center justify-center hover:text-white transition-all duration-200 rounded-full border hover:bg-teal-500"
           >
-            <IoIosArrowBack className="text-5xl hover:text-white text-sky-500" />
+            <IoIosArrowBack className=" text-3xl sm:text-5xl hover:text-white text-sky-500" />
           </button>
           <button
             onClick={handleNext}
-            className="w-12 h-12 flex items-center justify-center hover:text-white transition-all duration-200 rounded-full border border-gray-200 hover:bg-teal-500"
+            className=" sm:w-12 w-8 h-8 sm:h-12 flex items-center justify-center hover:text-white transition-all duration-200 rounded-full border hover:bg-teal-500"
           >
-            <IoIosArrowForward className="text-5xl hover:text-white text-sky-500" />
+            <IoIosArrowForward className=" text-3xl sm:text-5xl hover:text-white text-sky-500" />
           </button>
         </div>
       </div>
@@ -83,12 +83,12 @@ export default function Specialities() {
       <div
         className="flex flex-row gap-5 mt-10 w-full overflow-hidden scroll-smooth lg:p-5 "
         ref={containerRef}
-        style={{ scrollbarWidth: "none" }} // Hide scrollbar in Firefox
+        style={{ scrollbarWidth: "none" }} 
       >
         {specialitiesData.map((item, index) => (
           <motion.div
             key={index}
-            className="card card-compact border rounded-md lg:shadow-md bg-base-100 lg:w-[350px] flex-shrink-0"
+            className="card card-compact border rounded-md lg:shadow-md bg-base-100 w-[98%] mx-auto sm:w-[350px] flex-shrink-0"
             whileTap={{ scale: 0.95 }}
             animate={{
               x: isScrolling ? 0 : undefined,

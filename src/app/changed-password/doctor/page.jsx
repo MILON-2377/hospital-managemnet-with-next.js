@@ -40,7 +40,8 @@ export default function ChangeDoctorPassword() {
 
   useEffect(() => {
     document.getElementById("my_modal_6").close();
-  },[path])
+  },[path]);
+  
 
   return (
     <div className=" p-5 mt-5 w-full ">

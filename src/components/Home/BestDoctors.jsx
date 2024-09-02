@@ -1,11 +1,12 @@
 "use client";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { FaStar } from "react-icons/fa6";
 import { SlLocationPin } from "react-icons/sl";
 
 export default function BestDoctors() {
   return (
-    <div className=" mt-16 px-10 py-20 bg-gray-200 bg-opacity-50 ">
+    <div className=" py-8 mt-16 sm:px-10 sm:py-20 bg-gray-200 bg-opacity-50 ">
       {/* header */}
       <motion.div
         initial={{ opacity: 0, y: 50 }}
@@ -14,7 +15,7 @@ export default function BestDoctors() {
         viewport={{ once: true }}
         className="w-full flex items-center justify-center"
       >
-        <h1 className=" text-4xl font-bold ">Best Doctors</h1>
+        <h1 className=" text-3xl sm:text-4xl font-bold ">Best Doctors</h1>
         <span className="text-5xl -mt-12 -ml-2 text-sky-500 font-bold ">+</span>
         <span className="text-4xl -mt-12 -ml-2 opacity-25 text-sky-500 font-bold ">
           +
@@ -27,7 +28,7 @@ export default function BestDoctors() {
         whileInView={{ y: 0, opacity: 1 }}
         transition={{ duration: 2 }}
         viewport={{ once: true }}
-        className=" grid grid-cols-2 lg:grid-cols-4 gap-5 mt-10 "
+        className=" w-[95%] mx-auto sm:w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mt-10 "
       >
         {doctors.slice(0, 4).map((item, index) => (
           <motion.div
@@ -49,10 +50,13 @@ export default function BestDoctors() {
               }}
               className=" relative w-full h-[200px] "
             >
-              <img
-                className=" w-full rounded-t-md h-[200px] object-cover "
+              <Image
+                
                 src={item.image}
                 alt={item.name}
+                layout="fill"
+                objectFit="cover"
+                className="rounded-t-md"
               />
               <p className="absolute top-5 right-7 text-xl py-1 px-3 rounded-md text-slate-700 bg-white ">
                 ${item.price}

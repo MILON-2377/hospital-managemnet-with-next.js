@@ -19,7 +19,7 @@ export default function Priceing() {
         viewport={{ once: true }}
         className="w-full flex items-center justify-center"
       >
-        <h1 className=" text-4xl font-bold ">Pricing Plan</h1>
+        <h1 className=" text-3xl sm:text-4xl font-bold ">Pricing Plan</h1>
         <span className="text-5xl -mt-12 -ml-2 text-sky-500 font-bold ">+</span>
         <span className="text-4xl -mt-12 -ml-2 opacity-25 text-sky-500 font-bold ">
           +
@@ -31,7 +31,7 @@ export default function Priceing() {
       whileInView={{y:0, opacity:1,}}
       transition={{duration:1}}
       viewport={{once:true}}
-      className=" mt-10 w-full flex lg:flex-row flex-col gap-6">
+      className=" sm:mt-10 w-full flex lg:flex-row flex-col gap-6">
         {/* basic plan */}
         <motion.div
           onMouseEnter={() => setBasicPlaneHover(true)}

@@ -10,7 +10,7 @@ export default function FrequentlyAsskQuestion() {
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 2 }}
       viewport={{once:true}}
-      className="mt-16 p-5 lg:p-10 w-full "
+      className=" mt-16 lg:p-10 sm:w-full"
     >
       <div className=" ml-5 lg:ml-0 ">
         <p className="text-[18px] text-green-500 ">Get your answer</p>
@@ -21,7 +21,7 @@ export default function FrequentlyAsskQuestion() {
           viewport={{ once: true }}
           className="w-full flex mt-3 items-center "
         >
-          <h1 className=" text-4xl font-bold ">Frequently Ask Question</h1>
+          <h1 className=" text-3xl sm:text-4xl font-bold ">Frequently Ask Question</h1>
           <span className="text-5xl -mt-12 -ml-2 text-sky-500 font-bold ">
             +
           </span>
@@ -65,8 +65,8 @@ export default function FrequentlyAsskQuestion() {
               <motion.div
                 key={index}
 
-                initial={{opacity:0, x:100}}
-                whileInView={{opacity:1, x:0}}
+                initial={{opacity:0, y:-50}}
+                whileInView={{opacity:1, y:0}}
                 transition={{duration:2}}
                 viewport={{once:true}}
                 tabIndex={0}

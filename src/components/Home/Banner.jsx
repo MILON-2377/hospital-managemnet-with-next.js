@@ -9,10 +9,11 @@ import "react-datepicker/dist/react-datepicker.css";
 import { FaCircleCheck } from "react-icons/fa6";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 export default function Banner() {
   const [selectDate, setSelectedDate] = useState(null);
-  const {push} = useRouter();
+  const { push } = useRouter();
   return (
     <motion.div
       initial={{ opacity: 0, y: 100 }}
@@ -20,8 +21,8 @@ export default function Banner() {
       transition={{ y: { duration: 1 } }}
       className={` lg:h-[650px] w-[95%] mx-auto lg:w-full flex justify-between  `}
     >
-      <div className=" w-full lg:flex-1 lg:ml-10 h-full mt-20 ">
-        <p className="text-5xl leading-[60px] font-bold">
+      <div className=" w-full lg:flex-1 lg:ml-10 h-full mt-10 sm:mt-20 ">
+        <p className=" text-3xl sm:text-5xl leading-[40px] sm:leading-[60px] font-bold">
           Begin <span className="text-blue-500"> your journey to </span> better
           health with <span className="text-cyan-500">CareLife</span>
         </p>
@@ -29,13 +30,14 @@ export default function Banner() {
           Where top-rated doctors are ready to assist
         </p>
         <button
-        onClick={() => push("/signup")}
-        className=" mt-10 w-[250px] px-4 py-3 bg-accent text-white hover:bg-white hover:text-accent font-semibold transition-all duration-200 border border-gray-200 rounded-md active:scale-95 active:bg-accent active:bg-opacity-45 ">
+          onClick={() => push("/signup")}
+          className=" mt-10 w-[250px] px-4 py-3 bg-accent text-white hover:bg-white hover:text-accent font-semibold transition-all duration-200 border border-gray-200 rounded-md active:scale-95 active:bg-accent active:bg-opacity-45 "
+        >
           Schedule Your Consultation
         </button>
 
         {/* search section */}
-        <div className=" p-5 border z-10 h-[100px] flex items-center mt-20 border-gray-200 rounded-md">
+        <div className=" w-full px-1 sm:p-5 border z-10 h-[100px] flex items-center mt-20 rounded-md">
           <label className=" flex items-center  ">
             <p className=" h-full  ">
               <CiSearch className="text-2xl text-gray-400" />
@@ -46,15 +48,17 @@ export default function Banner() {
               placeholder="Search doctors "
             />
           </label>
-          <div className="divider divider-horizontal h-[80%] my-auto "></div>
-          <label className=" flex items-center w-[120px] gap-3">
+          <div className="divider hidden sm:block divider-horizontal h-[80%] my-auto "></div>
+          <label className=" hidden sm:flex items-center w-[120px] gap-3">
             <span>
               <CiLocationArrow1 className="text-[24px] text-gray-400" />
             </span>
-            <span className=" lg:text-xl text-[16px] text-gray-400 ">Location</span>
+            <span className=" lg:text-xl text-[16px] text-gray-400 ">
+              Location
+            </span>
           </label>
-          <div className="divider divider-horizontal h-[80%] my-auto "></div>
-          <label className=" flex items-center gap-3">
+          <div className=" sm:block hidden divider divider-horizontal h-[80%] my-auto "></div>
+          <label className="hidden sm:flex items-center gap-3">
             <span>
               <MdOutlineCalendarMonth className="text-[24px] text-gray-400" />
             </span>
@@ -67,10 +71,9 @@ export default function Banner() {
               className="focus:outline-none text-[16px] focus:border-none "
             />
           </label>
-          {/* <button className="p-3 rounded-md bg-cyan-300">Search</button> */}
+          <button className="p-2 sm:hidden block rounded-md bg-cyan-300">Search</button>
         </div>
       </div>
-
 
       <div
         style={{ backgroundImage: `url(${img.src})` }}
@@ -113,27 +116,52 @@ export default function Banner() {
           <div className="avatar-group mt-3 -space-x-6 rtl:space-x-reverse">
             <div className="avatar">
               <div className="w-12">
-                <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+                <Image
+                  src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                  width={48}
+                  height={48}
+                  alt="webpack"
+                />
               </div>
             </div>
             <div className="avatar">
               <div className="w-12">
-                <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+                <Image
+                  src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                  alt="doctor images"
+                  width={48}
+                  height={48}
+                />
               </div>
             </div>
             <div className="avatar">
               <div className="w-12">
-                <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+                <Image
+                  src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                  alt="doctor images"
+                  width={48}
+                  height={48}
+                />
               </div>
             </div>
             <div className="avatar">
               <div className="w-12">
-                <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+                <Image
+                  src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                  alt="doctor images"
+                  width={48}
+                  height={48}
+                />
               </div>
             </div>
             <div className="avatar">
               <div className="w-12">
-                <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+                <Image
+                  src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                  alt="doctor images"
+                  width={48}
+                  height={48}
+                />
               </div>
             </div>
             <div className="avatar ">

@@ -23,7 +23,7 @@ export default function HomeNav() {
   return (
     <div className="navbar bg-base-100 lg:w-[987] w-[95%] border-b mx-auto lg:mt-5 py-5 ">
       <div className="flex-1 ">
-        <a className="  text-4xl font-bold  ">CareLife</a>
+        <a className=" text-2xl sm:text-4xl font-bold  ">CareLife</a>
       </div>
       <div className="flex-none gap-2">
         {user ? (
@@ -44,7 +44,7 @@ export default function HomeNav() {
         ) : (
           <>
             <Link href="/login"
-            className=" rounded-md px-4 py-3 border text-accent text-xl hover:bg-accent transition-all duration-200 active:bg-opacity-70 hover:text-white font-[500] active:scale-95 "
+            className=" rounded-md px-4 py-2 sm:py-3 border text-accent text-xl hover:bg-accent transition-all duration-200 active:bg-opacity-70 hover:text-white font-[500] active:scale-95 "
             >LogIn</Link >
           </>
         )}

@@ -17,23 +17,18 @@ export default function FourSteps() {
       className=" flex justify-between  mt-16 "
     >
       {/* details section */}
-      <div className="p-10 w-[95%] mx-auto lg:w-[60%] sm:w-[90%] h-full ">
-        <div>
+      <div className=" w-[95%] lg:p-10 mx-auto lg:w-[60%] sm:w-[90%] h-full ">
+        <div className="">
           <p className=" text-xl text-blue-400 ">How it,s work</p>
-          <p className=" text-4xl mt-2 font-bold ">
+          <p className=" text-3xl sm:text-4xl mt-2 font-bold ">
             4 easy steps to get your solution
           </p>
         </div>
 
         <div className=" grid grid-cols-1 mt-10 lg:grid-cols-2 gap-10 ">
           {fourSteps.map((item, index) => (
-            <motion.div
+            <div
               key={index}
-              initial={{ opacity: 0, x: -70 }}
-              whileInView={{ x: 0, opacity: 1 }}
-              whileHover={{scale:1.1, opacity:1}}
-              transition={{ duration: 1 }}
-              viewport={{ once: true }}
               className="flex items-center gap-5"
             >
               <div className=" w-20 h-20 p-2 rounded-md flex items-center justify-center bg-sky-100 ">
@@ -45,13 +40,13 @@ export default function FourSteps() {
                   {item.description}
                 </p>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>
 
       {/* image section */}
-      <div className=" ml-5 sm:hidden lg:block w-[720px] h-[500px] relative ">
+      <div className=" ml-5 hidden lg:block w-[720px] h-[500px] relative ">
         <Image
           className=" w-full h-full object-cover absolute right-16 "
           src={img}
