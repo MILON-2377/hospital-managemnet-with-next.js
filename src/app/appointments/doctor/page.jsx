@@ -5,8 +5,6 @@ import { CgMenuGridR } from "react-icons/cg";
 import {
   FaFilter,
   FaListUl,
-  FaLongArrowAltLeft,
-  FaLongArrowAltRight,
 } from "react-icons/fa";
 import { FaCalendarDays } from "react-icons/fa6";
 import DatePicker from "react-datepicker";
@@ -17,13 +15,11 @@ import { AnimatePresence, motion } from "framer-motion";
 import { FaEye } from "react-icons/fa6";
 import { FaMessage } from "react-icons/fa6";
 import { MdDelete } from "react-icons/md";
-import useAppointmentsData from "@/DataFetch/useAppointsData";
 import { IoVideocam } from "react-icons/io5";
 import useApprovedAppointments from "@/DataFetch/useApprovedAppointments";
 import { useAuth } from "@/AuthProviderContext/AuthProviderContext";
 import Link from "next/link";
 import { useDispatch } from "react-redux";
-import img1 from "../../../../public/assets/doctor.jpg";
 import { addDoctor } from "@/redux/reducers/AddDoctorSlice/addDoctorSlice";
 import Image from "next/image";
 
@@ -44,7 +40,6 @@ export default function DoctorAppointments() {
   const {
     data = [],
     refetch,
-    isLoading,
   } = useApprovedAppointments(currentPage, user?.email, search);
 
   useEffect(() => {
@@ -311,10 +306,12 @@ export default function DoctorAppointments() {
               {/* name and image */}
               <div className="flex items-center gap-2 ">
                 <div className=" w-14 h-14 rounded-xl">
-                  <img
+                  <Image
                     src={item.patient.img}
                     alt={item.patient.name}
-                    className=" w-full h-full object-cover rounded-xl "
+                    layout="fill"
+                    style={{objectFit:"cover"}}
+                    className="rounded-xl "
                   />
                 </div>
                 <div className="flex flex-col gap-1">
