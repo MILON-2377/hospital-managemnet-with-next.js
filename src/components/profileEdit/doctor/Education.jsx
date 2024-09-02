@@ -2,13 +2,11 @@
 
 import { useState } from "react";
 import { FaFileArchive } from "react-icons/fa";
-import { MdKeyboardArrowDown } from "react-icons/md";
 import "react-datepicker/dist/react-datepicker.css";
 import DatePicker from "react-datepicker";
 import { FaCalendarDays } from "react-icons/fa6";
 
 export default function Education() {
-  const [employment, setEmployment] = useState("Part time");
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   return (

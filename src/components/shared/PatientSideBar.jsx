@@ -5,18 +5,29 @@ import { useAuth } from "@/AuthProviderContext/AuthProviderContext";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { RiLogoutBoxFill } from "react-icons/ri";
-import Cookies from "js-cookie";
+import { useState } from "react";
 
 export default function PatientSideBar({ navLinks }) {
   const { user, userLoggedOut } = useAuth();
   const path = usePathname();
   const { push } = useRouter();
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
+  const toggleDrawer = () => {
+    setIsDrawerOpen((prev) => !prev);
+  };
 
   return (
     <div className="lg:hidden navbar flex items-center justify-between">
       <div>
         <div className="drawer relative">
-          <input id="my-drawer" type="checkbox" className="drawer-toggle" />
+          <input
+            id="my-drawer"
+            type="checkbox"
+            checked={isDrawerOpen}
+            onChange={toggleDrawer}
+            className="drawer-toggle"
+          />
           <div className="drawer-content">
             {/* Page content here */}
             <label
@@ -33,7 +44,15 @@ export default function PatientSideBar({ navLinks }) {
               className="drawer-overlay"
             ></label>
             <ul className="menu bg-base-100 text-base-content min-h-full w-[80%] sm:w-[350px] p-4">
-              <li className=" text-2xl font-bold px-3 ">{user?.userName}</li>
+              <div className=" w-full flex items-center justify-between font-bold px-3 ">
+                <span className="text-2xl ">{user?.userName}</span>
+                <button
+                  onClick={toggleDrawer}
+                  className=" w-6 sm:w-8 sm:h-8 h-6 rounded-full flex items-center justify-center border text-[18px] text-red-500 hover:cursor-pointer sm:text-xl "
+                >
+                  x
+                </button>
+              </div>
 
               <div className=" mt-5 mb-5 border-t border-t-gray-200 w-full "></div>
 

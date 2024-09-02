@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { BsFillBookmarkStarFill, BsFillPatchCheckFill } from "react-icons/bs";
 import {
@@ -23,15 +24,18 @@ import { useSelector } from "react-redux";
 
 export default function ViewDoctorProfile() {
   const router = useRouter();
-  const doctor = useSelector(state => state.doctorReducer.doctor);
+  const doctor = useSelector(state => state.doctorReducer.doctor) || {};
+
   return (
     <div className=" w-full p-5 ">
       <div className=" border rounded-md p-5  ">
-        <div className=" flex items-center gap-5 ">
+        <div className=" flex sm:flex-row flex-col sm:items-center gap-5 ">
           {/* profile pic */}
-          <div className=" rounded-lg h-44 w-44 ">
-            <img src={doctor.img} alt={doctor.img}
-            className=" w-full h-full object-cover rounded-lg "
+          <div className=" relative overflow-hidden rounded-lg h-44 w-full sm:w-44 ">
+            <Image src={doctor.img} alt={doctor.img}
+            fill={true}
+            style={{objectFit:'cover'}}
+            className="rounded-lg "
             />
           </div>
 
@@ -89,15 +93,15 @@ export default function ViewDoctorProfile() {
             </div>
 
             <div className=" flex items-center gap-3 justify-between ">
-              <button className=" w-full px-4 py-2 rounded-md bg-slate-100 transition-all duration-200 hover:bg-slate-200 font-[500] text-[16px] flex items-center gap-2 ">
+              <button className=" w-full px-2 sm:px-4 py-2 rounded-md bg-slate-100 transition-all duration-200 hover:bg-slate-200 font-[500] text-[16px] flex items-center gap-2 ">
                 <FaRocketchat className=" text-xl text-blue-500 " />
                 <span>Chat</span>
               </button>
-              <button className=" w-full px-4 py-2 rounded-md bg-slate-100 transition-all duration-200 hover:bg-slate-200 font-[500] text-[16px] flex items-center gap-2 ">
+              <button className=" w-full px-2 sm:px-4 py-2 rounded-md bg-slate-100 transition-all duration-200 hover:bg-slate-200 font-[500] text-[16px] flex items-center gap-2 ">
                 <MdPhoneCallback className=" text-xl text-sky-400 " />
                 <span>Chat</span>
               </button>
-              <button className=" w-full px-4 py-2 rounded-md bg-slate-100 transition-all duration-200 hover:bg-slate-200 font-[500] text-[16px] flex items-center gap-2 ">
+              <button className=" w-full px-2 sm:px-4 py-2 rounded-md bg-slate-100 transition-all duration-200 hover:bg-slate-200 font-[500] text-[16px] flex items-center gap-2 ">
                 <IoVideocam className=" text-xl text-sky-500 " />
                 <span>Chat</span>
               </button>
@@ -107,7 +111,7 @@ export default function ViewDoctorProfile() {
 
         <div className=" mt-5 mb-5 border-t"></div>
 
-        <div className=" flex items-center justify-between gap-6 ">
+        <div className=" flex flex-col lg:flex-row lg:items-center justify-between gap-6 ">
           <section className=" flex flex-col gap-6 ">
             <div className=" flex items-center gap-3 ">
               <div className="  rounded-md bg-blue-200 flex items-center justify-center p-2 ">

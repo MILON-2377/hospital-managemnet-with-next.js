@@ -1,8 +1,8 @@
 "use client";
 
 import axiosSecure from "@/Hooks/userAxiosSecure";
+import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { FaCheckCircle, FaStar } from "react-icons/fa";
 import { MdLocationOn } from "react-icons/md";
@@ -39,11 +39,13 @@ export default function PatientPayment() {
         {/* displaying details */}
         <div className="p-5">
           <div className=" flex sm:flex-row flex-col gap-4 ">
-            <div className=" w-16 h-16 sm:w-20 sm:h-20 rounded-md bg-blue-200 ">
-              <img
+            <div className=" relative overflow-hidden w-full h-[200px] lg:w-16 lg:h-16 sm:w-20 sm:h-20 rounded-md ">
+              <Image
                 src={doctor.img}
                 alt={doctor.img}
-                className=" w-full h-full object-cover rounded-md "
+                fill={true}
+                style={{objectFit:'cover'}}
+                className="rounded-md "
               />
             </div>
             <div className="flex flex-col gap-1">
@@ -116,7 +118,7 @@ export default function PatientPayment() {
 
         {/* form */}
         <form onSubmit={handleSubmit(onSubmit)} className=" w-full mt-8 ">
-          <div className=" flex items-center justify-between gap-5 ">
+          <div className=" flex sm:flex-row flex-col sm:items-center justify-between gap-5 ">
             <div className="relative w-full">
               {/* Label */}
               <label className="absolute -top-3 left-4 bg-white px-1 text-sm ">
@@ -153,7 +155,7 @@ export default function PatientPayment() {
             </div>
           </div>
 
-          <div className=" flex items-center justify-between gap-5 mt-10 ">
+          <div className=" flex sm:flex-row flex-col sm:items-center justify-between gap-5 mt-10 ">
             <div className="relative w-full">
               {/* Label */}
               <label className="absolute -top-3 left-4 bg-white px-1 text-sm ">

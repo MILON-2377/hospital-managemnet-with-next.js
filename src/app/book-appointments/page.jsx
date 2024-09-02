@@ -76,8 +76,8 @@ export default function BookAppointments() {
   return (
     <div className=" w-full p-5 ">
       {/* header section */}
-      <section className=" mt-5 flex items-center justify-between ">
-        <p className=" text-2xl font-bold ">All Doctors</p>
+      <section className=" mt-5 flex sm:flex-row flex-col gap-3 sm:gap-0 sm:items-center justify-between ">
+        <p className="text-xl sm:text-2xl font-bold ">All Doctors</p>
 
         {/* search bar */}
         <form onSubmit={onSearch}>
@@ -86,7 +86,7 @@ export default function BookAppointments() {
               onChange={(e) => setSearch(e.target.value)}
               type="text"
               placeholder="Search"
-              className=" px-4 py-2 rounded-md focus:outline-none border "
+              className=" w-full sm:w-auto px-4 py-2 rounded-md focus:outline-none border "
             />
             <span className=" absolute top-[1px] right-3 ">
               <IoSearchOutline className=" text-xl text-gray-500 " />
@@ -186,7 +186,7 @@ export default function BookAppointments() {
 
             <div className=" mt-5 mb-5 border-t w-full "></div>
 
-            <div className=" p-5 flex items-center justify-center gap-5 ">
+            <div className=" p-5 flex sm:flex-row flex-col sm:items-center justify-center gap-5 ">
               <Link
                 href={`/book-appointments/${id}`}
                 onClick={() => {

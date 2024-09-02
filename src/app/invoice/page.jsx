@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { FaLink } from "react-icons/fa";
 import { IoSearchOutline } from "react-icons/io5";
 import { MdPrintDisabled } from "react-icons/md";
@@ -48,8 +49,10 @@ export default function Invoice() {
             <tr>
               <td className=" text-blue-500 ">#d001</td>
               <td>
-                <div className=" w-12 h-12 rounded-full ">
-                  <img src={doctor.img} alt={doctor.img} 
+                <div className="relative overflow-hidden w-12 h-12 rounded-full ">
+                  <Image src={doctor.img} alt={doctor.img} 
+                  fill={true}
+                  style={{objectFit:'cover'}}
                   className=" w-full h-full object-cover rounded-full "
                   />
                 </div>
@@ -89,7 +92,6 @@ export default function Invoice() {
 
       {/* to view invoice modal */}
       <div>
-        {/* onClick={() => document.getElementById("my_modal_3").showModal()} */}
 
         <dialog
           id="my_modal_3"
@@ -117,9 +119,9 @@ export default function Invoice() {
               </div>
             </div>
 
-            <div className=" p-5 relative border rounded-md ">
-              <div className=" flex items-center justify-between ">
-                <p className=" text-3xl font-bold text-cyan-500 ">CareLife</p>
+            <div className=" mt-5 p-5 relative border rounded-md ">
+              <div className=" flex sm:flex-row flex-col sm:items-center justify-between gap-3 sm:gap-0 ">
+                <p className=" text-2xl sm:text-3xl font-bold text-cyan-500 ">CareLife</p>
                 <div className=" flex flex-col gap-1 ">
                   <p className=" flex items-center gap-1 ">
                     <span className="text-[16px] font-[500] ">
@@ -136,20 +138,20 @@ export default function Invoice() {
                 </div>
               </div>
 
-              <div className=" flex justify-between mt-5">
-                <div className=" flex flex-col gap-2 ">
+              <div className=" flex lg:flex-row flex-col gap-3 justify-between mt-5">
+                <div className=" lg:border-none border-b py-3 flex flex-col gap-2 ">
                   <p className=" text[16px] font-[600] ">Billing From</p>
                   <p className=" text-[16px] ">Edalin Hendry </p>
                   <p className=" text-[16px] ">806 Twin Willow Lane,</p>
                   <p className=" text-[16px] "> Newyork, USA</p>
                 </div>
-                <div className=" flex flex-col gap-2 ">
+                <div className=" lg:border-none border-b py-3 flex flex-col gap-2 ">
                   <p className=" text[16px] font-[600] ">Billing To</p>
                   <p className=" text-[16px] ">Milon Miah </p>
                   <p className=" text-[16px] ">806 Twin Willow Lane,</p>
                   <p className=" text-[16px] "> Newyork, USA</p>
                 </div>
-                <div className=" flex flex-col gap-2 ">
+                <div className=" lg:border-none border-b py-3 flex flex-col gap-2 ">
                   <p className=" text[16px] font-[600] ">Payment Method</p>
                   <p className=" text-[16px] ">Debit Card </p>
                   <p className=" text-[16px] ">xxxxxxxxxxxxx-52401</p>
@@ -203,21 +205,21 @@ export default function Invoice() {
                 </div>
               </div>
 
-              <div className=" w-full flex justify-end  mt-5  ">
-                <div className=" w-[35%] mr-24 ">
-                  <div className="w-full  border-b flex items-center justify-between px-5 py-3   ">
+              <div className=" w-full flex sm:justify-end  mt-5  ">
+                <div className=" w-full sm:w-[35%] sm:mr-[8%] lg:mr-[10%] ">
+                  <div className="w-full  border-b flex items-center justify-between  sm:px-5 py-3   ">
                     <p className="  text-center text-[16px] font-[570] text-gray-500 ">
                       Subtotal :
                     </p>
                     <p className=" ">$300</p>
                   </div>
-                  <div className="w-full  border-b flex items-center justify-between px-5 py-3   ">
+                  <div className="w-full  border-b flex items-center justify-between  sm:px-5 py-3   ">
                     <p className="  text-center text-[16px] font-[570] text-gray-500 ">
                       Discount :
                     </p>
                     <p className=" ">-10%</p>
                   </div>
-                  <div className="w-full  border-b flex items-center justify-between px-5 py-3   ">
+                  <div className="w-full  border-b flex items-center justify-between  sm:px-5 py-3   ">
                     <p className="  text-center text-[16px] font-[570] text-gray-500 ">
                       Total Amount :
                     </p>
