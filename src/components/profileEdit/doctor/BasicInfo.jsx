@@ -10,7 +10,7 @@ export default function BasicInfo() {
       {/* header */}
       <p className=" font-bold mb-4 text-xl ">Profile</p>
 
-      <form>
+      <div>
         <div className=" border rounded-md p-5 ">
           <div className=" flex sm:flex-row flex-col items-center gap-5 ">
             <div className=" sm:w-32 sm:h-32 rounded-md border flex items-center justify-center bg-gray-50 ">
@@ -173,7 +173,7 @@ export default function BasicInfo() {
           <button className=" btn ">Cancel</button>
           <button className=" btn btn-accent text-white ">Save Changes</button>
         </div>
-      </form>
+      </div>
     </div>
   );
 }

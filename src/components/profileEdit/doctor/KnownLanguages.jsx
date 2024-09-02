@@ -26,12 +26,12 @@ export default function KnownLanguages() {
       <span className=" text-[16px] font-[500] text-black ">
         Known languages
       </span>
-      <div className=" mt-2 border rounded-md px-5 py-3 flex items-center gap-5 ">
+      <div className=" mt-2 border rounded-md px-3 sm:px-5 py-3 flex sm:flex-row flex-col items-center gap-5 ">
         {/* displaying languages */}
         <div
           className={` ${
             languages.length < 6
-              ? "flex flex-row items-center"
+              ? " grid grid-cols-3 sm:flex sm:flex-row items-center"
               : "grid grid-cols-7"
           } gap-5 max-w-full h-auto `}
         >

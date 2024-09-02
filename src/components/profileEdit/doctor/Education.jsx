@@ -19,7 +19,7 @@ export default function Education() {
       <div className=" mt-5 mb-5 border-t "></div>
 
       {/* profile image */}
-      <div className=" flex items-center gap-5 ">
+      <div className=" flex sm:flex-row flex-col sm:items-center gap-5 ">
         <div className=" flex items-center justify-center w-20 h-20 rounded-md border border-dashed ">
           <FaFileArchive className=" text-2xl  " />
         </div>

@@ -131,7 +131,7 @@ export default function Requests() {
         </div>
 
         {/* details titles section */}
-        <div className=" mt-10 grid grid-cols-2 gap-5 lg:grid-cols-3 ">
+        <div className=" mt-10 grid grid-cols-1 sm:grid-cols-2 gap-5 lg:grid-cols-3 ">
           <div className="card bg-base-100 w-full shadow-xl">
             <div className="card-body">
               <div className="flex items-center gap-5">

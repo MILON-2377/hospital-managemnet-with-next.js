@@ -16,7 +16,6 @@ export default function AvailableTimings() {
   const [duration, setDuration] = useState("30 Minutes");
   const [isInterValsClick, setIsInterValsClick] = useState(false);
   const [isDurationClick, setIsDurationClick] = useState(false);
-  const [appointmentSpace, setAppointmentSpace] = useState("space 1");
   const { control, handleSubmit } = useForm();
 
   // appointment intervals handle
@@ -30,7 +29,6 @@ export default function AvailableTimings() {
 
 
   const onSubmit = (data) => {
-    console.log(data);
   };
 
   return (
@@ -76,7 +74,7 @@ export default function AvailableTimings() {
           <p className=" text-[18px] text-gray-500 font-[450] ">
             Select Available Days
           </p>
-          <div className=" mt-5 flex items-center gap-5 ">
+          <div className=" mt-5 grid grid-cols-2 sm:grid-cols-5 lg:flex lg:items-center gap-5 ">
             {weeks?.map((item) => (
               <button
                 key={item.id}
@@ -115,7 +113,7 @@ export default function AvailableTimings() {
           <div className=" mt-5 mb-5 border-t "></div>
 
           {/* availabe time displaying */}
-          <div className=" flex items-center gap-5 ">
+          <div className=" grid grid-cols-2 sm:flex sm:items-center gap-5 ">
             <button className=" flex items-center gap-2 px-4 transition-all duration-200 hover:bg-slate-800 hover:text-white py-3 rounded-md bg-gray-100 ">
               <FaClock className="text-xl text-gray-500" />
               <span className="text-[18px] font-bold ">9:45 AM</span>
@@ -164,7 +162,7 @@ export default function AvailableTimings() {
 
       {/* add slots modal */}
       <div>
-        <dialog id="my_modal_3" className="modal ">
+        <dialog id="my_modal_3" className="modal overflow-y-hidden h-auto ">
           <div className="modal-box">
             <form method="dialog">
               <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
@@ -337,7 +335,7 @@ export default function AvailableTimings() {
                   name="appointmentSpace"
                   defaultValue="space 1"
                   render={({ field }) => (
-                    <div className="flex items-center gap-5">
+                    <div className=" grid grid-cols-2 sm:flex sm:items-center gap-5">
                       <label className="flex items-center gap-2">
                         <input
                           {...field}
@@ -392,7 +390,7 @@ export default function AvailableTimings() {
 
               <div className="flex items-center justify-between">
                 <div className=" flex-1 "></div>
-                <div className=" w-[45%] -mr-2 flex items-center gap-5 ">
+                <div className=" w-full sm:w-[45%] -mr-2 flex items-center gap-5 ">
                   <button
                     onClick={() =>
                       document.getElementById("my_modal_3").close()

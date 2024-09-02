@@ -6,15 +6,15 @@ export default function InvoiceView() {
       <div className="rounded-md border border-gray-200 p-5 ">
         {/* title */}
         <div className=" flex items-center justify-between ">
-          <h1 className=" text-3xl font-bold text-cyan-500 ">CareLife</h1>
+          <h1 className=" text-xl sm:text-3xl font-bold text-cyan-500 ">CareLife</h1>
           <div>
             <p>
-              <span className="text-[16px] font-bold ">Order: </span>
-              <span className=" text-[16px] text-gray-500 "> #d00124</span>
+              <span className=" text-sm sm:text-[16px] font-bold ">Order: </span>
+              <span className="  text-sm sm:text-[16px] text-gray-500 "> #d00124</span>
             </p>
             <p>
-              <span className="text-[16px] font-bold ">Issued: </span>
-              <span className=" text-[16px] text-gray-500 "> 20/05/2024</span>
+              <span className=" text-sm sm:text-[16px] font-bold ">Issued: </span>
+              <span className="  text-sm sm:text-[16px] text-gray-500 "> 20/05/2024</span>
             </p>
           </div>
         </div>
@@ -22,25 +22,25 @@ export default function InvoiceView() {
         <div className="flex w-full mt-10 justify-between">
           <div className="">
             <p className="text-xl font-bold ">Invoice From</p>
-            <p className="text-[16px] mt-3 text-gray-500 font-[450] ">
+            <p className=" text-sm sm:text-[16px] mt-3 text-gray-500 font-[450] ">
               Dr. Milon Miah
             </p>
-            <p className="text-[16px] text-gray-500 font-[450] ">
+            <p className=" text-sm sm:text-[16px] text-gray-500 font-[450] ">
               506 Yellow House, New Market
             </p>
-            <p className="text-[16px] text-gray-500 font-[450] ">
+            <p className=" text-sm sm:text-[16px] text-gray-500 font-[450] ">
               Dhaka New Market
             </p>
           </div>
           <div className="">
             <p className="text-xl font-bold  ">Invoice To</p>
-            <p className="text-[16px] mt-3 text-gray-500 font-[450] ">
+            <p className=" text-sm sm:text-[16px] mt-3 text-gray-500 font-[450] ">
               Sakil Sheikh
             </p>
-            <p className="text-[16px] text-gray-500 font-[450] ">
+            <p className=" text-sm sm:text-[16px] text-gray-500 font-[450] ">
               2014 Gazipur, Gazipur
             </p>
-            <p className="text-[16px] text-gray-500 font-[450] ">
+            <p className=" text-sm sm:text-[16px] text-gray-500 font-[450] ">
               Gazipur Sardar, Gazipur
             </p>
           </div>
@@ -48,13 +48,13 @@ export default function InvoiceView() {
 
         <div className="mt-10">
           <p className="text-xl font-bold ">Payment Method</p>
-          <p className="text-[16px] mt-3 text-gray-500 font-[450] ">
+          <p className=" text-sm sm:text-[16px] mt-3 text-gray-500 font-[450] ">
             Dabit Card
           </p>
-          <p className="text-[16px] text-gray-500 font-[450] ">
+          <p className=" text-sm sm:text-[16px] text-gray-500 font-[450] ">
             xxxxxxxxxx-54201
           </p>
-          <p className="text-[16px] text-gray-500 font-[450] ">ICBC BANK</p>
+          <p className=" text-sm sm:text-[16px] text-gray-500 font-[450] ">ICBC BANK</p>
         </div>
 
         <div className="mt-10">
@@ -92,22 +92,21 @@ export default function InvoiceView() {
           </div>
         </div>
 
-        <div className="mt-5 flex items-center justify-evenly ">
-          <div className=""></div>
-          <div className=" w-[20%] ml-[450px]  ">
+        <div className=" w-full mt-8 sm:mt-5 flex items-center justify-end ">
+          <div className=" w-full px-5 sm:px-0 sm:w-[30%] lg:mr-[12.5%] sm:mr-16  ">
             <div className="flex items-center justify-between">
-              <p className="text-[16px] font-bold ">Subtotal :</p>
+              <p className=" text-sm sm:text-[16px] font-bold ">Subtotal :</p>
               <p>$420</p>
             </div>
             <div className=" mt-4 border-b mb-4 "></div>
             <div className="flex items-center justify-between">
-              <p className="text-[16px] font-bold ">Discount :</p>
+              <p className=" text-sm sm:text-[16px] font-bold ">Discount :</p>
               <p>-15%</p>
             </div>
             <div className=" mt-4 border-b mb-4 "></div>
 
             <div className="flex items-center justify-between">
-              <p className="text-[16px] font-bold ">Total Amount :</p>
+              <p className=" text-sm sm:text-[16px] font-bold ">Total Amount :</p>
               <p>$380</p>
             </div>
           </div>
@@ -115,7 +114,7 @@ export default function InvoiceView() {
 
         <div className="mt-10">
           <p className="text-xl font-bold ">Other Information</p>
-          <p className="text-[16px] text-gray-500 mt-4 font-[450] ">
+          <p className=" text-sm sm:text-[16px] text-gray-500 mt-4 font-[450] ">
             Thank you for choosing our services. We appreciate your business!.
             Please note that this invoice is generated electronically and does
             not require a signature

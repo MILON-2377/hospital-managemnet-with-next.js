@@ -2,10 +2,7 @@
 
 import { IoSearch } from "react-icons/io5";
 import { CgMenuGridR } from "react-icons/cg";
-import {
-  FaFilter,
-  FaListUl,
-} from "react-icons/fa";
+import { FaFilter, FaListUl } from "react-icons/fa";
 import { FaCalendarDays } from "react-icons/fa6";
 import DatePicker from "react-datepicker";
 import { useEffect, useState } from "react";
@@ -37,10 +34,11 @@ export default function DoctorAppointments() {
   const [pages, setPages] = useState([]);
 
   // handle data loading
-  const {
-    data = [],
-    refetch,
-  } = useApprovedAppointments(currentPage, user?.email, search);
+  const { data = [], refetch } = useApprovedAppointments(
+    currentPage,
+    user?.email,
+    search
+  );
 
   useEffect(() => {
     const page = data?.total ? Math.ceil(data.total / 10) : 1;
@@ -81,14 +79,34 @@ export default function DoctorAppointments() {
     e.target.reset();
   };
 
+  // handle appointment displaying sytle view
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.matchMedia("(max-width: 768px)").matches) {
+        setViewBy(2);
+      } else {
+        setViewBy(1);
+      }
+    };
+
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
     <div className="w-[95%] mx-auto">
       {/* appointments header */}
-      <div className="flex justify-between mt-10 items-center ">
-        <p className="text-3xl font-bold">Appointments</p>
+      <div className=" w-full flex sm:flex-row sm:justify-between flex-col gap-5 mt-10 sm:items-center ">
+        <p className=" text-2xl sm:text-3xl font-bold">Appointments</p>
 
         {/* search */}
-        <form onSubmit={onSearchClick} className="flex items-center gap-5">
+        <form
+          onSubmit={onSearchClick}
+          className=" flex justify-between sm:justify-normal items-center gap-5"
+        >
           <label className=" border border-gray-200 rounded-md flex items-center justify-between ">
             <input
               onChange={(e) => setSearch(e.target.value)}
@@ -104,7 +122,7 @@ export default function DoctorAppointments() {
           <div className="flex items-center gap-3 ">
             <p
               onClick={() => setViewBy(1)}
-              className={` flex ${
+              className={` hidden sm:flex ${
                 viewBy === 1 ? " bg-blue-500 text-white " : "hover:bg-gray-100"
               } items-center justify-center p-3 hover:cursor-pointer  border rounded-md text-center] border-gray-200 `}
             >
@@ -116,7 +134,7 @@ export default function DoctorAppointments() {
             </p>
             <p
               onClick={() => setViewBy(2)}
-              className={` flex ${
+              className={`flex ${
                 viewBy === 2 ? " bg-blue-500 text-white " : "hover:bg-gray-100"
               } items-center justify-center p-3 hover:cursor-pointer  border rounded-md text-center] border-gray-200 `}
             >
@@ -134,21 +152,21 @@ export default function DoctorAppointments() {
       <div className=" border border-t-0 mt-10 px-5"></div>
 
       {/* total details and filter section */}
-      <div className=" flex items-center justify-between ">
-        <div className="flex items-center mt-5 gap-5">
-          <div className=" px-4 py-2 bg-gray-100 text-[18px] font-semibold hover:text-white rounded-md hover:bg-blue-500  flex items-center gap-2 text-gray-600 ">
+      <div className=" flex lg:flex-row flex-col lg:items-center justify-between ">
+        <div className="flex sm:flex-row flex-col sm:justify-between lg:items-center mt-5 gap-5">
+          <div className=" justify-center sm:justify-normal px-4 py-2 bg-gray-100 text-[18px] font-semibold hover:text-white rounded-md hover:bg-blue-500  flex items-center gap-2 text-gray-600 ">
             Upcoming{" "}
             <p className=" w-12 text-center h-7  rounded-3xl bg-white text-black">
               12
             </p>
           </div>
-          <div className=" px-4 py-2 bg-gray-100 text-[18px] font-semibold hover:text-white rounded-md hover:bg-blue-500  flex items-center gap-2 text-gray-600 ">
+          <div className=" justify-center sm:justify-normal px-4 py-2 bg-gray-100 text-[18px] font-semibold hover:text-white rounded-md hover:bg-blue-500  flex items-center gap-2 text-gray-600 ">
             Cancelled{" "}
             <p className=" w-12 text-center h-7  rounded-3xl bg-white text-black">
               12
             </p>
           </div>
-          <div className=" px-4 py-2 bg-gray-100 text-[18px] font-semibold hover:text-white rounded-md hover:bg-blue-500  flex items-center gap-2 text-gray-600 ">
+          <div className=" justify-center sm:justify-normal px-4 py-2 bg-gray-100 text-[18px] font-semibold hover:text-white rounded-md hover:bg-blue-500  flex items-center gap-2 text-gray-600 ">
             Completed{" "}
             <p className=" w-12 text-center h-7  rounded-3xl bg-white text-black">
               12
@@ -156,7 +174,7 @@ export default function DoctorAppointments() {
           </div>
         </div>
 
-        <div className="flex items-center gap-5 mt-5 ">
+        <div className="flex sm:flex-row flex-col justify-between lg:items-center gap-5 mt-5 ">
           <div className=" border border-gray-200 p-2 rounded-md flex items-center gap-2 ">
             <span>
               <FaCalendarDays className="text-xl text-gray-500" />
@@ -295,7 +313,9 @@ export default function DoctorAppointments() {
 
       {/* appointments data displaying */}
       <div className="mt-10">
-        <div className={viewBy === 1 ? ` flex flex-col gap-4` : "hidden"}>
+        <div
+          className={viewBy === 1 ? ` hidden sm:flex flex-col gap-4` : "hidden"}
+        >
           {appointments?.map((item, idx) => (
             <div
               key={item._id}
@@ -305,12 +325,12 @@ export default function DoctorAppointments() {
             >
               {/* name and image */}
               <div className="flex items-center gap-2 ">
-                <div className=" w-14 h-14 rounded-xl">
+                <div className="relative overflow-hidden w-14 h-14 rounded-xl">
                   <Image
                     src={item.patient.img}
                     alt={item.patient.name}
-                    layout="fill"
-                    style={{objectFit:"cover"}}
+                    fill={true}
+                    style={{ objectFit: "cover" }}
                     className="rounded-xl "
                   />
                 </div>
@@ -379,7 +399,19 @@ export default function DoctorAppointments() {
               className=" w-full rounded-md bg-white shadow-lg p-5 flex flex-col gap-5 "
             >
               <div className="flex items-center gap-2 ">
-                <div className=" w-14 h-14 rounded-xl bg-blue-200 "></div>
+                <div
+                  className={`${
+                    item.patient.img || "border"
+                  } relative overflow-hidden w-14 h-14 rounded-xl`}
+                >
+                  <Image
+                    src={item.patient.img}
+                    alt={item.patient.name}
+                    fill={true}
+                    style={{ objectFit: "cover" }}
+                    className="rounded-xl "
+                  />
+                </div>
                 <div className="flex flex-col gap-1">
                   <div className=" flex gap-10 justify-between">
                     <div className=" flex flex-col">
@@ -411,12 +443,13 @@ export default function DoctorAppointments() {
               {/* action btns */}
               <div className=" flex items-center justify-between gap-1 ">
                 <div className=" flex items-center gap-2 ">
-                  <a
-                    href="/appointment/doctor/view-appointment"
+                  <Link
+                    onClick={() => dispatch(addDoctor(item))}
+                    href="/appointments/doctor/view-appointment"
                     className=" flex items-center justify-center hover:cursor-pointer transition-all duration-200 w-10 h-10 rounded-full bg-gray-100 hover:bg-blue-500 hover:text-white "
                   >
                     <FaEye className="text-xl" />
-                  </a>
+                  </Link>
                   <p className=" flex items-center justify-center hover:cursor-pointer transition-all duration-200 w-10 h-10 rounded-full bg-gray-100 hover:bg-blue-500 hover:text-white ">
                     <FaMessage className="text-xl" />
                   </p>

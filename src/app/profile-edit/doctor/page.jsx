@@ -16,12 +16,12 @@ export default function DoctorProfileEdit() {
       <div className=" mt-5 mb-5 border-t w-full "></div>
 
       {/*  selecting info */}
-      <div className=" rounded-lg bg-white shadow-md p-5 mb-5 flex items-center gap-5 ">
+      <div className=" rounded-lg bg-white shadow-md p-5 mb-5 flex sm:flex-row flex-col sm:items-center gap-5 ">
         <button
           onClick={() => setShowForm(1)}
           className={` ${
             showForm === 1 && "bg-blue-500 text-white font-[600]"
-          }  px-4 py-3 rounded-md transition-all duration-200 hover:bg-blue-500 hover:text-white font-[500] active:scale-95 active:bg-opacity-80 `}
+          }  px-4 py-3 border sm:border-none rounded-md transition-all duration-200 hover:bg-blue-500 hover:text-white font-[500] active:scale-95 active:bg-opacity-80 `}
         >
           Basic Details
         </button>
@@ -29,7 +29,7 @@ export default function DoctorProfileEdit() {
           onClick={() => setShowForm(2)}
           className={` ${
             showForm === 2 && "bg-blue-500 text-white font-[600]"
-          }  px-4 py-3 rounded-md transition-all duration-200 hover:bg-blue-500 hover:text-white font-[500] active:scale-95 active:bg-opacity-80 `}
+          }  px-4 py-3 border sm:border-none rounded-md transition-all duration-200 hover:bg-blue-500 hover:text-white font-[500] active:scale-95 active:bg-opacity-80 `}
         >
           Exprience
         </button>
@@ -37,7 +37,7 @@ export default function DoctorProfileEdit() {
           onClick={() => setShowForm(3)}
           className={` ${
             showForm === 3 && "bg-blue-500 text-white font-[600]"
-          }  px-4 py-3 rounded-md transition-all duration-200 hover:bg-blue-500 hover:text-white font-[500] active:scale-95 active:bg-opacity-80 `}
+          }  px-4 py-3 border sm:border-none rounded-md transition-all duration-200 hover:bg-blue-500 hover:text-white font-[500] active:scale-95 active:bg-opacity-80 `}
         >
           Education
         </button>
