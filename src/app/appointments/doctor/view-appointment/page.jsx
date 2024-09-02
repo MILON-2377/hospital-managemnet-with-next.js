@@ -4,12 +4,11 @@ import { SiAnytype } from "react-icons/si";
 import { BiSolidMessageRounded } from "react-icons/bi";
 import { FaEye } from "react-icons/fa";
 import { useSelector } from "react-redux";
+import img from "../../../../../public/assets/doctor.jpg";
 import Image from "next/image";
 
 export default function ViewAppointment() {
   const patient = useSelector((state) => state.doctorReducer.doctor) || {};
-
-  console.log(patient);
 
   return (
     <div className="w-full p-5">
@@ -24,8 +23,8 @@ export default function ViewAppointment() {
           <div className="flex items-center gap-3">
             <div className=" relative overflow-hidden w-28 h-28 rounded-md">
               <Image
-                src={patient?.patient.img}
-                alt={patient?.patient.name}
+                src={patient?.patient?.img || img}
+                alt={patient?.patient?.name || "unknown"}
                 fill={true}
                 style={{ objectFit: "cover" }}
                 className="rounded-md"
@@ -34,13 +33,13 @@ export default function ViewAppointment() {
             <div className="flex flex-col -mt-3">
               <p className="text-[16px] font-[550] text-cyan-500">#d001</p>
               <p className="text-[16px] font-[550] card-title">
-                {patient?.patient.name || "Unknown"}
+                {patient?.patient?.name || "Unknown"}
               </p>
               <p className="text-[16px] font-[550] flex items-center gap-1">
                 <span>
                   <MdEmail className="text-xl text-gray-500" />
                 </span>
-                <span>{patient?.patient.id || "N/A"}</span>
+                <span>{patient?.patient?.id || "N/A"}</span>
               </p>
               <p className="text-[16px] font-[550]">phone number</p>
             </div>
@@ -129,10 +128,12 @@ export default function ViewAppointment() {
               {/* Name and Image */}
               <div className="w-full flex items-center gap-2">
                 <div className=" relative overflow-hidden w-14 h-14 rounded-xl ">
-                  <Image src={item.image} alt={item.name}
-                  fill={true}
-                  style={{objectFit:'cover'}}
-                  className=" rounded-xl "
+                  <Image
+                    src={item.image}
+                    alt={item.name}
+                    fill={true}
+                    style={{ objectFit: "cover" }}
+                    className=" rounded-xl "
                   />
                 </div>
                 <div className="flex flex-col gap-1">

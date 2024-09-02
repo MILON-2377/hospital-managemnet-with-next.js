@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import React from "react";
 import { FaCalendarPlus } from "react-icons/fa";
 
@@ -11,9 +12,11 @@ export default function FavouritesDoctors() {
           className=" flex items-center justify-between "
         >
           <div className=" flex items-center gap-2 ">
-            <div className=" w-12 h-12 bg-center rounded-full">
-                <img src={item.img} alt={item.img} 
-                className=" w-full h-full rounded-full object-cover "
+            <div className="relative overflow-hidden w-12 h-12 bg-center rounded-full">
+                <Image src={item.img} alt={item.img} 
+                 fill={true}
+                 style={{objectFit:'cover'}}
+                className="rounded-full  "
                 />
             </div>
             <p className=" flex flex-col gap-1 ">

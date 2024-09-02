@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 import { useRef, useState, useEffect } from "react";
+import Image from "next/image";
 
 export default function Specialities() {
   const containerRef = useRef(null);
@@ -11,7 +12,7 @@ export default function Specialities() {
   // Smooth scroll to the next set of items
   const handleNext = () => {
     const container = containerRef.current;
-    const scrollAmount = container.offsetWidth / 2; 
+    const scrollAmount = container.offsetWidth / 2;
     const totalWidth = container.scrollWidth;
     const currentScroll = container.scrollLeft;
 
@@ -43,7 +44,7 @@ export default function Specialities() {
     if (isScrolling) {
       setTimeout(() => {
         setIsScrolling(false);
-      }, 500); 
+      }, 500);
     }
   }, [isScrolling]);
 
@@ -58,8 +59,12 @@ export default function Specialities() {
       <div className=" w-full flex items-center justify-between">
         <div className="w-full flex items-center">
           <h1 className=" text-3xl sm:text-4xl font-bold">Specialities</h1>
-          <span className=" text-3xl sm:text-5xl -mt-12 -ml-2 text-sky-500 font-bold">+</span>
-          <span className=" text-3xl sm:text-4xl -mt-12 -ml-2 opacity-25 text-sky-500 font-bold">+</span>
+          <span className=" text-3xl sm:text-5xl -mt-12 -ml-2 text-sky-500 font-bold">
+            +
+          </span>
+          <span className=" text-3xl sm:text-4xl -mt-12 -ml-2 opacity-25 text-sky-500 font-bold">
+            +
+          </span>
         </div>
 
         {/* pagination buttons */}
@@ -83,7 +88,7 @@ export default function Specialities() {
       <div
         className="flex flex-row gap-5 mt-10 w-full overflow-hidden scroll-smooth lg:p-5 "
         ref={containerRef}
-        style={{ scrollbarWidth: "none" }} 
+        style={{ scrollbarWidth: "none" }}
       >
         {specialitiesData.map((item, index) => (
           <motion.div
@@ -96,7 +101,11 @@ export default function Specialities() {
             }}
           >
             <figure>
-              <img src={item.image} alt={item.name} className=" h-[200px] w-full object-cover " />
+              <img
+                src={item.image}
+                alt={item.name}
+                className=" w-full h-[200px] object-cover  "
+              />
             </figure>
             <div className="card-body">
               <h2 className="card-title">{item.name}</h2>
@@ -112,120 +121,136 @@ export default function Specialities() {
   );
 }
 
-
-
 // Specialities list
 const specialitiesData = [
   {
     name: "Cardiology",
-    image: "https://currexhospital.com/wp-content/uploads/2023/09/cardiology.jpg",
+    image:
+      "https://currexhospital.com/wp-content/uploads/2023/09/cardiology.jpg",
     description:
       "Cardiology focuses on diagnosing and treating heart diseases and conditions.",
   },
   {
     name: "Neurology",
-    image: "https://medschool.cuanschutz.edu/images/librariesprovider61/default-album/n_fellowship.jpg?sfvrsn=be7c74b9_4",
+    image:
+      "https://medschool.cuanschutz.edu/images/librariesprovider61/default-album/n_fellowship.jpg?sfvrsn=be7c74b9_4",
     description:
       "Neurology deals with disorders of the nervous system, including the brain and spinal cord.",
   },
   {
     name: "Pediatrics",
-    image: "https://blog.boardvitals.com/wp-content/uploads/2022/09/pediatrician-vs-pdp.png",
+    image:
+      "https://blog.boardvitals.com/wp-content/uploads/2022/09/pediatrician-vs-pdp.png",
     description:
       "Pediatrics specializes in the medical care of infants, children, and adolescents.",
   },
   {
     name: "Orthopedics",
-    image: "https://wp02-media.cdn.ihealthspot.com/wp-content/uploads/sites/202/2022/10/istockphoto-1370095638-612x612-1.jpg",
+    image:
+      "https://wp02-media.cdn.ihealthspot.com/wp-content/uploads/sites/202/2022/10/istockphoto-1370095638-612x612-1.jpg",
     description:
       "Orthopedics is concerned with conditions involving the musculoskeletal system, including bones and joints.",
   },
   {
     name: "Oncology",
-    image: "https://content.yourcareer.gov.au/sites/default/files/2022-12/253314-medicaloncologist.jpg",
+    image:
+      "https://content.yourcareer.gov.au/sites/default/files/2022-12/253314-medicaloncologist.jpg",
     description: "Oncology focuses on diagnosing and treating cancer.",
   },
   {
     name: "Dermatology",
-    image: "https://aptinjectiontraining.com/wp-content/uploads/2022/06/Featured.jpg",
+    image:
+      "https://aptinjectiontraining.com/wp-content/uploads/2022/06/Featured.jpg",
     description:
       "Dermatology deals with conditions related to the skin, hair, and nails.",
   },
   {
     name: "Gynecology",
-    image: "https://miraclehealthsystems.com/article/images/gynecologistsinglepage.webp",
+    image:
+      "https://miraclehealthsystems.com/article/images/gynecologistsinglepage.webp",
     description:
       "Gynecology specializes in the health of the female reproductive system.",
   },
   {
     name: "Ophthalmology",
-    image: "https://www.pennmedicine.org/global-medicine/-/media/images/medical%20and%20research%20images/surgery/ophthalmology_doctors_performing_surgery.ashx",
+    image:
+      "https://www.pennmedicine.org/global-medicine/-/media/images/medical%20and%20research%20images/surgery/ophthalmology_doctors_performing_surgery.ashx",
     description:
       "Ophthalmology focuses on the diagnosis and treatment of eye conditions and diseases.",
   },
   {
     name: "Radiology",
-    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYI8z81ul1DnWJ2l5M4o9WJU7z8SW4yGP_8g&s",
+    image:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYI8z81ul1DnWJ2l5M4o9WJU7z8SW4yGP_8g&s",
     description:
       "Radiology uses medical imaging to diagnose and treat diseases within the body.",
   },
   {
     name: "General Surgery",
-    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgYtV_JJvqjXO2lZz6zxShg5JbaCnBS5cinw&s",
+    image:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgYtV_JJvqjXO2lZz6zxShg5JbaCnBS5cinw&s",
     description:
       "General Surgery involves performing surgical procedures on various parts of the body.",
   },
   {
     name: "Endocrinology",
-    image: "https://cdn.prod.website-files.com/5e0143c66e14efc18c6f469d/5e0a8787a0b208a9e42144ef_Endocrinology.jpeg.png",
+    image:
+      "https://cdn.prod.website-files.com/5e0143c66e14efc18c6f469d/5e0a8787a0b208a9e42144ef_Endocrinology.jpeg.png",
     description:
       "Endocrinology deals with disorders of the endocrine system, including hormone-related issues.",
   },
   {
     name: "Gastroenterology",
-    image: "https://www.rhazesglobal.com/Frontend/Uploads/procedures/6c5c4397-0ac8-4969-b9c7-9ad41cba7860.jpg",
+    image:
+      "https://www.rhazesglobal.com/Frontend/Uploads/procedures/6c5c4397-0ac8-4969-b9c7-9ad41cba7860.jpg",
     description:
       "Gastroenterology focuses on the digestive system and its disorders.",
   },
   {
     name: "Hematology",
-    image: "https://d2csxpduxe849s.cloudfront.net/media/E32629C6-9347-4F84-81FEAEF7BFA342B3/8FD56903-689D-45EF-BE649E55BD8A39DB/EB9D8DAB-2481-4C87-951C5A3D60CCAC7F/WebsiteJpg_XL-FRHEM_Main%20Visual_Red_Website.jpg",
+    image:
+      "https://d2csxpduxe849s.cloudfront.net/media/E32629C6-9347-4F84-81FEAEF7BFA342B3/8FD56903-689D-45EF-BE649E55BD8A39DB/EB9D8DAB-2481-4C87-951C5A3D60CCAC7F/WebsiteJpg_XL-FRHEM_Main%20Visual_Red_Website.jpg",
     description: "Hematology is concerned with blood disorders and diseases.",
   },
   {
     name: "Infectious Disease",
-    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSk3KRLI3IfqUsTytLL9Y0RzW5OZ34M-O7AXQ&s",
+    image:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSk3KRLI3IfqUsTytLL9Y0RzW5OZ34M-O7AXQ&s",
     description:
       "Infectious Disease specialists treat and manage infections caused by bacteria, viruses, and other pathogens.",
   },
   {
     name: "Nephrology",
-    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPOofGKTHOsENo8_hWvvUWE4ilYMFs9MhnPA&s",
+    image:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPOofGKTHOsENo8_hWvvUWE4ilYMFs9MhnPA&s",
     description: "Nephrology focuses on kidney health and diseases.",
   },
   {
     name: "Pulmonology",
-    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWwns--fzuGR2ThRw5yAU8xSJrZ2qLjcBleA&s",
+    image:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWwns--fzuGR2ThRw5yAU8xSJrZ2qLjcBleA&s",
     description:
       "Pulmonology deals with respiratory system diseases, including lungs and airways.",
   },
   {
     name: "Rheumatology",
-    image: "https://wp.globaluniversitysystems.com/mua/wp-content/uploads/sites/10/2023/02/what-is-a-rheumatologist.webp?w=1024",
+    image:
+      "https://wp.globaluniversitysystems.com/mua/wp-content/uploads/sites/10/2023/02/what-is-a-rheumatologist.webp?w=1024",
     description:
       "Rheumatology focuses on autoimmune and inflammatory conditions affecting the joints and connective tissues.",
   },
   {
     name: "Urology",
-    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwHYxSvrpyt8uN1FCJxYK6cM-FnIvadsJ98w&s",
+    image:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwHYxSvrpyt8uN1FCJxYK6cM-FnIvadsJ98w&s",
     description:
       "Urology deals with disorders of the urinary tract and male reproductive system.",
   },
   {
     name: "Anesthesiology",
-    image: "https://www.aucmed.edu/sites/g/files/krcnkv361/files/styles/atge_default_md/public/2022-03/Anesthesiology.jpg?itok=aWsjdeCg",
+    image:
+      "https://www.aucmed.edu/sites/g/files/krcnkv361/files/styles/atge_default_md/public/2022-03/Anesthesiology.jpg?itok=aWsjdeCg",
     description:
       "Anesthesiology involves administering anesthesia and managing pain during and after surgery.",
   },
- 
 ];

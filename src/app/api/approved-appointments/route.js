@@ -3,8 +3,8 @@ import { NextResponse } from "next/server";
 
 export async function GET(req) {
   try {
-    const { searchParams } = new URL(req.url);
-    const page = searchParams.get("page");
+    const url = new URL(req.url);
+    const page = parseInt(url.searchParams.get('page'), 10) || 1;
     const filterName = searchParams.get("filter");
 
     const skip = (page - 1) * 10;

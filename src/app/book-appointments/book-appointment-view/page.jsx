@@ -10,6 +10,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import Link from "next/link";
 import { useAuth } from "@/AuthProviderContext/AuthProviderContext";
 import { addBookAppointment } from "@/redux/reducers/booAppointment/bookAppointment";
+import Image from "next/image";
 
 export default function BookAppointmentView() {
   const [dateChoose, setDateChoose] = useState(new Date().toDateString());
@@ -17,7 +18,7 @@ export default function BookAppointmentView() {
   const doctor = useSelector((state) => state.doctorReducer.doctor);
   const [appointmentDate, setAppointmentDate] = useState(null);
   const dispatch = useDispatch();
-  const {user} = useAuth();
+  const { user } = useAuth();
 
   useEffect(() => {
     const getDayOfWeek = (date) => {
@@ -31,12 +32,12 @@ export default function BookAppointmentView() {
   // handle data set
   const onClickProccess = () => {
     const bookAppointmentData = {
-      appointment_date:dateChoose,
+      appointment_date: dateChoose,
       appointment_time: timeChoose?.time,
       patient: {
         name: user?.userName,
-        id:user?.email,
-        img:user.photo ? user.photo : "fhdsfjdsjilfjasdlfj",
+        id: user?.email,
+        img: user.photo ? user.photo : "fhdsfjdsjilfjasdlfj",
       },
       doctor: {
         name: doctor.name,
@@ -52,11 +53,13 @@ export default function BookAppointmentView() {
     <div className=" p-5 mt-5 ">
       {/* header */}
       <div className=" border rounded-md p-5 bg-gray-50 flex items-center gap-5">
-        <div className=" w-24 h-24 rounded-md bg-blue-100 ">
-          <img
+        <div className=" relative overflow-hidden w-24 h-24 rounded-md bg-blue-100 ">
+          <Image
             src={doctor.img}
             alt={doctor.img}
-            className=" w-full h-full rounded-md object-cover "
+            fill={true}
+            style={{ objectFit: "cover" }}
+            className="rounded-md  "
           />
         </div>
         <div className="flex flex-col gap-2">

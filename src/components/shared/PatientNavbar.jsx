@@ -47,15 +47,17 @@ export default function PatientNavbar() {
             </div>
 
             {/* profile image */}
-            <div className=" absolute top-[150px] left-[34%] w-32 h-32 rounded-full border-[3px] border-white ">
-              <img
+            <div className=" overflow-hidden absolute top-[150px] left-[34%] w-32 h-32 rounded-full border-[3px] border-white ">
+              <Image
                 src={
                   user?.photo
                     ? user.photo
-                    : "https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg"
+                    : "https://img.freepik.com/free-photo/front-view-handsome-corporate-man_23-2148336855.jpg?t=st=1725311972~exp=1725315572~hmac=b33a7f72c5b97d9c1cb5a2adae49b903b302b9c652236909c4db35c35bd8da94&w=900"
                 }
                 alt={user?.name}
-                className=" w-full h-full object-cover rounded-full "
+                fill={true}
+                style={{ objectFit: "cover" }}
+                className="rounded-full "
               />
             </div>
           </div>

@@ -92,23 +92,23 @@ export default function MyAppointments() {
   return (
     <div className="w-[95%] mx-auto">
       {/* appointments header */}
-      <div className="flex sm:flex-row flex-col gap-5 sm:gap-0 justify-between mt-10  ">
+      <div className="w-full flex sm:flex-row flex-col gap-5 justify-between mt-10  ">
         <p className="text-2xl font-bold">Appointments</p>
 
         {/* search */}
-        <div className="flex items-center gap-5">
-          <label className=" border border-gray-200 rounded-md flex items-center justify-between ">
+        <div className=" flex items-center gap-5">
+          <label className=" sm:w-full w-[80%] border rounded-md flex items-center justify-between ">
             <input
               className=" px-4 focus:outline-none focus:border-none "
               type="text"
               placeholder="Search"
             />
-            <p className=" p-[15px] transition-all duration-200 hover:cursor-pointer hover:bg-gray-100 ">
+            <p className=" p-[15px] -ml-5 sm:ml-0 transition-all duration-200 hover:cursor-pointer hover:bg-gray-100 ">
               <IoSearch className="text-xl text-gray-400 " />
             </p>
           </label>
 
-          <div className="flex items-center gap-3 ">
+          <div className=" flex items-center gap-3 ">
             <p
               onClick={() => setViewBy(1)}
               className={` hidden sm:flex ${
@@ -152,7 +152,7 @@ export default function MyAppointments() {
           >
             Pending
             <p className="w-10 h-6 py-1 px-2 flex items-center justify-center rounded-3xl bg-white text-black">
-              {pendingsAppointments}
+              {pendingsAppointments || 0}
             </p>
           </div>
           <div
@@ -163,7 +163,7 @@ export default function MyAppointments() {
           >
             Approved
             <p className="w-10 h-6 py-1 px-2 flex items-center justify-center rounded-3xl bg-white text-black">
-              {data?.approveds}
+              {data?.approveds || 0}
             </p>
           </div>
           <div className=" hover:cursor-pointer px-4 py-2 bg-gray-100 justify-center sm:justify-normal text-[16px] font-[500] hover:text-white rounded-md hover:bg-blue-500  flex items-center gap-2 text-gray-600 ">
@@ -204,7 +204,7 @@ export default function MyAppointments() {
             </div>
             <div
               tabIndex={0}
-              className="dropdown-content menu absolute right-0 bg-base-100  z-[1] w-[420px] p-5 shadow"
+              className="dropdown-content menu absolute right-0 bg-base-100  z-[1] w-full sm:w-[420px] p-5 shadow"
             >
               <div>
                 <div>
@@ -309,6 +309,9 @@ export default function MyAppointments() {
         </div>
       </div>
 
+      {/* divider */}
+      <div className=" sm:hidden block border-t mt-5 mb-5 "></div>
+
       {/* appointments data displaying */}
       <div className="mt-10">
         <div
@@ -398,8 +401,8 @@ export default function MyAppointments() {
               className=" w-full rounded-md bg-white shadow-lg p-5 flex flex-col gap-5 "
             >
               <div className=" w-full flex items-center justify-between ">
-                <div className="flex items-center gap-2 ">
-                  <div className=" relative overflow-hidden w-12 h-12 rounded-xl ">
+                <div className="flex sm:flex-row flex-col sm:items-center gap-2 ">
+                  <div className=" relative overflow-hidden sm:w-12 w-24 h-24 sm:h-12 rounded-xl ">
                     <Image
                       src={item.doctor.img}
                       alt={item.doctor.name}
@@ -408,7 +411,7 @@ export default function MyAppointments() {
                       className="rounded-xl"
                     />
                   </div>
-                  <div className="flex flex-col gap-1">
+                  <div className="flex mt-5 sm:mt-0 flex-col gap-1">
                     <div className=" flex flex-col">
                       <p className="text-[16px] font-[550] text-cyan-500 ">
                         #d00{idx + 1}

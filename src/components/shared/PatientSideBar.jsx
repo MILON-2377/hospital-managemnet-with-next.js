@@ -6,6 +6,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { RiLogoutBoxFill } from "react-icons/ri";
 import { useState } from "react";
+import Image from "next/image";
 
 export default function PatientSideBar({ navLinks }) {
   const { user, userLoggedOut } = useAuth();
@@ -102,8 +103,14 @@ export default function PatientSideBar({ navLinks }) {
               role="button"
               className="btn btn-ghost btn-circle avatar"
             >
-              <div className={`w-10 rounded-full ${user?.photo || "border"} `}>
-                <img alt={user?.photo ? "User Avatar" : ""} src={user?.photo} />
+              <div className={`w-10 relative overflow-hidden rounded-full ${user?.photo || "border"} `}>
+                <Image
+                  alt={user?.photo ? "User Avatar" : ""}
+                  src={user?.photo}
+                  fill={true}
+                  style={{ objectFit: "cover" }}
+                  className="rounded-full"
+                />
               </div>
             </div>
             <ul

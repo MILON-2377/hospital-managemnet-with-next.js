@@ -16,6 +16,7 @@ import { useForm } from "react-hook-form";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { MdCancel } from "react-icons/md";
+import Image from "next/image";
 
 export default function Requests() {
   const { user } = useAuth();
@@ -70,7 +71,7 @@ export default function Requests() {
   // handle pagination
   useEffect(() => {
     refetch();
-  }, [currentPage]);
+  }, [currentPage, refetch]);
 
   // handle appointment schedule
   const { register, handleSubmit, reset } = useForm();
@@ -190,10 +191,13 @@ export default function Requests() {
                   <td>
                     <div className="flex items-center gap-3">
                       <div className="avatar">
-                        <div className="mask mask-squircle h-12 w-12">
-                          <img
+                        <div className="mask relative overflow-hidden mask-squircle h-12 w-12">
+                          <Image
                             src="https://img.daisyui.com/images/profile/demo/2@94.webp"
                             alt="Avatar Tailwind CSS Component"
+                            fill={true}
+                            style={{objectFit:'cover'}}
+                            
                           />
                         </div>
                       </div>
@@ -212,10 +216,12 @@ export default function Requests() {
                   <th>
                     <div className="flex items-center gap-3">
                       <div className="rounded-full h-12 w-12">
-                        <img
-                          className="w-full h-full object-cover rounded-full "
+                        <Image
+                          className="rounded-full "
                           src={item.doctor.img}
                           alt={item.doctor.name}
+                          fill={true}
+                          style={{objectFit:'cover'}}
                         />
                       </div>
                       <div>

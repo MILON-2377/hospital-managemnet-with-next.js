@@ -107,7 +107,7 @@ export default function DoctorAppointments() {
           onSubmit={onSearchClick}
           className=" flex justify-between sm:justify-normal items-center gap-5"
         >
-          <label className=" border border-gray-200 rounded-md flex items-center justify-between ">
+          <label className=" border w-[80%] sm:w-auto rounded-md flex items-center justify-between ">
             <input
               onChange={(e) => setSearch(e.target.value)}
               className=" px-4 focus:outline-none focus:border-none "
@@ -206,7 +206,7 @@ export default function DoctorAppointments() {
             </div>
             <div
               tabIndex={0}
-              className="dropdown-content menu absolute right-0 bg-base-100  z-[1] w-[420px] p-5 shadow"
+              className="dropdown-content menu absolute right-0 bg-base-100  z-[1] w-full sm:w-[420px] p-5 shadow"
             >
               <div>
                 <div>
@@ -311,6 +311,10 @@ export default function DoctorAppointments() {
         </div>
       </div>
 
+
+      {/* divider */}
+      <div className=" sm:hidden block border-t mt-5 mb-5 "></div>
+
       {/* appointments data displaying */}
       <div className="mt-10">
         <div
@@ -398,11 +402,11 @@ export default function DoctorAppointments() {
               key={item._id}
               className=" w-full rounded-md bg-white shadow-lg p-5 flex flex-col gap-5 "
             >
-              <div className="flex items-center gap-2 ">
+              <div className="flex sm:flex-row flex-col sm:items-center gap-2 ">
                 <div
                   className={`${
                     item.patient.img || "border"
-                  } relative overflow-hidden w-14 h-14 rounded-xl`}
+                  } relative overflow-hidden w-24 h-24 sm:w-14 sm:h-14 rounded-xl`}
                 >
                   <Image
                     src={item.patient.img}
@@ -412,7 +416,7 @@ export default function DoctorAppointments() {
                     className="rounded-xl "
                   />
                 </div>
-                <div className="flex flex-col gap-1">
+                <div className="flex mt-5 sm:mt-0 flex-col gap-1">
                   <div className=" flex gap-10 justify-between">
                     <div className=" flex flex-col">
                       <p className="text[18px] font-[550] text-cyan-500 ">

@@ -1,6 +1,7 @@
 "use cleint";
 
 import { patientMedicalInfoAdd } from "@/redux/reducers/AddPatientInfo/AddPatientInfo";
+import Image from "next/image";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaArrowRightLong } from "react-icons/fa6";
@@ -11,11 +12,7 @@ export default function MedicalInfo() {
   const [isPhysiciansSelect, setIsPhysiciansSelect] = useState(physicians[0]);
   const [physicianSelct, setPhysicianSelect] = useState(false);
   const dispatch = useDispatch();
-  const {
-    register,
-    setValue,
-    handleSubmit,
-  } = useForm();
+  const { register, setValue, handleSubmit } = useForm();
 
   //   handle physicians select
   const handlePhysiciansSelect = (item) => {
@@ -24,18 +21,15 @@ export default function MedicalInfo() {
     setPhysicianSelect(true);
   };
 
-
   // handle form submit
   const onSubmit = (data) => {
     dispatch(patientMedicalInfoAdd(data));
-  }
+  };
 
   return (
     <div className=" border rounded-md p-5 mt-10 ">
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className=" w-full">
-          
-
           <div className="flex flex-col gap-2">
             <span className="text-[18px] font-[500] text-gray-600 ">
               Primary care physician
@@ -49,11 +43,13 @@ export default function MedicalInfo() {
                 className="px-4 py-2 flex items-center justify-between border border-gray-200 rounded-md "
               >
                 <div className="flex items-center gap-3 px-3 py-2 border border-gray-200 bg-white rounded-md">
-                  <div className="w-8 h-8 flex items-center justify-center rounded-full">
-                    <img
-                      className="w-full h-full rounded-full object-conver "
+                  <div className="relative overflow-hidden w-8 h-8 flex items-center justify-center rounded-full">
+                    <Image
+                      className="rounded-full "
                       src={isPhysiciansSelect?.image}
                       alt={isPhysiciansSelect.name}
+                      fill={true}
+                      style={{ objectFit: "cover" }}
                     />
                   </div>
                   <p className="text-[18px] font-[500] text-gray-700">
@@ -77,13 +73,17 @@ export default function MedicalInfo() {
                     className=" px-4 py-2 transition-all duration-200 active:bg-base-50 active:scale-95 hover:cursor-pointer flex items-center gap-3 hover:bg-gray-100 rounded-md "
                   >
                     <div className="w-8 h-8 rounded-full bg-gray-100">
-                      <img
-                        className="w-full h-full object-cover rounded-full "
+                      <Image
+                        className="rounded-full "
                         src={item.image}
                         alt={item.name}
+                        fill={true}
+                        style={{ objectFit: "cover" }}
                       />
                     </div>
-                    <p className=" text-gray-500 text-[18px] font-[500] ">{item.name}</p>
+                    <p className=" text-gray-500 text-[18px] font-[500] ">
+                      {item.name}
+                    </p>
                   </div>
                 ))}
               </div>
@@ -112,7 +112,9 @@ export default function MedicalInfo() {
 
               {/* allergies filed */}
               <label className="flex flex-col gap-2">
-                <span className="text-[18px] font-[500] text-gray-600 ">Allergies(any)</span>
+                <span className="text-[18px] font-[500] text-gray-600 ">
+                  Allergies(any)
+                </span>
                 <textarea
                   className="textarea text-[18px] font-[500] border focus:border text-gray-600 focus:border-cyan-500 border-gray-200 focus:outline-none bg-transparent "
                   placeholder="ex: Peanuts, Penicillin, Pollen"

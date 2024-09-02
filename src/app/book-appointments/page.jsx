@@ -6,6 +6,7 @@ import {
   addDoctor,
   singleDoctorSlice,
 } from "@/redux/reducers/AddDoctorSlice/addDoctorSlice";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -62,7 +63,7 @@ export default function BookAppointments() {
 
   useEffect(() => {
     refetch();
-  }, [currentPage]);
+  }, [currentPage, refetch]);
 
   // search doctors handle
   const onSearch = (e) => {
@@ -105,11 +106,13 @@ export default function BookAppointments() {
             className=" rounded-md border bg-white shadow "
           >
             <div className=" relative flex items-center justify-center p-5 ">
-              <div className=" w-20 h-20 rounded-lg ">
-                <img
+              <div className="relative overflow-hidden w-20 h-20 rounded-lg ">
+                <Image
                   src={item.img}
                   alt={item.img}
-                  className=" w-full h-full object-cover rounded-md "
+                  fill={true}
+                  style={{objectFit:'cover'}}
+                  className="rounded-md "
                 />
               </div>
               <div className=" absolute right-10  p-2 rounded-full bg-gray-50 hover:cursor-pointer flex items-center justify-center ">
