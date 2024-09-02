@@ -103,9 +103,16 @@ export default function PatientSideBar({ navLinks }) {
               role="button"
               className="btn btn-ghost btn-circle avatar"
             >
-              <div className={`w-10 relative overflow-hidden rounded-full ${user?.photo || "border"} `}>
+              <div
+                className={`w-10 relative overflow-hidden rounded-full ${
+                  user?.photo || "border"
+                } `}
+              >
                 <Image
-                  alt={user?.photo ? "User Avatar" : ""}
+                  alt={
+                    user?.photo ||
+                    "https://img.freepik.com/free-photo/professional-beautiful-cosmetologist-with-cute-smile_144627-12794.jpg?t=st=1725313846~exp=1725317446~hmac=7cb4cd6d3bc8bb0e21c31f224a833d67c9b10eaf73de94d85d094abf2f60b011&w=900"
+                  }
                   src={user?.photo}
                   fill={true}
                   style={{ objectFit: "cover" }}
