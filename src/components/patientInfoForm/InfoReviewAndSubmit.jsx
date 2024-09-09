@@ -5,6 +5,8 @@ import axiosSecure from "@/Hooks/userAxiosSecure";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function InfoReviewAndSubmit() {
   const patientInfo = useSelector(
@@ -12,22 +14,27 @@ export default function InfoReviewAndSubmit() {
   );
   const { user } = useAuth();
   const path = usePathname();
-  const {push}  = useRouter();
+  const { push } = useRouter();
 
   //   patient info submit handle
   const submitPatientInfo = async () => {
-    const patientId = user?.email;
+    const patientId = await user?.email;
+    
+    if (!patientId) return;
+
     document.getElementById("my_modal_5").showModal();
     try {
       const res = await axiosSecure.post("/patient", {
         ...patientInfo,
         patientId,
       });
+      
       if (res.data.message === "success") {
         push("/Dashboard/patient-dashboard");
       }
     } catch (error) {
-      // console.log(error.message);
+      document.getElementById("my_modal_5").close();
+      toast(error.message);
     }
   };
 
@@ -218,6 +225,9 @@ export default function InfoReviewAndSubmit() {
           </div>
         </dialog>
       </div>
+
+      {/* toastify container */}
+      <ToastContainer />
     </div>
   );
 }

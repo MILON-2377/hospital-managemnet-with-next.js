@@ -4,6 +4,7 @@ import IdentificationAndPrivacy from "@/components/patientInfoForm/Identificatio
 import InfoReviewAndSubmit from "@/components/patientInfoForm/InfoReviewAndSubmit";
 import MedicalInfo from "@/components/patientInfoForm/MedicalInfo";
 import PersonalInfo from "@/components/patientInfoForm/PersonalInfo";
+import ProtectedRoute from "@/components/ProtectedRoute/ProtectedRoute";
 import { useEffect, useState } from "react";
 import { IoIosArrowRoundDown } from "react-icons/io";
 import { useSelector } from "react-redux";
@@ -33,79 +34,83 @@ export default function PatientForm() {
   }, [patientInfo]);
 
   return (
-    <div className=" w-full bg-white flex gap-5 lg:flex-row flex-col lg:gap-10 ">
-      {/* image section */}
-      <div className=" p-10 flex flex-col gap-3 ">
-        <label className="flex items-center gap-2 ">
-          <div
-          onClick={() => setIsChecked(1)}
-            className={`w-6 h-6 hover:cursor-pointer flex items-center justify-center rounded-full border border-cyan-400 `}
-          >
+    <ProtectedRoute>
+      <div className=" w-full bg-white flex gap-5 lg:flex-row flex-col lg:gap-10 ">
+        {/* image section */}
+        <div className=" p-10 flex flex-col gap-3 ">
+          <label className="flex items-center gap-2 ">
             <div
-              className={` w-3 h-3 rounded-full ${
-                isChecked === 1 ? " bg-blue-500 " : " "
-              } `}
-            ></div>
-          </div>
-          <span className=" text-[18px] font-bold ">Personal Information</span>
-        </label>
-        <p>
-          <IoIosArrowRoundDown className=" text-2xl " />
-        </p>
-        <label className="flex items-center gap-2 ">
-          <div
-           onClick={() => setIsChecked(2)}
-            className={`w-6 h-6 hover:cursor-pointer flex items-center justify-center rounded-full border border-cyan-400 `}
-          >
+              onClick={() => setIsChecked(1)}
+              className={`w-6 h-6 hover:cursor-pointer flex items-center justify-center rounded-full border border-cyan-400 `}
+            >
+              <div
+                className={` w-3 h-3 rounded-full ${
+                  isChecked === 1 ? " bg-blue-500 " : " "
+                } `}
+              ></div>
+            </div>
+            <span className=" text-[18px] font-bold ">
+              Personal Information
+            </span>
+          </label>
+          <p>
+            <IoIosArrowRoundDown className=" text-2xl " />
+          </p>
+          <label className="flex items-center gap-2 ">
             <div
-              className={` w-3 h-3 rounded-full ${
-                isChecked === 2 ? " bg-blue-500 " : " "
-              } `}
-            ></div>
-          </div>
-          <span className=" text-[18px] font-bold ">Medical Information</span>
-        </label>
-        <p>
-          <IoIosArrowRoundDown className=" text-2xl " />
-        </p>
-        <label className="flex items-center gap-2 ">
-          <div
-           onClick={() => setIsChecked(3)}
-            className={`w-6 h-6 hover:cursor-pointer flex items-center justify-center rounded-full border border-cyan-400 `}
-          >
+              onClick={() => setIsChecked(2)}
+              className={`w-6 h-6 hover:cursor-pointer flex items-center justify-center rounded-full border border-cyan-400 `}
+            >
+              <div
+                className={` w-3 h-3 rounded-full ${
+                  isChecked === 2 ? " bg-blue-500 " : " "
+                } `}
+              ></div>
+            </div>
+            <span className=" text-[18px] font-bold ">Medical Information</span>
+          </label>
+          <p>
+            <IoIosArrowRoundDown className=" text-2xl " />
+          </p>
+          <label className="flex items-center gap-2 ">
             <div
-              className={` w-3 h-3 rounded-full ${
-                isChecked === 3 ? " bg-blue-500 " : " "
-              } `}
-            ></div>
-          </div>
-          <span className=" text-[18px] font-bold ">
-            Identification Information
-          </span>
-        </label>
-        <p>
-          <IoIosArrowRoundDown className=" text-2xl " />
-        </p>
-        <label className="flex items-center gap-2 ">
-          <div
-           onClick={() => setIsChecked(4)}
-            className={`w-6 h-6 hover:cursor-pointer flex items-center justify-center rounded-full border border-cyan-400 `}
-          >
+              onClick={() => setIsChecked(3)}
+              className={`w-6 h-6 hover:cursor-pointer flex items-center justify-center rounded-full border border-cyan-400 `}
+            >
+              <div
+                className={` w-3 h-3 rounded-full ${
+                  isChecked === 3 ? " bg-blue-500 " : " "
+                } `}
+              ></div>
+            </div>
+            <span className=" text-[18px] font-bold ">
+              Identification Information
+            </span>
+          </label>
+          <p>
+            <IoIosArrowRoundDown className=" text-2xl " />
+          </p>
+          <label className="flex items-center gap-2 ">
             <div
-              className={` w-3 h-3 rounded-full ${
-                isChecked === 4 ? " bg-blue-500 " : " "
-              } `}
-            ></div>
-          </div>
-          <span className=" text-[18px] font-bold ">Review Information</span>
-        </label>
+              onClick={() => setIsChecked(4)}
+              className={`w-6 h-6 hover:cursor-pointer flex items-center justify-center rounded-full border border-cyan-400 `}
+            >
+              <div
+                className={` w-3 h-3 rounded-full ${
+                  isChecked === 4 ? " bg-blue-500 " : " "
+                } `}
+              ></div>
+            </div>
+            <span className=" text-[18px] font-bold ">Review Information</span>
+          </label>
+        </div>
+        <div className=" w-[95%] lg:w-[50%] mx-auto ">
+          {isChecked === 1 && <PersonalInfo />}
+          {isChecked === 2 && <MedicalInfo />}
+          {isChecked === 3 && <IdentificationAndPrivacy />}
+          {isChecked === 4 && <InfoReviewAndSubmit />}
+        </div>
       </div>
-      <div className=" w-[95%] lg:w-[50%] mx-auto ">
-        {isChecked === 1 && <PersonalInfo />}
-        {isChecked === 2 && <MedicalInfo />  }
-        {isChecked === 3 && <IdentificationAndPrivacy />}
-        {isChecked === 4 && <InfoReviewAndSubmit /> }
-      </div>
-    </div>
+    </ProtectedRoute>
   );
 }

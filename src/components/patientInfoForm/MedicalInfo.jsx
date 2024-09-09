@@ -196,71 +196,71 @@ const physicians = [
   {
     name: "Dr. Benjamin Harris",
     image:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxrvAnH8x8gRLqFn8FA0BMbruLuW03TLsVlDFBTbAryfo1ktNr1CEdZgpt8KdFMpzoXls&usqp=CAU",
+      "https://img.freepik.com/free-photo/smiling-asian-female-doctor-shows-thumbs-up-wears-rubber-gloves-clinic-uniform-stands-white-background_1258-83376.jpg?t=st=1725900269~exp=1725903869~hmac=fc102e1e891ad65c774f694d11797616edc602dc6e14e5084631cccf10cdeefa&w=900",
   },
   {
     name: "Dr. Charlotte Turner",
     image:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWvDicxBqpM71FV2L8OpQNsrnR22j7VuM55xudDnigVymik53bR3G2erY6m-VEny7Pzlc&usqp=CAU",
+      "https://img.freepik.com/free-photo/doctor-smiling-looking-camera_23-2148075679.jpg?t=st=1725900287~exp=1725903887~hmac=f44fcf8234860f9aa33d4ff75664d2dc2c8dbb6fb04e0a4dad51d47599f7882b&w=740",
   },
   {
     name: "Dr. Daniel Moore",
     image:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSC520FIbxCOEkEXXUwQa-rF3XUk9bmigPiIBu0IKYcun3Y7u_oVg_OiPmfK4-hECJMK5g&usqp=CAU",
+      "https://img.freepik.com/free-photo/beautiful-female-doctor-white-coat-posing-with-stethoscope-white-wall_114579-90452.jpg?t=st=1725900303~exp=1725903903~hmac=45d8d49da1258d56b039b97aa59448c88a4bc0e82cf704a33f324eb16a2d585c&w=900",
   },
   {
     name: "Dr. Eleanor White",
     image:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVUSFsUJ5Q1kYPD9TNqnq_x_MBWoVRAY_go0KNdlY87HFVgreOcbq9ulk6UAtAsq6GNE0&usqp=CAU",
+      "https://img.freepik.com/free-photo/smiling-doctor-asian-woman-with-arms-crossed-against-white-wall_231208-13143.jpg?t=st=1725900317~exp=1725903917~hmac=29af3d85be7fb94abbbf3de1327f92b7a84c7a2168b8989cfae4e9438a2a2ce3&w=900",
   },
   {
     name: "Dr. Frank Thompson",
     image:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRlOzLBl1lUl-Pe9v83CwdzEm7wr7zV4l3v8eyOIk5jlMDhCCqTmkDD52Tuj63_0e5eLpE&usqp=CAU",
+      "https://img.freepik.com/free-photo/confident-young-asian-female-doctor-white-medical-uniform-with-stethoscope_7861-2837.jpg?t=st=1725900333~exp=1725903933~hmac=e4b4c0af4695335a3b6430942cf41e3241d40eb97256303e9ddb75940ca2030e&w=900",
   },
   {
     name: "Dr. Grace Taylor",
     image:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnmhOXTH16dyqtHzr_deD2R2SURnW9kQ3gc05N2xujiWiqhoLY5CraRjOC_WSum7OaJFM&usqp=CAU",
+      "https://img.freepik.com/free-photo/healthcare-workers-coronavirus-covid-19-pandemic-insurance-concept-close-up-serious-young-doctor-white-coat-glasses-listen-closely-patient-cross-arms-chest-holding-stethoscope_1258-58654.jpg?t=st=1725900349~exp=1725903949~hmac=6e709f760262cc706d2256daa3fc2b5a1724e8dd95e563b553bbc583fbda6a45&w=900",
   },
   {
     name: "Dr. Henry Walker",
     image:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSt82_cnU89WOOlZ9sQlhqxJj9iT0TtgF-h6Q&s",
+      "https://img.freepik.com/free-photo/content-mature-doctor-with-hands-pockets_1262-7199.jpg?t=st=1725900364~exp=1725903964~hmac=57fd0f8b90fe783bba9c51d74d250c41a24c23d9a4017c5a8c1b8c3cda86afe2&w=900",
   },
   {
     name: "Dr. Isabella Hall",
     image:
-      "https://img.freepik.com/free-photo/woman-doctor-wearing-lab-coat-with-stethoscope-isolated_1303-29791.jpg",
+      "https://img.freepik.com/free-photo/male-doctor-posing-front-white-bricks-wall_23-2148328399.jpg?t=st=1725900382~exp=1725903982~hmac=6560074a9a029794546d3ac605cc35c4c1d48d82dfc167ad3285ceeab8559bc9&w=900",
   },
   {
     name: "Dr. James Allen",
     image:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNIV7K54SKo84G09sIJIKpITILD2ijCJq3dQ&usqp=CAU",
+      "https://img.freepik.com/free-photo/doctor-using-tablet-computer-isolated-white-wall_231208-841.jpg?t=st=1725900399~exp=1725903999~hmac=88dfc4292472cf0b4a5e1d1b518bb7c4b90c4e1c9c19c83c5da5a33711e40473&w=900",
   },
   {
     name: "Dr. Katherine Young",
     image:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQkRdcpYhs4zZAeJNYXfJBB5HfQGlTJSlR6hj7mWRnKB6Y9yAM6M0P5MJVNyGyHowB1_0E&usqp=CAU",
+      "https://img.freepik.com/free-photo/covid-19-coronavirus-outbreak-healthcare-workers-pandemic-concept-enthusiastic-smiling-male-doctor-glad-help-patients-physician-white-coat-happy-working-clinic-hospital_1258-57450.jpg?t=st=1725900418~exp=1725904018~hmac=8ff8a7d2491665239c57fbfe77437fad079055ac8be96e189616c8f1d125d84f&w=900",
   },
   {
     name: "Dr. Lucas Scott",
     image:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmKc2AyX_0zctWQx4_k1PpO67GZxw_V1rpHxVEHSGIpRTMrLen9Ja2-Widpdj5Gx_NeQ4&usqp=CAU",
+      "https://img.freepik.com/free-photo/happy-young-male-doctor-using-tablet-computer_1262-18254.jpg?t=st=1725900432~exp=1725904032~hmac=4841296b066f798dd101479e19306c47434fa9d3e0fc93e1aabee357ed606552&w=900",
   },
   {
     name: "Dr. Mia Hernandez",
     image:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTiwzp_IS5RILoz4cvWEhCAgRRxr-D-TkSW9xPQmVKumakyxwuMuJRRWkOnxNjgNkp5anY&usqp=CAU",
+      "https://img.freepik.com/free-photo/young-asia-male-doctor-white-medical-uniform-with-stethoscope-looking-camera-smile-arms-crossed-while-video-conference-call-with-patient-health-hospital_7861-3128.jpg?t=st=1725900461~exp=1725904061~hmac=5f812121d399aa05a6c2ab4b1158d3137f2c0e036b9262d84c9722c4caff5138&w=900",
   },
   {
     name: "Dr. Nathan King",
     image:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTn6ya6ztOXFqaoO4WG8BjrCHW0hXfJn7whTQ&usqp=CAU",
+      "https://img.freepik.com/free-photo/young-beautiful-hispanic-woman-doctor-smiling-confident-standing-with-arms-crossed-gesture-isolated-white-background_839833-34255.jpg?t=st=1725900475~exp=1725904075~hmac=4c239247b00515f3369a0185a0b20a48eca7aaa77c0e404df145a7fde2d23392&w=900",
   },
   {
     name: "Dr. Olivia Green",
     image:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSLeeDHQPckM6LuC68MjCQvxH559Emx6JtmM-hYesHTl7KhTY4BJWHM-g_NiGR6WGiEE8Y&usqp=CAU",
+      "https://img.freepik.com/free-photo/healthcare-workers-medicine-insurance-covid-19-pandemic-concept-skeptical-confused-female-doctor-white-scrubs-medical-suit-glasses-raise-eyebrow-judgemental-smirk-displeased_1258-57393.jpg?t=st=1725900490~exp=1725904090~hmac=9a5dc9bb658fbae5c8aab3c8e5b8e8b50ba05df3138409e670cddf70b8409eb9&w=900",
   },
 ];

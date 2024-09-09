@@ -37,7 +37,7 @@ export default function IdentificationAndPrivacy() {
                 className="select border text-gray-600 text-[18px] font-[500] border-gray-200 bg-transparent  focus:outline-none w-full "
               >
                 <option>Birth Certification</option>
-                <option>Password</option>
+                <option>Passport</option>
                 <option>National Id Card</option>
               </select>
             </label>

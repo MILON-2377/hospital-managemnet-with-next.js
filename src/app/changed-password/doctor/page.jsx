@@ -2,6 +2,7 @@
 
 import { useAuth } from "@/AuthProviderContext/AuthProviderContext";
 import DoctorPreLogIn from "@/components/PasswordChanged/Doctor/DoctorPreLogIn";
+import ProtectedRoute from "@/components/ProtectedRoute/ProtectedRoute";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
@@ -40,109 +41,113 @@ export default function ChangeDoctorPassword() {
 
   useEffect(() => {
     document.getElementById("my_modal_6").close();
-  },[path]);
-  
+  }, [path]);
 
   return (
-    <div className=" p-5 mt-5 w-full ">
-      <p className=" text-2xl font-bold ">Change Password</p>
+    <ProtectedRoute>
+      <div className=" p-5 mt-5 w-full ">
+        <p className=" text-2xl font-bold ">Change Password</p>
 
-      <div className=" mt-8 mb-5 border-t "></div>
+        <div className=" mt-8 mb-5 border-t "></div>
 
-      {isLogIn || <>
-      <DoctorPreLogIn logIn={setIsLogIn} />
-      </>}
+        {isLogIn || (
+          <>
+            <DoctorPreLogIn logIn={setIsLogIn} />
+          </>
+        )}
 
-      {isLogIn && (
-        <>
-          {" "}
-          <div className={" p-5 rounded-md bg-white shadow-md mt-2 "}>
-            <form onSubmit={onSubmit}>
-              <div className=" w-full ">
-                <label className="  w-full sm:w-[50%] lg::w-[40%] flex mt-8 flex-col gap-2 relative ">
-                  <span className=" text-[16px] font-[500] ">New password</span>
-                  <input
-                    onChange={(e) => setPassword(e.target.value)}
-                    type={showPass ? "text" : "password"}
-                    placeholder="New password"
-                    className=" px-4 py-2 rounded-md focus:outline-none border bg-transparent placeholder:text-[14px]  "
-                  />
-                  <span
-                    onClick={() => {
-                      setShowPass(!showPass);
-                    }}
-                    className=" absolute right-5 top-[44px] hover:cursor-pointer "
-                  >
-                    {showPass ? (
-                      <>
-                        <FaEye className=" text-xl text-gray-500 " />
-                      </>
-                    ) : (
-                      <>
-                        {" "}
-                        <FaEyeSlash className="text-xl text-gray-500" />
-                      </>
-                    )}
-                  </span>
-                </label>
-              </div>
+        {isLogIn && (
+          <>
+            {" "}
+            <div className={" p-5 rounded-md bg-white shadow-md mt-2 "}>
+              <form onSubmit={onSubmit}>
+                <div className=" w-full ">
+                  <label className="  w-full sm:w-[50%] lg::w-[40%] flex mt-8 flex-col gap-2 relative ">
+                    <span className=" text-[16px] font-[500] ">
+                      New password
+                    </span>
+                    <input
+                      onChange={(e) => setPassword(e.target.value)}
+                      type={showPass ? "text" : "password"}
+                      placeholder="New password"
+                      className=" px-4 py-2 rounded-md focus:outline-none border bg-transparent placeholder:text-[14px]  "
+                    />
+                    <span
+                      onClick={() => {
+                        setShowPass(!showPass);
+                      }}
+                      className=" absolute right-5 top-[44px] hover:cursor-pointer "
+                    >
+                      {showPass ? (
+                        <>
+                          <FaEye className=" text-xl text-gray-500 " />
+                        </>
+                      ) : (
+                        <>
+                          {" "}
+                          <FaEyeSlash className="text-xl text-gray-500" />
+                        </>
+                      )}
+                    </span>
+                  </label>
+                </div>
 
-              <div className=" w-full ">
-                <label className=" w-full sm:w-[50%] lg::w-[40%] flex mt-8 flex-col gap-2 relative ">
-                  <span className=" text-[16px] font-[500] ">
-                    Confirm password
-                  </span>
-                  <input
-                    onChange={(e) => setConfirmPass(e.target.value)}
-                    type={showConfrimPass ? "text" : "password"}
-                    placeholder="Confirm password"
-                    className=" px-4 py-2 rounded-md focus:outline-none border bg-transparent placeholder:text-[14px]  "
-                  />
-                  <span
-                    onClick={() => setShowConfrimPass(!showConfrimPass)}
-                    className=" absolute right-5 top-[44px] hover:cursor-pointer "
-                  >
-                    {showConfrimPass ? (
-                      <>
-                        <FaEye className=" text-xl text-gray-500 " />
-                      </>
-                    ) : (
-                      <>
-                        {" "}
-                        <FaEyeSlash className="text-xl text-gray-500" />
-                      </>
-                    )}
-                  </span>
-                </label>
-              </div>
+                <div className=" w-full ">
+                  <label className=" w-full sm:w-[50%] lg::w-[40%] flex mt-8 flex-col gap-2 relative ">
+                    <span className=" text-[16px] font-[500] ">
+                      Confirm password
+                    </span>
+                    <input
+                      onChange={(e) => setConfirmPass(e.target.value)}
+                      type={showConfrimPass ? "text" : "password"}
+                      placeholder="Confirm password"
+                      className=" px-4 py-2 rounded-md focus:outline-none border bg-transparent placeholder:text-[14px]  "
+                    />
+                    <span
+                      onClick={() => setShowConfrimPass(!showConfrimPass)}
+                      className=" absolute right-5 top-[44px] hover:cursor-pointer "
+                    >
+                      {showConfrimPass ? (
+                        <>
+                          <FaEye className=" text-xl text-gray-500 " />
+                        </>
+                      ) : (
+                        <>
+                          {" "}
+                          <FaEyeSlash className="text-xl text-gray-500" />
+                        </>
+                      )}
+                    </span>
+                  </label>
+                </div>
 
-              <div className=" flex items-center justify-end gap-5 mt-10 ">
-                <button className="btn">Cancel</button>
-                <button className=" btn btn-accent text-white ">
-                  Save Changes
-                </button>
-              </div>
-            </form>
-          </div>
-        </>
-      )}
+                <div className=" flex items-center justify-end gap-5 mt-10 ">
+                  <button className="btn">Cancel</button>
+                  <button className=" btn btn-accent text-white ">
+                    Save Changes
+                  </button>
+                </div>
+              </form>
+            </div>
+          </>
+        )}
 
-      {/* modal container */}
-      <div>
+        {/* modal container */}
+        <div>
+          <dialog id="my_modal_6" className="modal">
+            <div className=" p-5 rounded-md bg-accent text-white flex flex-col items-center justify-center gap-3">
+              <span>Updating your password, please wait...</span>
+              <p className=" w-full text-center ">
+                <span className="loading loading-bars loading-sm"></span>
+                <span className="loading loading-bars loading-md"></span>
+              </p>
+            </div>
+          </dialog>
+        </div>
 
-        <dialog id="my_modal_6" className="modal">
-          <div className=" p-5 rounded-md bg-accent text-white flex flex-col items-center justify-center gap-3">
-            <span>Updating your password, please wait...</span>
-            <p className=" w-full text-center ">
-              <span className="loading loading-bars loading-sm"></span>
-              <span className="loading loading-bars loading-md"></span>
-            </p>
-          </div>
-        </dialog>
+        {/* toastify container */}
+        <ToastContainer />
       </div>
-
-      {/* toastify container */}
-      <ToastContainer />
-    </div>
+    </ProtectedRoute>
   );
 }

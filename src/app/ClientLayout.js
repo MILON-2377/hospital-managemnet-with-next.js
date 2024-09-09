@@ -26,14 +26,22 @@ export default function ClientLayout({ children }) {
       <AuthProviderContext>
         <QueryClientProvider client={queryClient}>
           <html lang="en">
-            <body className={`${inter.className} flex flex-col lg:flex-row lg:justify-between `}>
+            <body
+              className={`${inter.className} flex flex-col lg:flex-row lg:justify-between `}
+            >
               {shouldShowNavbar && (
                 <div className=" lg:block lg:flex-1 lg:h-auto ">
                   <Navbar />
                 </div>
               )}
 
-              <div className={` ${shouldShowNavbar ? "w-full lg:w-[75%]" : "w-full"} h-auto `}>{children}</div>
+              <div
+                className={` ${
+                  shouldShowNavbar ? "w-full lg:w-[75%]" : "w-full"
+                } h-auto `}
+              >
+                {children}
+              </div>
             </body>
           </html>
         </QueryClientProvider>

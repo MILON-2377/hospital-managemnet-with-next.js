@@ -28,5 +28,6 @@ export const config = {
     "/invoice",
     "/profile-edit/patient",
     "/changed-password/patient",
+    "/patient-form-page",
   ],
 };
