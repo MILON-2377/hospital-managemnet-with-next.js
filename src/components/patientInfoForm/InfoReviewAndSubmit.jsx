@@ -12,7 +12,7 @@ export default function InfoReviewAndSubmit() {
   );
   const { user } = useAuth();
   const path = usePathname();
-  const router = useRouter();
+  const {push}  = useRouter();
 
   //   patient info submit handle
   const submitPatientInfo = async () => {
@@ -24,7 +24,7 @@ export default function InfoReviewAndSubmit() {
         patientId,
       });
       if (res.data.message === "success") {
-        router.push("/Dashboard/patient-dashboard");
+        push("/Dashboard/patient-dashboard");
       }
     } catch (error) {
       // console.log(error.message);

@@ -1,6 +1,6 @@
 "use client";
-import axios from 'axios'
-import Cookies from "js-cookie";
+import axios from 'axios';
+import Cookies from 'js-cookie';
 
 
 const axiosSecure = axios.create({
@@ -11,7 +11,9 @@ const axiosSecure = axios.create({
 
 // request interceptors
   axiosSecure.interceptors.request.use((config) => {
-    const token = Cookies.get("token");
+    const token = Cookies.get('token');
+
+    console.log(token);
 
     if(token){
       config.headers["Authroization"] = `Bearer ${token}`;

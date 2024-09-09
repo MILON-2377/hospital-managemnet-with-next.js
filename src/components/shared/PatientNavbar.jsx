@@ -119,7 +119,6 @@ export default function PatientNavbar() {
 
           <button
             onClick={() => {
-              document.getElementById("my_modal_1").showModal();
               push("/login");
               userLoggedOut();
             }}

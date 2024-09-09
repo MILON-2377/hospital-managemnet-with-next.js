@@ -79,7 +79,6 @@ export default function PatientSideBar({ navLinks }) {
                   push("/login");
                   userLoggedOut();
                 }}
-                href="/login"
                 className={` p-3 rounded-md flex items-center gap-2 hover:bg-gray-100 text-[16px] font-[500] `}
               >
                 <RiLogoutBoxFill className="text-xl font-bold" />

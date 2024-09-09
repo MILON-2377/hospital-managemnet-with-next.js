@@ -12,7 +12,7 @@ import {
   signOut,
   updatePassword,
 } from "firebase/auth";
-import { useRouter } from "next/navigation";
+
 import React, { createContext, useContext, useEffect, useState } from "react";
 import axiosSecure from "@/Hooks/userAxiosSecure";
 
@@ -21,7 +21,6 @@ export const authContext = createContext(null);
 const AuthProviderContext = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLaoding] = useState(true);
-  const router = useRouter();
 
   // user register handle
   const userRegisterHandle = (email, password) => {
@@ -91,7 +90,6 @@ const AuthProviderContext = ({ children }) => {
         try {
           await axiosPublic.post("/jwt", {});
         } catch (error) {
-          console.log(error.message);
         }
       })();
     }

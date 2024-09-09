@@ -43,13 +43,14 @@ export default function MedicalInfo() {
                 className="px-4 py-2 flex items-center justify-between border border-gray-200 rounded-md "
               >
                 <div className="flex items-center gap-3 px-3 py-2 border border-gray-200 bg-white rounded-md">
-                  <div className="relative overflow-hidden w-8 h-8 flex items-center justify-center rounded-full">
+                  <div className="relative overflow-hidden w-8 h-8  rounded-full">
                     <Image
-                      className="rounded-full "
+                      
                       src={isPhysiciansSelect?.image}
                       alt={isPhysiciansSelect.name}
                       fill={true}
                       style={{ objectFit: "cover" }}
+                      className="rounded-full "
                     />
                   </div>
                   <p className="text-[18px] font-[500] text-gray-700">
@@ -72,7 +73,7 @@ export default function MedicalInfo() {
                     key={index}
                     className=" px-4 py-2 transition-all duration-200 active:bg-base-50 active:scale-95 hover:cursor-pointer flex items-center gap-3 hover:bg-gray-100 rounded-md "
                   >
-                    <div className="w-8 h-8 rounded-full bg-gray-100">
+                    <div className="w-8 h-8 rounded-full relative overflow-hidden">
                       <Image
                         className="rounded-full "
                         src={item.image}

@@ -1,4 +1,5 @@
 import connect from "@/dbConfig/dbConfig";
+import { tokenVerification } from "@/lib/tokenVerification";
 import PatientInformation from "@/models/patientInfoModels";
 import Users from "@/models/userModels";
 import { NextRequest, NextResponse } from "next/server";
@@ -26,7 +27,10 @@ export async function POST(request = NextRequest) {
 
 // user data get api
 export async function GET(req) {
-  await connect();
+
+  const tokenValidation = tokenVerification(req);
+
+  if (!tokenValidation.isValid) return tokenValidation;
 
   try {
     const { searchParams } = new URL(req.url);
@@ -43,7 +47,6 @@ export async function GET(req) {
 
     return NextResponse.json({ message: "success", userData, patientInfo });
   } catch (error) {
-    console.log("user data does not get", error);
     return NextResponse.json({ error: "user data does not laodded", error });
   }
 }

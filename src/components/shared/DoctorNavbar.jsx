@@ -139,7 +139,6 @@ export default function DoctorNavbar() {
 
           <button
             onClick={() => {
-              document.getElementById("my_modal_1").showModal();
               router.push("/login");
               userLoggedOut();
             }}
