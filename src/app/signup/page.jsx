@@ -14,9 +14,10 @@ import { useEffect, useState } from "react";
 import { FaUserDoctor } from "react-icons/fa6";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import GoogleSignUp from "@/components/signup/GoogleSignUp";
 
 export default function SignUp() {
-  const { userRegisterHandle, user } = useAuth();
+  const { userRegisterHandle, googleLogIn,} = useAuth();
   const [profession, setProfession] = useState("");
   const [isProffessionChange, setIsProfessionChange] = useState(false);
   const path = usePathname();
@@ -29,6 +30,46 @@ export default function SignUp() {
   const [isSigning, setIsSigning] = useState(false);
   const router = useRouter();
 
+  // sign up with google
+  const [userEmail, setUserEmail] = useState("");
+  const googleSignUp = async () => {
+    try {
+      const res = await googleLogIn();
+      if (res.user) {
+        document.getElementById("my_modal_5").showModal();
+        setUserEmail(res.user.email);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // user registation handle
+  async function UserRegistation(userName, email=userEmail, profession) {
+  
+    
+    document.getElementById("my_modal_5").close();
+    document.getElementById("my_modal_4").showModal();
+
+    const res = await axiosPublic.post("/users", {
+      userName,
+      email,
+      profession,
+    });
+
+    if (res.data.saveUser) {
+  
+      const pro = res.data.saveUser.profession;
+      if (pro === "Patient") {
+        router.push("/patient-form-page");
+      } else {
+        router.push("/Dashboard/doctor-dashboard");
+      }
+
+      setIsSigning(false);
+    }
+  }
+
   // form handle
   const onSubmit = async (data) => {
     const { email, password, userName } = data;
@@ -38,21 +79,8 @@ export default function SignUp() {
     try {
       const userRegisterRes = await userRegisterHandle(email, password);
       if (userRegisterRes.user.email) {
-        const res = await axiosPublic.post("/users", {
-          userName,
-          email,
-          profession,
-        });
-        if (res.data.saveUser) {
-          if (profession === "Patient") {
-            router.push("/patient-form-page");
-          } else {
-            router.push("/Dashboard/doctor-dashboard");
-          }
-
-          setIsSigning(false);
-          reset();
-        }
+        UserRegistation(userName, email, profession);
+        reset();
       }
     } catch (error) {
       document.getElementById("my_modal_4").close();
@@ -79,7 +107,10 @@ export default function SignUp() {
             <p className=" text-xl font-semibold text-black mt-2 ">
               Sign Up with social
             </p>
-            <button className=" flex items-center text-xl text-gray-600 justify-center hover:text-white hover:bg-cyan-500 hover:border-none transition-all duration-200 active:bg-cyan-400 active:scale-95 gap-5 mt-3 px-4 py-[10px] font-semibold border border-gray-200 rounded-md w-full ">
+            <button
+              onClick={googleSignUp}
+              className=" flex items-center text-xl text-gray-600 justify-center hover:text-white hover:bg-cyan-500 hover:border-none transition-all duration-200 active:bg-cyan-400 active:scale-95 gap-5 mt-3 px-4 py-[10px] font-semibold border border-gray-200 rounded-md w-full "
+            >
               <FaGoogle className=" text-xl " />
               Google
             </button>
@@ -240,6 +271,15 @@ export default function SignUp() {
               <span className="loading loading-bars loading-sm"></span>
               <span className="loading loading-bars loading-md"></span>{" "}
             </p>
+          </div>
+        </dialog>
+      </div>
+
+      {/* sign up modal opening */}
+      <div>
+        <dialog id="my_modal_5" className="modal">
+          <div className="modal-box w-11/12 max-w-5xl">
+            <GoogleSignUp UserRegistation={UserRegistation} />
           </div>
         </dialog>
       </div>
