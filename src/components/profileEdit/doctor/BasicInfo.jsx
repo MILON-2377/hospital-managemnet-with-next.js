@@ -3,8 +3,12 @@
 import { FaFileArrowUp } from "react-icons/fa6";
 import "react-datepicker/dist/react-datepicker.css";
 import KnownLanguages from "@/components/profileEdit/doctor/KnownLanguages";
+import { useState } from "react";
+import ImageUpload from "./ImageUpload";
+import Image from "next/image";
 
 export default function BasicInfo() {
+  const [image, setImage] = useState(null);
   return (
     <div className=" w-full ">
       {/* header */}
@@ -14,14 +18,21 @@ export default function BasicInfo() {
         <div className=" border rounded-md p-5 ">
           <div className=" flex sm:flex-row flex-col items-center gap-5 ">
             <div className=" sm:w-32 sm:h-32 rounded-md border flex items-center justify-center bg-gray-50 ">
-              <FaFileArrowUp className=" text-3xl " />
+              {!image && <FaFileArrowUp className=" text-3xl " />}
+              {image && (
+                <>
+                  <Image
+                    src={image}
+                    alt="profile image "
+                    className=" object-cover w-full h-full "
+                  />
+                </>
+              )}
             </div>
             <div className="flex flex-col gap-2">
               <p className="text-[16px] font-[600] ">Profile Image</p>
               <div className=" flex items-center gap-3 ">
-                <button className=" px-4 bg-gray-50 py-3 border rounded-md text-[16px] text-[600] text-blue-500 ">
-                  Upload New
-                </button>
+                <ImageUpload image={image} setImage={setImage} />
                 <button className=" px-4 bg-gray-50 hover:text-yellow-500 py-3 border rounded-md  text-[16px] hover:cursor-pointer text-[600] text-red-500 ">
                   Remove
                 </button>

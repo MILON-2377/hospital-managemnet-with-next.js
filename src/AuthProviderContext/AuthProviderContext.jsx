@@ -2,7 +2,7 @@
 
 import auth from "@/FirebaseConfig/Firebase.Config";
 import axiosPublic from "@/Hooks/useAxiosPublic";
-import axios from "axios";
+
 import {
   createUserWithEmailAndPassword,
   GoogleAuthProvider,

@@ -3,8 +3,34 @@
 import DatePicker from "react-datepicker";
 import { FaFileArrowUp } from "react-icons/fa6";
 import "react-datepicker/dist/react-datepicker.css";
+import { useState } from "react";
 
 export default function PatientProfileEdit() {
+
+  const [image, setImage] = useState(null);
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    setImage(file);
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    console.log("helo");
+
+    if(!image){
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('file', image);
+  }
+
+  const click = () => {
+    console.log('helo')
+  }
+
   return (
     <div className=" w-full p-5 mt-5 ">
       {/* header */}
@@ -16,15 +42,24 @@ export default function PatientProfileEdit() {
           <div className="flex flex-col gap-2">
             <p className="text-[16px] font-[600] ">Profile Image</p>
             <div className=" flex items-center gap-3 ">
-              <button className=" px-4 bg-gray-50 py-3 border rounded-md text-[16px] text-[600] text-blue-500 ">
-                Upload New
-              </button>
-              <button className=" px-4 bg-gray-50 hover:text-yellow-500 py-3 border rounded-md  text-[16px] hover:cursor-pointer text-[600] text-red-500 ">
+              <form
+              onSubmit={handleSubmit}
+              >
+                <input type="file" onChange={handleFileChange} />
+                <button 
+                type="submit"
+                className=" px-4 bg-gray-50 py-3 border rounded-md text-[16px] text-[600] text-blue-500 ">
+                  Upload New
+                </button>
+              </form>
+              <button 
+              onClick={click}
+              className=" px-4 bg-gray-50 hover:text-yellow-500 py-3 border rounded-md  text-[16px] hover:cursor-pointer text-[600] text-red-500 ">
                 Remove
               </button>
             </div>
             <p className="text-[16px] font-[500] text-black ">
-              Your Image should Below 4 MB, Accepted format jpg,png,svg
+              Your Image should Below 5 MB, Accepted format jpg,png,svg
             </p>
           </div>
         </div>

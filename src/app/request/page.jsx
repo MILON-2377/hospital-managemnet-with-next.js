@@ -216,12 +216,10 @@ export default function Requests() {
                   <th>
                     <div className="flex items-center gap-3">
                       <div className="rounded-full h-12 w-12">
-                        <Image
-                          className="rounded-full "
+                        <img
+                          className="rounded-full object-cover w-full h-full "
                           src={item.doctor.img}
                           alt={item.doctor.name}
-                          fill={true}
-                          style={{ objectFit: "cover" }}
                         />
                       </div>
                       <div>
